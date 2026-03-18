@@ -18,7 +18,7 @@ export function DotGrid({ className }) {
     const DOT_BASE   = 1.4        // resting radius
     const DOT_MAX    = 5          // max radius near cursor
     const INFLUENCE  = 140        // cursor radius of influence (px)
-    const COLOR_ON   = [29, 158, 117]  // #1D9E75
+    const COLOR_ON   = [82, 183, 136]   // #52B788
     const COLOR_OFF  = [255, 255, 255] // white (low opacity when idle)
     const OPACITY_ON  = 1
     const OPACITY_OFF = 0.10

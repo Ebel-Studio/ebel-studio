@@ -9,7 +9,7 @@ body::before {
   inset: 0;
   z-index: 9999;
   pointer-events: none;
-  opacity: 0.05;
+  opacity: 0.04;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
 }
 
@@ -23,12 +23,21 @@ html {
 }
 
 body {
-  background-color: #F1EFE8;
-  color: #0F0F0E;
-  font-family: 'DM Sans', system-ui, sans-serif;
+  background-color: #F8F6F1;
+  color: #1A1A1A;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+}
+
+/* ── Heading style ────────────────────────────────────────────── */
+h1, h2, h3, h4 {
+  font-family: 'Geist', system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
 /* ── Magnetic button base ─────────────────────────────────────── */
@@ -38,7 +47,7 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 600;
   border-radius: 9999px;
   transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
@@ -75,9 +84,9 @@ body {
 /* ── Card surface ─────────────────────────────────────────────── */
 .card-surface {
   background: #FFFFFF;
-  border: 1px solid rgba(17,17,17,0.08);
+  border: 1px solid rgba(26,26,26,0.08);
   border-radius: 2rem;
-  box-shadow: 0 4px 24px rgba(17,17,17,0.06), 0 1px 4px rgba(17,17,17,0.04);
+  box-shadow: 0 4px 24px rgba(26,26,26,0.06), 0 1px 4px rgba(26,26,26,0.04);
 }
 
 /* ── Ticker animation ─────────────────────────────────────────── */
@@ -94,14 +103,14 @@ body {
   animation-play-state: paused;
 }
 @keyframes ticker {
-  0% { transform: translateX(0); }
+  0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
 
 /* ── Pulsing status dot ───────────────────────────────────────── */
 @keyframes pulse-ring {
-  0% { transform: scale(1); opacity: 0.8; }
-  70% { transform: scale(2); opacity: 0; }
+  0%   { transform: scale(1); opacity: 0.8; }
+  70%  { transform: scale(2); opacity: 0; }
   100% { transform: scale(2); opacity: 0; }
 }
 
@@ -125,7 +134,7 @@ body {
 /* ── Blinking cursor ──────────────────────────────────────────── */
 @keyframes blink {
   0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+  50%       { opacity: 0; }
 }
 .cursor-blink {
   animation: blink 1s step-end infinite;
@@ -138,11 +147,6 @@ body {
   height: 100%;
 }
 
-/* ── Scroll-pin section ───────────────────────────────────────── */
-.pin-spacer {
-  height: 300vh;
-}
-
 /* ── Section spacing ──────────────────────────────────────────── */
 section {
   position: relative;
@@ -150,6 +154,6 @@ section {
 
 /* ── Selection color ──────────────────────────────────────────── */
 ::selection {
-  background: #1D9E75;
+  background: #2D6A4F;
   color: #fff;
 }
