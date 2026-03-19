@@ -102,14 +102,27 @@ function LumineMockup() {
           src="https://lumine-theta.vercel.app/LOGO/lumein%20logo.png"
           alt="Lumine"
           style={{
-            width: '110%',
-            maxWidth: '360px',
+            width: '100%',
+            maxWidth: '260px',
             display: 'block',
-            marginLeft: '-4%',
-            filter: 'drop-shadow(0 0 12px rgba(90,173,212,0.2))',
+            marginLeft: '-2%',
+            marginBottom: '0.8rem',
+            filter: 'drop-shadow(0 0 8px rgba(90,173,212,0.15))',
           }}
           draggable={false}
         />
+
+        {/* Tagline — identiek aan origineel */}
+        <p
+          style={{
+            fontSize: '0.72rem',
+            color: '#7a98ae',
+            maxWidth: '280px',
+            lineHeight: 1.6,
+          }}
+        >
+          Electronic music rooted in emotion.
+        </p>
       </div>
 
       {/* ── SCROLL INDICATOR — absolute bottom-left ─────────── */}
