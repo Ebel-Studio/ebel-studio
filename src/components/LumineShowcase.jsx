@@ -185,23 +185,44 @@ function LumineMockup() {
    Lumine Showcase Section
    ───────────────────────────────────────────────────────────────── */
 export default function LumineShowcase() {
+  const deliverables = [
+    'Concert waitlist via email capture',
+    'Booking flow: promoters send requests directly',
+    'Shows overview (upcoming + past) with social links',
+    'Animated streaming statistics',
+    'Sony / Epic Records branding',
+    'Mobile-first, fully custom design',
+  ]
+
   return (
-    <section className="bg-[#0F0F0E] overflow-hidden">
+    <section className="overflow-hidden" style={{ background: '#F7F7F5' }}>
       <ContainerScroll
         titleComponent={
-          <div className="mb-4">
-            <p className="text-[#1D9E75] text-sm font-mono tracking-widest uppercase mb-4">
-              Uitgelicht project
+          <div className="mb-4 text-left max-w-4xl mx-auto">
+            <p className="text-[#3B6FE8] text-sm font-mono tracking-widest uppercase mb-4">
+              Recent work
             </p>
-            <h2 className="font-sans font-bold text-white text-4xl md:text-6xl lg:text-7xl tracking-tight leading-tight mb-4">
-              LUMINE —
-              <span className="font-serif italic" style={{ color: '#5aadd4' }}>
-                {' '}live in productie.
-              </span>
+            <h2
+              className="font-heading font-semibold mb-4"
+              style={{ fontSize: 'clamp(2rem, 5vw, 3.8rem)', letterSpacing: '-0.02em', lineHeight: 1.1, color: '#111111' }}
+            >
+              Lumine —{' '}
+              <span style={{ color: '#5aadd4' }}>Dutch Electronic Artist</span>
             </h2>
-            <p className="text-white/40 text-base md:text-lg font-light max-w-xl mx-auto mb-6">
-              Cinematisch muziekportfolio voor een Dutch electronic artist — film grain, GSAP scroll-animaties en een full-bleed hero.
+            <p className="text-base md:text-lg font-light max-w-2xl mb-6 leading-relaxed" style={{ color: 'rgba(17,17,17,0.55)' }}>
+              Jesse had no central online presence. I built a fully custom website with a booking flow, concert waitlist, releases, shows, and Sony/Epic branding — everything on one URL.
             </p>
+
+            {/* Deliverables list */}
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-8 max-w-2xl">
+              {deliverables.map((item, i) => (
+                <li key={i} className="flex items-start gap-2">
+                  <span style={{ color: '#1A1A2E', marginTop: '0.25rem', flexShrink: 0, fontSize: '0.7rem' }}>▸</span>
+                  <span className="text-sm leading-relaxed" style={{ color: 'rgba(17,17,17,0.5)' }}>{item}</span>
+                </li>
+              ))}
+            </ul>
+
             <a
               href="https://lumine-theta.vercel.app/"
               target="_blank"
@@ -211,7 +232,7 @@ export default function LumineShowcase() {
             >
               <span className="btn-bg" style={{ background: 'rgba(255,255,255,0.18)' }} />
               <span className="relative z-10 flex items-center gap-2">
-                Bekijk live <ExternalLink size={14} />
+                View the site → <ExternalLink size={14} />
               </span>
             </a>
           </div>

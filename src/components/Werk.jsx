@@ -1,147 +1,149 @@
 import { useEffect, useRef, lazy, Suspense } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { ExternalLink, MapPin, Users, Heart } from 'lucide-react'
+import { ExternalLink } from 'lucide-react'
 
 gsap.registerPlugin(ScrollTrigger)
 
 const LumineShowcase = lazy(() => import('./LumineShowcase'))
 
 /* ─────────────────────────────────────────────────────────────────
-   HvAB Mini-preview — styled recreation van de echte hero
-   Kleuren 1:1 uit broncode: #3D549F primary · #EEBB37 yellow · #F5F5F2 cream
+   HvAB Mini-preview — 1:1 recreatie van de echte hero
+   Gebaseerd op broncode analyse:
+   - Foto: unsplash photo-1529156069898-49953e39b3ac
+   - Overlay: bg-primary/80 (#3D549F) mix-blend-multiply
+   - Gradient: from-black/40 via-transparent to-black/60
+   - Headline: Barlow Condensed 800, uppercase, tight, wit + geel (#EEBB37)
+   - Layout: volledig gecentreerd, max-w-4xl
    ───────────────────────────────────────────────────────────────── */
 function HvabPreview() {
-  return (
-    <div className="relative w-full h-full overflow-hidden select-none" style={{ background: '#3D549F' }}>
+  useEffect(() => {
+    if (!document.getElementById('barlow-condensed-font')) {
+      const link = document.createElement('link')
+      link.id = 'barlow-condensed-font'
+      link.rel = 'stylesheet'
+      link.href = 'https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Lora:wght@400;500&display=swap'
+      document.head.appendChild(link)
+    }
+  }, [])
 
-      {/* Hero community photo */}
+  const navItems = ['Wat we doen', 'Initiatieven', "Thema's", 'Locaties', 'Contact']
+
+  return (
+    <div className="relative w-full h-full overflow-hidden select-none flex flex-col" style={{ background: '#1a2a5e' }}>
+
+      {/* ── Background foto ──────────────────────────────── */}
       <img
-        src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=900&q=80&auto=format&fit=crop"
-        alt="Huis van Actief Burgerschap"
+        src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1200&q=85&auto=format&fit=crop"
+        alt="HvAB hero"
         className="absolute inset-0 w-full h-full object-cover"
-        style={{ opacity: 0.28, mixBlendMode: 'multiply' }}
+        style={{ mixBlendMode: 'multiply' }}
         draggable={false}
       />
 
-      {/* Gradient overlay — matches original exactly */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background: `linear-gradient(
-            to bottom,
-            rgba(61,84,159,0.75) 0%,
-            rgba(61,84,159,0.55) 40%,
-            rgba(0,0,0,0.45) 100%
-          )`,
-        }}
-      />
+      {/* Primary overlay: bg-primary/80 mix-blend-multiply (al gedaan via img blend) */}
+      <div className="absolute inset-0" style={{ background: 'rgba(61,84,159,0.80)', mixBlendMode: 'multiply' }} />
 
-      {/* ── Navbar ─────────────────────────────────────────── */}
-      <div className="absolute top-0 left-0 right-0 z-30 flex items-center justify-between px-5 py-3"
-        style={{ background: 'rgba(255,255,255,0.07)', backdropFilter: 'blur(8px)' }}>
-        {/* Logo mark — house pin shape */}
-        <div className="flex items-center gap-2">
-          <svg width="18" height="20" viewBox="0 0 24 28" fill="none">
-            <path d="M12 0L0 8v4h2v14h8v-8h4v8h8V12h2V8L12 0z" fill="#EEBB37" />
-            <circle cx="12" cy="17" r="3" fill="white" />
+      {/* Gradient: from-black/40 via-transparent to-black/60 */}
+      <div className="absolute inset-0" style={{
+        background: 'linear-gradient(to bottom, rgba(0,0,0,0.40) 0%, transparent 45%, rgba(0,0,0,0.60) 100%)'
+      }} />
+
+      {/* ── Navbar ───────────────────────────────────────── */}
+      <div className="relative z-30 flex items-center justify-between px-4 py-2.5 shrink-0">
+        {/* Logo + naam */}
+        <div className="flex items-center gap-1.5">
+          {/* SVG logo: house shape met path M10 10 L64 10 ... */}
+          <svg width="16" height="18" viewBox="0 0 100 115" fill="none">
+            <path d="M 10 10 L 64 10 L 64 30 A 8 8 0 0 0 80 30 L 80 10 L 90 10 L 90 55 L 50 95 L 10 55 Z" fill="#EEBB37"/>
+            <circle cx="50" cy="62" r="10" fill="white"/>
           </svg>
-          <span style={{ color: 'white', fontSize: '0.6rem', fontWeight: 700, letterSpacing: '0.04em', lineHeight: 1.2 }}>
-            Huis van Actief<br/>Burgerschap
-          </span>
+          <div>
+            <div style={{ color: 'white', fontSize: '0.48rem', fontWeight: 800, letterSpacing: '0.06em', lineHeight: 1.1, fontFamily: "'Barlow Condensed', sans-serif", textTransform: 'uppercase' }}>
+              Huis van Actief Burgerschap
+            </div>
+            <div style={{ color: 'rgba(255,255,255,0.65)', fontSize: '0.38rem', letterSpacing: '0.1em', fontFamily: "'Barlow Condensed', sans-serif", textTransform: 'uppercase' }}>
+              Noord-Holland Noord
+            </div>
+          </div>
         </div>
-        {/* Nav items */}
-        <div className="hidden md:flex items-center gap-4">
-          {['Wat we doen', 'Initiatieven', "Thema's", 'Contact'].map(item => (
-            <span key={item} style={{ color: 'rgba(255,255,255,0.82)', fontSize: '0.5rem', letterSpacing: '0.06em' }}>{item}</span>
+
+        {/* Nav links */}
+        <div className="hidden md:flex items-center gap-3">
+          {navItems.map(item => (
+            <span key={item} style={{ color: 'rgba(255,255,255,0.85)', fontSize: '0.42rem', letterSpacing: '0.04em', fontFamily: "'Barlow Condensed', sans-serif" }}>
+              {item}
+            </span>
           ))}
         </div>
-        {/* CTA pill */}
+
+        {/* CTA */}
         <span
-          className="px-3 py-1 rounded-full font-bold"
-          style={{ background: '#EEBB37', color: '#1A1A1A', fontSize: '0.5rem', letterSpacing: '0.08em' }}
+          className="rounded-lg font-bold"
+          style={{ background: '#EEBB37', color: '#000', fontSize: '0.42rem', padding: '0.25rem 0.6rem', fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: '0.06em' }}
         >
-          DOE MEE
+          Doe mee
         </span>
       </div>
 
-      {/* ── Hero content ────────────────────────────────────── */}
-      <div className="absolute z-20 flex flex-col justify-center px-5 md:px-8"
-        style={{ top: '22%', bottom: '22%', maxWidth: '65%' }}>
+      {/* ── Hero content — gecentreerd ────────────────────── */}
+      <div className="relative z-20 flex-1 flex flex-col items-center justify-center text-center px-4 pb-4">
 
-        {/* Eyebrow */}
-        <div className="flex items-center gap-2 mb-4">
-          <div style={{ width: '20px', height: '1.5px', background: '#EEBB37' }} />
-          <span style={{ color: '#EEBB37', fontSize: '0.55rem', letterSpacing: '0.25em', textTransform: 'uppercase', fontWeight: 600 }}>
-            Noord-Holland Noord
-          </span>
-        </div>
-
-        {/* Main headline — Barlow Condensed style */}
-        <h1 style={{ lineHeight: 1.0, marginBottom: '0.6rem' }}>
+        {/* Headline */}
+        <h1 style={{ lineHeight: 0.9, marginBottom: '0.6rem' }}>
           <span style={{
             display: 'block',
-            fontFamily: 'Geist, system-ui, sans-serif',
+            fontFamily: "'Barlow Condensed', sans-serif",
             fontWeight: 800,
-            fontSize: 'clamp(1.4rem, 3.5vw, 2.6rem)',
+            fontSize: 'clamp(1.2rem, 4vw, 2.4rem)',
             color: 'white',
-            letterSpacing: '-0.01em',
             textTransform: 'uppercase',
+            letterSpacing: '0.01em',
+            textShadow: '0 2px 8px rgba(0,0,0,0.4)',
           }}>
-            Mensen maken
+            Mensen maken de samenleving.
           </span>
           <span style={{
             display: 'block',
-            fontFamily: 'Geist, system-ui, sans-serif',
+            fontFamily: "'Barlow Condensed', sans-serif",
             fontWeight: 800,
-            fontSize: 'clamp(1.4rem, 3.5vw, 2.6rem)',
+            fontSize: 'clamp(1.2rem, 4vw, 2.4rem)',
             color: '#EEBB37',
-            letterSpacing: '-0.01em',
             textTransform: 'uppercase',
+            letterSpacing: '0.01em',
+            textShadow: '0 2px 8px rgba(0,0,0,0.4)',
           }}>
-            de samenleving.
+            Het Huis helpt ze verder.
           </span>
         </h1>
 
-        <p style={{ color: 'rgba(255,255,255,0.72)', fontSize: '0.65rem', lineHeight: 1.65, maxWidth: '260px', marginBottom: '1rem' }}>
+        {/* Subtext — Lora serif */}
+        <p style={{
+          fontFamily: "'Lora', Georgia, serif",
+          color: 'rgba(255,255,255,0.90)',
+          fontSize: 'clamp(0.5rem, 1.5vw, 0.72rem)',
+          lineHeight: 1.6,
+          maxWidth: '340px',
+          marginBottom: '0.8rem',
+        }}>
           In Noord-Holland Noord ondersteunen wij inwoners, initiatieven en gemeenschappen om samen de regio sterker te maken.
         </p>
 
         {/* CTAs */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 justify-center">
           <span
-            className="px-4 py-1.5 rounded font-semibold"
-            style={{ background: '#EEBB37', color: '#1A1A1A', fontSize: '0.55rem', letterSpacing: '0.06em' }}
+            className="rounded-xl font-semibold flex items-center gap-1"
+            style={{ background: '#EEBB37', color: '#000', fontSize: '0.5rem', padding: '0.35rem 0.8rem', fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: '0.04em', fontWeight: 700 }}
           >
-            Ontdek initiatieven
+            Ontdek initiatieven ›
           </span>
           <span
-            className="px-4 py-1.5 rounded font-semibold"
-            style={{ border: '1px solid rgba(255,255,255,0.3)', color: 'white', fontSize: '0.55rem', letterSpacing: '0.06em' }}
+            className="rounded-xl font-semibold"
+            style={{ background: '#3D549F', color: 'white', fontSize: '0.5rem', padding: '0.35rem 0.8rem', fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: '0.04em', fontWeight: 700 }}
           >
-            Hoe we helpen
+            Doe mee
           </span>
         </div>
-      </div>
-
-      {/* ── Stats bar ───────────────────────────────────────── */}
-      <div
-        className="absolute bottom-0 left-0 right-0 flex items-center justify-around px-5 py-3"
-        style={{ background: 'rgba(0,0,0,0.55)', backdropFilter: 'blur(4px)', borderTop: '1px solid rgba(238,187,55,0.15)' }}
-      >
-        {[
-          { icon: MapPin,  value: '5 Gemeenten', label: 'Bereik' },
-          { icon: Users,   value: '200+ Initiatieven', label: 'Ondersteund' },
-          { icon: Heart,   value: 'Gratis', label: 'Toegankelijk' },
-        ].map(({ icon: Icon, value, label }) => (
-          <div key={label} className="flex items-center gap-1.5">
-            <Icon size={11} style={{ color: '#EEBB37', flexShrink: 0 }} />
-            <div>
-              <p style={{ color: 'white', fontSize: '0.6rem', fontWeight: 700, lineHeight: 1.2 }}>{value}</p>
-              <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.48rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>{label}</p>
-            </div>
-          </div>
-        ))}
       </div>
     </div>
   )
@@ -171,26 +173,26 @@ export default function Werk() {
     <section
       id="werk"
       ref={sectionRef}
-      className="py-24 md:py-36 px-6 md:px-12 lg:px-20"
-      style={{ background: '#F8F6F1' }}
+      style={{ background: '#F7F7F5' }}
     >
+      <div className="py-24 md:py-36 px-6 md:px-12 lg:px-20">
       <div className="max-w-6xl mx-auto">
 
         {/* Section header */}
         <div className="werk-header mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
-            <p className="text-[#2D6A4F] text-sm font-mono tracking-widest uppercase mb-3">Portfolio</p>
+            <p className="text-[#1A1A2E] text-sm font-mono tracking-widest uppercase mb-3">Portfolio</p>
             <h2
-              className="font-heading font-semibold text-[#1A1A1A]"
+              className="font-heading font-semibold text-[#111111]"
               style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', letterSpacing: '-0.02em' }}
             >
-              Werk
+              Work
             </h2>
-            <p className="text-[#1A1A1A]/50 mt-2">Recente projecten</p>
+            <p className="text-[#111111]/50 mt-2">Recent projects</p>
           </div>
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#2D6A4F]/20 text-[#2D6A4F] text-sm font-medium">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#2D6A4F] opacity-60" />
-            Meer projecten onderweg
+          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#1A1A2E]/20 text-[#1A1A2E] text-sm font-medium">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#1A1A2E] opacity-60" />
+            More projects on the way
           </span>
         </div>
 
@@ -214,37 +216,37 @@ export default function Werk() {
                   </span>
                   <span className="px-3 py-1 rounded-full text-xs font-semibold"
                     style={{ background: '#EEBB3720', color: '#8a6c10', letterSpacing: '0.04em', border: '1px solid #EEBB3740' }}>
-                    Maatschappij
+                    Civic
                   </span>
-                  <span className="px-3 py-1 rounded-full text-xs font-medium text-[#1A1A1A]/40"
-                    style={{ background: '#1A1A1A08', letterSpacing: '0.04em' }}>
+                  <span className="px-3 py-1 rounded-full text-xs font-medium text-[#111111]/40"
+                    style={{ background: '#11111108', letterSpacing: '0.04em' }}>
                     React · Tailwind
                   </span>
                 </div>
 
                 {/* Title */}
                 <h3
-                  className="font-heading font-semibold text-[#1A1A1A] mb-3"
+                  className="font-heading font-semibold text-[#111111] mb-3"
                   style={{ fontSize: '1.4rem', letterSpacing: '-0.02em', lineHeight: 1.2 }}
                 >
                   Huis van Actief Burgerschap
                 </h3>
 
                 {/* Description */}
-                <p className="text-[#1A1A1A]/55 leading-relaxed mb-4" style={{ fontSize: '0.92rem' }}>
-                  Civic engagement platform voor Noord-Holland Noord. Verbindt inwoners, initiatieven en gemeenschappen via een interactieve kaart, initiatievenbibliotheek en heldere call-to-actions.
+                <p className="text-[#111111]/55 leading-relaxed mb-4" style={{ fontSize: '0.92rem' }}>
+                  Civic engagement platform for Noord-Holland Noord. Connecting residents, local initiatives, and communities through an interactive map, initiative library, and clear calls-to-action.
                 </p>
 
                 {/* Highlights */}
                 <div className="flex flex-col gap-2">
                   {[
-                    'Interactieve Leaflet-kaart met 5 gemeenten',
-                    'Volledig responsive · Framer Motion animaties',
-                    'Gebouwd voor maatschappelijke organisaties',
+                    'Interactive Leaflet map across 5 municipalities',
+                    'Fully responsive · Framer Motion animations',
+                    'Built for civic and non-profit organisations',
                   ].map((item, i) => (
                     <div key={i} className="flex items-start gap-2">
                       <div className="w-1 h-1 rounded-full mt-2 shrink-0" style={{ background: '#3D549F' }} />
-                      <span className="text-[#1A1A1A]/45 text-xs leading-relaxed">{item}</span>
+                      <span className="text-[#111111]/45 text-xs leading-relaxed">{item}</span>
                     </div>
                   ))}
                 </div>
@@ -260,16 +262,17 @@ export default function Werk() {
               >
                 <span className="btn-bg" style={{ background: '#2a3a6e' }} />
                 <span className="relative z-10 flex items-center gap-2">
-                  Bekijk live <ExternalLink size={14} />
+                  View live <ExternalLink size={14} />
                 </span>
               </a>
             </div>
           </div>
         </div>
       </div>
+      </div>
 
       {/* ── Lumine ContainerScroll — animatie behouden ── */}
-      <Suspense fallback={<div className="h-[60rem] bg-[#0F0F0E]" />}>
+      <Suspense fallback={<div className="h-[60rem]" style={{ background: '#F7F7F5' }} />}>
         <LumineShowcase />
       </Suspense>
     </section>

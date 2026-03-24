@@ -9,11 +9,11 @@ gsap.registerPlugin(ScrollTrigger)
 function AnimatedHeading() {
   const [index, setIndex] = useState(0)
   const phrases = useMemo(() => [
-    'jouw website?',
-    'jouw huisstijl?',
-    'een one-pager?',
-    'jouw verhaal?',
-    'snelle oplevering?',
+    'working together?',
+    'an artist website?',
+    'a business site?',
+    'a fast turnaround?',
+    'your story online?',
   ], [])
 
   useEffect(() => {
@@ -26,8 +26,9 @@ function AnimatedHeading() {
   return (
     <h2 className="font-heading font-semibold text-white mb-6" style={{ letterSpacing: '-0.02em' }}>
       <span className="block" style={{ fontSize: 'clamp(2rem, 5vw, 4rem)' }}>
-        Klaar voor
+        Ready for
       </span>
+
       <span
         className="relative flex w-full justify-center overflow-hidden"
         style={{ height: 'clamp(3rem, 7vw, 5.5rem)' }}
@@ -38,7 +39,7 @@ function AnimatedHeading() {
             className="absolute inset-x-0 flex justify-center items-center font-heading font-semibold"
             style={{
               fontSize: 'clamp(2.8rem, 7vw, 5.5rem)',
-              color: '#52B788',
+              color: '#3B6FE8',
               letterSpacing: '-0.02em',
               lineHeight: 1,
             }}
@@ -83,48 +84,50 @@ export default function Contact() {
       id="contact"
       ref={sectionRef}
       className="py-32 md:py-48 px-6 md:px-12 lg:px-20"
-      style={{ background: '#1A1A1A' }}
+      style={{ background: '#111111' }}
     >
       <div className="max-w-3xl mx-auto text-center contact-content">
         <p className="text-white/30 text-sm font-mono tracking-widest uppercase mb-6">
-          Samenwerken
+          Let's talk
         </p>
 
         <AnimatedHeading />
 
         <p className="text-white/50 text-lg font-light mb-12 max-w-md mx-auto leading-relaxed">
-          Heb je een project in gedachten? Stuur me een bericht — ik reageer binnen een dag.
+          Book a free 15-minute intro call. No strings attached.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
-            href="https://wa.me/31612345678"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn bg-[#2D6A4F] text-white text-base px-8 py-4 shadow-xl shadow-[#2D6A4F]/30"
+            href="mailto:hello@ebel.studio"
+            className="btn bg-[#1A1A2E] text-white text-base px-8 py-4 shadow-xl shadow-[#1A1A2E]/30"
           >
-            <span className="btn-bg bg-[#1A3D2B]" />
+            <span className="btn-bg bg-[#0f1020]" />
             <span className="relative z-10 flex items-center gap-2">
-              <MessageCircle size={18} /> WhatsApp
+              <Mail size={18} /> Book a call
             </span>
           </a>
 
           <a
-            href="mailto:hello@ebel.studio"
+            href="https://wa.me/31612345678"
+            target="_blank"
+            rel="noopener noreferrer"
             className="btn border border-white/20 text-white text-base px-8 py-4"
           >
             <span className="btn-bg bg-white/08" />
             <span className="relative z-10 flex items-center gap-2">
-              <Mail size={16} /> Stuur een mail
+              <MessageCircle size={16} /> WhatsApp
             </span>
           </a>
         </div>
 
+        <p className="text-white/25 text-sm font-mono mt-6">hello@ebel.studio</p>
+
         {/* Trust signals */}
-        <div className="flex flex-wrap items-center justify-center gap-6 mt-14 pt-10 border-t border-white/08">
-          {['Geen verplichtingen', 'Reactie binnen 24 uur', 'Gratis adviesgesprek'].map((item, i) => (
+        <div className="flex flex-wrap items-center justify-center gap-6 mt-12 pt-10 border-t border-white/08">
+          {['No obligation', 'Reply within 24 hours', 'Free intro call'].map((item, i) => (
             <div key={i} className="flex items-center gap-2">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#2D6A4F]" />
+              <div className="w-1.5 h-1.5 rounded-full bg-[#1A1A2E]" />
               <span className="text-white/35 text-sm font-mono">{item}</span>
             </div>
           ))}

@@ -23,8 +23,8 @@ html {
 }
 
 body {
-  background-color: #F8F6F1;
-  color: #1A1A1A;
+  background-color: #F7F7F5;
+  color: #111111;
   font-family: 'Inter', system-ui, sans-serif;
   font-size: 16px;
   line-height: 1.7;
@@ -84,9 +84,9 @@ h1, h2, h3, h4 {
 /* ── Card surface ─────────────────────────────────────────────── */
 .card-surface {
   background: #FFFFFF;
-  border: 1px solid rgba(26,26,26,0.08);
+  border: 1px solid rgba(17,17,17,0.08);
   border-radius: 2rem;
-  box-shadow: 0 4px 24px rgba(26,26,26,0.06), 0 1px 4px rgba(26,26,26,0.04);
+  box-shadow: 0 4px 24px rgba(17,17,17,0.06), 0 1px 4px rgba(17,17,17,0.04);
 }
 
 /* ── Ticker animation ─────────────────────────────────────────── */
@@ -154,6 +154,6 @@ section {
 
 /* ── Selection color ──────────────────────────────────────────── */
 ::selection {
-  background: #2D6A4F;
+  background: #3B6FE8;
   color: #fff;
 }

@@ -18,7 +18,7 @@ export function DotGrid({ className }) {
     const DOT_BASE   = 1.4        // resting radius
     const DOT_MAX    = 5          // max radius near cursor
     const INFLUENCE  = 140        // cursor radius of influence (px)
-    const COLOR_ON   = [82, 183, 136]   // #52B788
+    const COLOR_ON   = [59, 111, 232]   // #3B6FE8
     const COLOR_OFF  = [255, 255, 255] // white (low opacity when idle)
     const OPACITY_ON  = 1
     const OPACITY_OFF = 0.10
@@ -89,31 +89,30 @@ export function DotGrid({ className }) {
       animId = requestAnimationFrame(draw)
     }
 
-    /* ── Events ──────────────────────────────── */
+    /* ── Events — listen on window so z-index never blocks ── */
     function onMouseMove(e) {
       const rect = canvas.getBoundingClientRect()
-      mouse = { x: e.clientX - rect.left, y: e.clientY - rect.top }
+      // Only light up when cursor is within the canvas bounds
+      const x = e.clientX - rect.left
+      const y = e.clientY - rect.top
+      if (x >= 0 && x <= rect.width && y >= 0 && y <= rect.height) {
+        mouse = { x, y }
+      } else {
+        mouse = { x: -9999, y: -9999 }
+      }
     }
-    function onMouseLeave() {
-      mouse = { x: -9999, y: -9999 }
-    }
-    function onResize() {
-      build()
-    }
+    function onResize() { build() }
 
     /* ── Init ────────────────────────────────── */
     build()
     draw()
 
-    const parent = canvas.parentElement
-    parent.addEventListener('mousemove', onMouseMove)
-    parent.addEventListener('mouseleave', onMouseLeave)
+    window.addEventListener('mousemove', onMouseMove)
     window.addEventListener('resize', onResize)
 
     return () => {
       cancelAnimationFrame(animId)
-      parent.removeEventListener('mousemove', onMouseMove)
-      parent.removeEventListener('mouseleave', onMouseLeave)
+      window.removeEventListener('mousemove', onMouseMove)
       window.removeEventListener('resize', onResize)
     }
   }, [])
