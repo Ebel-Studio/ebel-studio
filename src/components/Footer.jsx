@@ -11,7 +11,7 @@ export default function Footer() {
     ],
     Contact: [
       { label: 'hello@ebel.studio', href: 'mailto:hello@ebel.studio' },
-      { label: 'WhatsApp',          href: 'https://wa.me/31612345678' },
+      { label: 'WhatsApp',          href: 'https://wa.me/31612345678', external: true },
       { label: 'Instagram',         href: '#' },
     ],
   }
@@ -45,12 +45,13 @@ export default function Footer() {
               {[
                 { icon: Instagram,     label: 'Instagram', href: '#' },
                 { icon: Linkedin,      label: 'LinkedIn',  href: '#' },
-                { icon: MessageCircle, label: 'WhatsApp',  href: 'https://wa.me/31612345678' },
-              ].map(({ icon: Icon, label, href }) => (
+                { icon: MessageCircle, label: 'WhatsApp',  href: 'https://wa.me/31612345678', external: true },
+              ].map(({ icon: Icon, label, href, external }) => (
                 <a
                   key={label}
                   href={href}
                   aria-label={label}
+                  {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                   className="w-9 h-9 rounded-xl bg-white/06 border border-white/08 flex items-center justify-center text-white/40 hover:text-white hover:bg-white/10 link-lift transition-colors"
                 >
                   <Icon size={15} />
@@ -63,9 +64,13 @@ export default function Footer() {
             <div key={category}>
               <p className="text-white/25 text-xs font-mono tracking-widest uppercase mb-4">{category}</p>
               <ul className="flex flex-col gap-2.5">
-                {items.map(({ label, href }) => (
+                {items.map(({ label, href, external }) => (
                   <li key={label}>
-                    <a href={href} className="text-white/45 text-sm hover:text-white link-lift transition-colors">
+                    <a
+                      href={href}
+                      className="text-white/45 text-sm hover:text-white link-lift transition-colors"
+                      {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                    >
                       {label}
                     </a>
                   </li>

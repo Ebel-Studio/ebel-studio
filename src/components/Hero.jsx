@@ -5,6 +5,15 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
 const STYLES = `
+  /* ── Pre-animation initial states (prevent flash on load) ── */
+  .ch-card { transform: translateY(200vh) scale(0.92); }
+  .ch-line1 { opacity: 0; visibility: hidden; }
+  .ch-line2 { clip-path: inset(0 100% 0 0); }
+  .ch-hint  { opacity: 0; visibility: hidden; }
+  .ch-col-left, .ch-mockup,
+  .ch-badge-a, .ch-badge-b, .ch-cta { opacity: 0; visibility: hidden; }
+  .ch-phone, .ch-bubble { opacity: 0; }
+
   /* ── Grid background ──────────────────────────── */
   .ch-grid {
     background-size: 56px 56px;
@@ -81,80 +90,319 @@ const STYLES = `
   }
 `
 
-/* ── Mini preview: Configurator fullscreen ───────────────────────── */
+/* ── Lumine shows preview — zoomed in, big & readable ───────────── */
 function SitePreview() {
-  const toggleRows = [
-    { label: 'Multiple pages',         on: true  },
-    { label: 'Photo gallery',          on: true  },
-    { label: 'SEO + Google Analytics', on: true  },
-    { label: 'Blog or news section',   on: false },
-    { label: 'Newsletter integration', on: false },
-    { label: 'Custom animations',      on: true  },
-    { label: 'Custom typography',      on: false },
+  const showsBefore = [
+    { date: '10 APR', venue: 'Fundbureau',    city: 'Hamburg, DE'   },
+    { date: '26 APR', venue: 'Poppodium 013', city: 'Tilburg, NL'   },
+  ]
+  const showsAfter = [
+    { date: '29 MEI', venue: 'IJland',     city: 'Amsterdam, NL' },
+    { date: '03 JUN', venue: 'Thuishaven', city: 'Amsterdam, NL' },
   ]
 
-  return (
-    <div style={{ width: '100%', height: '100%', overflowY: 'hidden', background: '#0f1020', fontFamily: 'Inter, sans-serif', display: 'flex', flexDirection: 'column', padding: '12px 14px 12px' }}>
+  const showRow = (extra = {}) => ({
+    display: 'flex', alignItems: 'center', gap: '0',
+    padding: '13px 20px', borderRadius: '8px',
+    background: 'rgba(255,255,255,0.04)',
+    border: '1px solid rgba(255,255,255,0.07)',
+    ...extra,
+  })
 
-      {/* Header */}
-      <div style={{ marginBottom: '8px', flexShrink: 0 }}>
-        <div style={{ fontSize: '0.32rem', color: '#3B6FE8', fontFamily: 'monospace', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '3px' }}>Package builder</div>
-        <div style={{ fontSize: '0.8rem', fontWeight: 700, color: '#fff', letterSpacing: '-0.02em', lineHeight: 1.1, marginBottom: '2px' }}>Build your plan.</div>
-        <div style={{ fontSize: '0.3rem', color: 'rgba(255,255,255,0.3)', lineHeight: 1.5 }}>Toggle the features you need — the right package appears automatically.</div>
+  return (
+    <div style={{
+      width: '100%', height: '100%',
+      background: 'linear-gradient(180deg,#07111a 0%,#0a1828 100%)',
+      fontFamily: '"Inter",sans-serif',
+      display: 'flex', flexDirection: 'column',
+      overflow: 'hidden', position: 'relative',
+    }}>
+
+
+      {/* Slim nav */}
+      <div style={{
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        padding: '10px 22px', borderBottom: '1px solid rgba(255,255,255,0.07)', flexShrink: 0,
+        background: 'rgba(7,17,26,0.97)',
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <img
+            src="https://lumine-theta.vercel.app/LOGO/lumein%20logo.png"
+            alt="Lumine"
+            loading="lazy"
+            style={{ height: '22px', width: 'auto', display: 'block', filter: 'drop-shadow(0 0 4px rgba(90,173,212,0.3))' }}
+            draggable={false}
+          />
+        </div>
+        <div style={{ display: 'flex', gap: '18px' }}>
+          {['Music','Shows','About','Connect'].map(l => (
+            <span key={l} style={{ fontSize: '0.55rem', color: l === 'Shows' ? '#5aadd4' : 'rgba(255,255,255,0.38)' }}>{l}</span>
+          ))}
+        </div>
+        <div style={{ background: 'linear-gradient(135deg,#5aadd4,#3d8fb5)', borderRadius: '20px', padding: '5px 14px', fontSize: '0.52rem', fontWeight: 700, color: '#07111a' }}>
+          Claim a Spot
+        </div>
       </div>
 
-      {/* Toggles + card side by side */}
-      <div style={{ flex: 1, display: 'flex', gap: '10px', minHeight: 0 }}>
+      {/* Shows section — fills all remaining space */}
+      <div style={{ flex: 1, padding: '22px 22px', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px', flexShrink: 0 }}>
+          <h2 style={{ fontSize: '1.15rem', fontWeight: 800, color: '#fff', letterSpacing: '-0.02em', margin: 0 }}>Upcoming Shows</h2>
+          {/* Right side — domain label swaps out for edit/live badge */}
+          <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+            <span style={{ fontSize: '0.52rem', color: 'rgba(255,255,255,0.25)', fontFamily: 'monospace' }}>lumine.nl</span>
+            <div className="ch-editing-badge" style={{
+              position: 'absolute', right: 0, whiteSpace: 'nowrap',
+              display: 'flex', alignItems: 'center', gap: '5px',
+              background: 'rgba(90,173,212,0.18)', border: '1px solid rgba(90,173,212,0.4)',
+              borderRadius: '20px', padding: '3px 9px',
+              fontSize: '0.55rem', color: '#5aadd4', fontWeight: 700,
+              visibility: 'hidden', opacity: 0,
+            }}>
+              <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#5aadd4', display: 'inline-block', flexShrink: 0, animation: 'lPulse 1s ease-in-out infinite' }} />
+              Ebel is aan het editen…
+            </div>
+            <div className="ch-live-badge" style={{
+              position: 'absolute', right: 0, whiteSpace: 'nowrap',
+              display: 'flex', alignItems: 'center', gap: '5px',
+              background: 'rgba(34,197,94,0.14)', border: '1px solid rgba(34,197,94,0.4)',
+              borderRadius: '20px', padding: '3px 9px',
+              fontSize: '0.55rem', color: '#4ade80', fontWeight: 700,
+              visibility: 'hidden', opacity: 0,
+            }}>✓ Live</div>
+          </div>
+        </div>
 
-        {/* Left: toggle rows */}
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '3.5px' }}>
-          {toggleRows.map(({ label, on }) => (
-            <div
-              key={label}
-              style={{
-                display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                borderRadius: '5px', padding: '4px 6px',
-                background: on ? 'rgba(59,111,232,0.1)' : 'rgba(255,255,255,0.03)',
-                border: `0.5px solid ${on ? 'rgba(59,111,232,0.28)' : 'rgba(255,255,255,0.06)'}`,
-              }}
-            >
-              <span style={{ fontSize: '0.3rem', color: on ? 'rgba(255,255,255,0.85)' : 'rgba(255,255,255,0.3)', lineHeight: 1 }}>{label}</span>
-              <div style={{ width: '16px', height: '8px', borderRadius: '4px', flexShrink: 0, background: on ? '#3B6FE8' : 'rgba(255,255,255,0.1)', position: 'relative' }}>
-                <div style={{ position: 'absolute', top: '2px', width: '4px', height: '4px', borderRadius: '50%', background: '#fff', left: on ? '10px' : '2px' }} />
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '7px' }}>
+
+          {/* Google Docs cursor — vertical caret + name badge to the right at caret-top */}
+          <div className="ch-cursor" style={{ position: 'relative', height: '3px', opacity: 0, overflow: 'visible', margin: '2px 6px', flexShrink: 0 }}>
+            {/* Caret line */}
+            <div style={{ position: 'absolute', left: 0, top: '-13px', width: '2px', height: '26px', background: '#5aadd4', borderRadius: '1px', animation: 'lCaretBlink 0.7s ease-in-out infinite' }} />
+            {/* Name badge — to the right of the caret, at caret-top, stays within header gap */}
+            <div style={{ position: 'absolute', left: '6px', top: '-13px', background: '#5aadd4', color: '#07111a', fontSize: '0.44rem', fontWeight: 800, padding: '2px 7px', borderRadius: '0 3px 3px 3px', whiteSpace: 'nowrap', letterSpacing: '0.06em' }}>
+              Ebel
+            </div>
+          </div>
+
+          {/* New shows wrapper — starts collapsed, expands to reveal new rows above old ones */}
+          <div className="ch-show-after-wrapper" style={{ overflow: 'hidden', maxHeight: '0px', display: 'flex', flexDirection: 'column', gap: '7px' }}>
+            {showsAfter.map((s, i) => (
+              <div key={`a${i}`} className="ch-show-after" style={showRow({ opacity: 0, background: 'rgba(90,173,212,0.08)', border: '1px solid rgba(90,173,212,0.22)', borderLeft: '3px solid #5aadd4' })}>
+                <span style={{ fontSize: '0.64rem', color: '#5aadd4', fontFamily: 'monospace', fontWeight: 600, minWidth: '60px' }}>{s.date}</span>
+                <span style={{ fontSize: '0.8rem', color: '#fff', fontWeight: 700, flex: 1, paddingLeft: '14px' }}>{s.venue}</span>
+                <span style={{ fontSize: '0.58rem', color: 'rgba(255,255,255,0.38)', paddingRight: '16px' }}>{s.city}</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '7px', flexShrink: 0 }}>
+                  <span style={{ fontSize: '0.46rem', background: 'rgba(90,173,212,0.22)', color: '#5aadd4', borderRadius: '4px', padding: '2px 7px', fontWeight: 800, letterSpacing: '0.05em' }}>NEW</span>
+                  <div style={{ background: 'rgba(90,173,212,0.12)', border: '1px solid rgba(90,173,212,0.28)', borderRadius: '20px', padding: '5px 14px', fontSize: '0.54rem', color: '#5aadd4', fontWeight: 600 }}>Tickets →</div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Original shows — always visible, stay in place */}
+          {showsBefore.map((s, i) => (
+            <div key={`b${i}`} className="ch-show-before" style={showRow()}>
+              <span style={{ fontSize: '0.64rem', color: '#5aadd4', fontFamily: 'monospace', fontWeight: 600, minWidth: '60px' }}>{s.date}</span>
+              <span style={{ fontSize: '0.8rem', color: '#fff', fontWeight: 700, flex: 1, paddingLeft: '14px' }}>{s.venue}</span>
+              <span style={{ fontSize: '0.58rem', color: 'rgba(255,255,255,0.38)', paddingRight: '16px' }}>{s.city}</span>
+              <div style={{ background: 'rgba(90,173,212,0.12)', border: '1px solid rgba(90,173,212,0.25)', borderRadius: '20px', padding: '5px 14px', fontSize: '0.54rem', color: '#5aadd4', fontWeight: 600, flexShrink: 0 }}>
+                Tickets →
               </div>
             </div>
           ))}
         </div>
+      </div>
 
-        {/* Right: package recommendation card */}
+      <style>{`
+        @keyframes lCaretBlink { 0%,45%{opacity:1} 55%,100%{opacity:0.1} }
+        @keyframes lPulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
+      `}</style>
+    </div>
+  )
+}
+
+/* ── WhatsApp-style phone mockup ─────────────────────────────────── */
+const BUBBLES = [
+  { side: 'client', text: 'Hey, ik heb wat aanpassingen\nvoor de site. Kun je die\ndoorvoeren?', time: '16:14' },
+  { side: 'ai', text: 'Ja, is goed! Stuur maar op.', time: '16:14' },
+  { side: 'client', text: '2 nieuwe shows: 29 mei\nIJland + 3 juni Thuishaven.\nEn mijn Insta-post erbij?', time: '16:14' },
+  { side: 'ai', text: 'Klaar! Hier de preview 🔗\nKlopt alles zo? Dan zet\nik hem live.', time: '16:15' },
+  { side: 'client', text: 'Ja, perfect. Doe maar!', time: '16:16' },
+  { side: 'ai', text: '2 shows + post live ✓', time: '16:16', badge: '3 min' },
+]
+
+function PhoneMockup() {
+  return (
+    <div
+      className="ch-phone hidden md:block"
+      style={{
+        position: 'absolute',
+        bottom: '-24px',
+        right: '8px',
+        width: 'clamp(160px, 20vw, 220px)',
+        zIndex: 40,
+        pointerEvents: 'none',
+      }}
+    >
+      {/* Phone frame */}
+      <div style={{
+        background: '#111b21',
+        borderRadius: '28px',
+        border: '1px solid rgba(255,255,255,0.07)',
+        overflow: 'hidden',
+        boxShadow: '0 32px 72px -12px rgba(0,0,0,0.95), 0 0 0 1px rgba(255,255,255,0.04)',
+      }}>
+
+        {/* WhatsApp top bar */}
         <div style={{
-          width: '96px', flexShrink: 0,
-          background: 'linear-gradient(145deg, #1c2660 0%, #0d1025 100%)',
-          border: '0.5px solid rgba(59,111,232,0.22)',
-          borderRadius: '8px',
-          padding: '8px 8px',
-          display: 'flex', flexDirection: 'column', gap: '5px',
-          boxShadow: '0 12px 24px -6px rgba(0,0,0,0.5)',
+          background: '#202c33',
+          padding: '8px 12px 7px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          borderBottom: '1px solid rgba(255,255,255,0.05)',
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '3px' }}>
-            <div style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#3B6FE8' }} />
-            <span style={{ fontSize: '0.26rem', color: '#3B6FE8', fontFamily: 'monospace', letterSpacing: '0.1em', textTransform: 'uppercase' }}>4 selected</span>
+          {/* Avatar */}
+          <div style={{
+            width: '26px', height: '26px', borderRadius: '50%', flexShrink: 0,
+            background: 'linear-gradient(135deg, #3B6FE8 0%, #1A1A2E 100%)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            fontSize: '10px', fontWeight: 700, color: '#fff',
+            fontFamily: 'Inter, sans-serif',
+          }}>
+            E
           </div>
-          <div>
-            <div style={{ fontSize: '0.28rem', color: 'rgba(255,255,255,0.28)', fontFamily: 'monospace', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '2px' }}>Premium</div>
-            <div style={{ fontSize: '0.82rem', fontWeight: 700, color: '#fff', letterSpacing: '-0.02em', lineHeight: 1 }}>€1,199</div>
-            <div style={{ fontSize: '0.28rem', color: '#3B6FE8', fontWeight: 600, marginTop: '2px' }}>+ €49/mo</div>
+          {/* Name + subtitle */}
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{ fontSize: '12px', fontWeight: 600, color: '#e9edef', fontFamily: 'Inter, sans-serif', lineHeight: 1.2 }}>
+              Ebel
+            </div>
+            <div style={{ fontSize: '9px', color: '#00a884', fontFamily: 'Inter, sans-serif', lineHeight: 1.3 }}>
+              AI Developer · online
+            </div>
           </div>
-          <div style={{ borderTop: '0.5px solid rgba(255,255,255,0.07)', paddingTop: '4px', display: 'flex', flexDirection: 'column', gap: '2.5px' }}>
-            {['Everything in Standard', 'Custom animations', 'Newsletter', '1 extra revision'].map(item => (
-              <div key={item} style={{ display: 'flex', alignItems: 'center', gap: '3px' }}>
-                <div style={{ width: '3px', height: '3px', borderRadius: '50%', background: '#3B6FE8', flexShrink: 0 }} />
-                <span style={{ fontSize: '0.26rem', color: 'rgba(255,255,255,0.45)', lineHeight: 1.3 }}>{item}</span>
+          {/* WhatsApp icon dots */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', opacity: 0.4 }}>
+            {[0, 1, 2].map(i => <div key={i} style={{ width: '3px', height: '3px', borderRadius: '50%', background: '#aebac1' }} />)}
+          </div>
+        </div>
+
+        {/* Chat background with WhatsApp wallpaper feel */}
+        <div style={{
+          background: '#0b141a',
+          padding: '8px 8px 10px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '4px',
+          minHeight: '290px',
+        }}>
+          {/* Date stamp */}
+          <div style={{
+            textAlign: 'center', marginBottom: '2px',
+          }}>
+            <span style={{
+              background: 'rgba(255,255,255,0.07)',
+              borderRadius: '6px',
+              padding: '2px 7px',
+              fontSize: '8px',
+              color: '#8696a0',
+              fontFamily: 'Inter, sans-serif',
+            }}>Vandaag</span>
+          </div>
+
+          {BUBBLES.map((b, i) => {
+            const isSent = b.side === 'client'
+            return (
+              <div
+                key={i}
+                className="ch-bubble"
+                style={{
+                  display: 'flex',
+                  justifyContent: isSent ? 'flex-end' : 'flex-start',
+                }}
+              >
+                <div style={{
+                  maxWidth: '85%',
+                  padding: '5px 8px 14px',
+                  borderRadius: isSent
+                    ? '8px 8px 2px 8px'
+                    : '8px 8px 8px 2px',
+                  background: isSent ? '#005c4b' : '#202c33',
+                  position: 'relative',
+                  boxShadow: '0 1px 2px rgba(0,0,0,0.3)',
+                }}>
+                  <p style={{
+                    fontSize: '11px',
+                    color: '#e9edef',
+                    fontFamily: 'Inter, sans-serif',
+                    lineHeight: 1.4,
+                    margin: 0,
+                    whiteSpace: 'pre-line',
+                  }}>
+                    {b.text}
+                  </p>
+
+                  {/* Time + checkmarks */}
+                  <div style={{
+                    position: 'absolute',
+                    bottom: '4px',
+                    right: '7px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '2px',
+                  }}>
+                    <span style={{ fontSize: '8px', color: 'rgba(233,237,239,0.45)', fontFamily: 'Inter, sans-serif' }}>
+                      {b.time}
+                    </span>
+                    {isSent && (
+                      <span style={{ fontSize: '9px', color: '#53bdeb', lineHeight: 1 }}>✓✓</span>
+                    )}
+                  </div>
+
+                  {/* Speed badge on last AI message */}
+                  {b.badge && (
+                    <div style={{
+                      position: 'absolute',
+                      bottom: '-9px',
+                      left: '6px',
+                      background: '#1f2d25',
+                      border: '1px solid #2a5e3a',
+                      borderRadius: '8px',
+                      padding: '1px 6px',
+                      fontSize: '8px',
+                      color: '#00a884',
+                      fontFamily: 'Inter, sans-serif',
+                      fontWeight: 600,
+                      whiteSpace: 'nowrap',
+                    }}>
+                      ⚡ {b.badge}
+                    </div>
+                  )}
+                </div>
               </div>
-            ))}
+            )
+          })}
+        </div>
+
+        {/* WhatsApp input bar */}
+        <div style={{
+          background: '#202c33',
+          padding: '6px 10px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '6px',
+          borderTop: '1px solid rgba(255,255,255,0.05)',
+        }}>
+          <div style={{
+            flex: 1, background: '#2a3942', borderRadius: '20px',
+            padding: '5px 10px', fontSize: '9px',
+            color: 'rgba(255,255,255,0.25)', fontFamily: 'Inter, sans-serif',
+          }}>
+            Stuur een bericht
           </div>
-          <div style={{ marginTop: 'auto', background: '#3B6FE8', borderRadius: '4px', padding: '3px 0', textAlign: 'center', fontSize: '0.28rem', color: '#fff', fontWeight: 600 }}>
-            Get in touch →
+          <div style={{ width: '22px', height: '22px', borderRadius: '50%', background: '#00a884', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '10px', flexShrink: 0 }}>
+            🎤
           </div>
         </div>
       </div>
@@ -164,9 +412,9 @@ function SitePreview() {
 
 export default function Hero() {
   const sectionRef = useRef(null)
-  const cardRef    = useRef(null)
-  const mockupRef  = useRef(null)
-  const rafRef     = useRef(0)
+  const cardRef = useRef(null)
+  const mockupRef = useRef(null)
+  const rafRef = useRef(0)
 
   /* ── Mouse sheen + mockup tilt ─────────────── */
   useEffect(() => {
@@ -179,10 +427,10 @@ export default function Hero() {
           cardRef.current.style.setProperty('--my', `${e.clientY - r.top}px`)
         }
         if (mockupRef.current) {
-          const xVal = (e.clientX / window.innerWidth  - 0.5) * 2
+          const xVal = (e.clientX / window.innerWidth - 0.5) * 2
           const yVal = (e.clientY / window.innerHeight - 0.5) * 2
           gsap.to(mockupRef.current, {
-            rotationY:  xVal * 6,
+            rotationY: xVal * 6,
             rotationX: -yVal * 6,
             ease: 'power3.out',
             duration: 1.8,
@@ -204,34 +452,40 @@ export default function Hero() {
     const ctx = gsap.context(() => {
 
       /* ── Initial states */
-      gsap.set('.ch-line1',      { autoAlpha: 0, y: 34, scale: 0.93 })
-      gsap.set('.ch-line2',      { clipPath: 'inset(0 100% 0 0)' })
-      gsap.set('.ch-hint',       { autoAlpha: 0 })
-      gsap.set('.ch-card',       { y: window.innerHeight + 120, scale: 0.92 })
-      gsap.set(['.ch-col-left', '.ch-col-right', '.ch-mockup', '.ch-badge-a', '.ch-badge-b'], { autoAlpha: 0 })
+      gsap.set('.ch-line1', { autoAlpha: 0, y: 34, scale: 0.93 })
+      gsap.set('.ch-line2', { clipPath: 'inset(0 100% 0 0)' })
+      gsap.set('.ch-hint', { autoAlpha: 0 })
+      gsap.set('.ch-card', { y: window.innerHeight + 120, scale: 0.92 })
+      gsap.set(['.ch-col-left', '.ch-mockup', '.ch-badge-a', '.ch-badge-b'], { autoAlpha: 0 })
       gsap.set('.ch-cta', { autoAlpha: 0, scale: 0.95 })
+      gsap.set('.ch-phone', { opacity: 0, y: 60, rotate: -8, scale: 0.88 })
+      gsap.set('.ch-bubble', { opacity: 0, y: 8 })
+      gsap.set('.ch-editing-badge', { autoAlpha: 0, scale: 0.9 })
+      gsap.set('.ch-live-badge', { autoAlpha: 0, scale: 0.9 })
+      gsap.set('.ch-cursor', { autoAlpha: 0 })
+      gsap.set('.ch-show-after', { autoAlpha: 0, y: 6 })
 
       /* ── Page-load entrance */
       gsap.timeline({ delay: 0.2 })
-        .to('.ch-line1',     { autoAlpha: 1, y: 0, scale: 1, duration: 1.0, ease: 'expo.out' })
-        .to('.ch-line2',     { clipPath: 'inset(0 0% 0 0)', duration: 1.0, ease: 'power4.inOut' }, '-=0.7')
-        .to('.ch-hint',      { autoAlpha: 1, duration: 0.5 }, '-=0.1')
+        .to('.ch-line1', { autoAlpha: 1, y: 0, scale: 1, duration: 1.0, ease: 'expo.out' })
+        .to('.ch-line2', { clipPath: 'inset(0 0% 0 0)', duration: 1.0, ease: 'power4.inOut' }, '-=0.7')
+        .to('.ch-hint', { autoAlpha: 1, duration: 0.5 }, '-=0.1')
 
       /* ── Scroll-pinned cinematic timeline */
       gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
           start: 'top top',
-          end:   '+=4000',
-          pin:   true,
+          end: '+=4000',
+          pin: true,
           scrub: 1.2,
           anticipatePin: 1,
         },
       })
         // Phase 1 — hero text fades, card rises
-        .to('.ch-hero-bg',  { autoAlpha: 0, scale: 1.03, duration: 1.2, ease: 'power2.out' }, 0)
-        .to('.ch-hint',     { autoAlpha: 0, duration: 0.6 }, 0)
-        .to('.ch-card',     { y: 0, duration: 1.4, ease: 'power3.inOut' }, 0)
+        .to('.ch-hero-bg', { autoAlpha: 0, scale: 1.03, duration: 1.2, ease: 'power2.out' }, 0)
+        .to('.ch-hint', { autoAlpha: 0, duration: 0.6 }, 0)
+        .to('.ch-card', { y: 0, duration: 1.4, ease: 'power3.inOut' }, 0)
 
         // Phase 2 — card fills screen
         .to('.ch-card', { scale: 1, borderRadius: '0px', duration: 1.1, ease: 'power2.inOut' })
@@ -239,26 +493,73 @@ export default function Hero() {
         // Phase 3 — mockup + badges + copy enter
         .fromTo('.ch-mockup',
           { y: 120, rotationX: 18, rotationY: -8, autoAlpha: 0, scale: 0.8 },
-          { y: 0,   rotationX: 0,  rotationY: 0,  autoAlpha: 1, scale: 1,   duration: 1.5, ease: 'expo.out' },
+          { y: 0, rotationX: 0, rotationY: 0, autoAlpha: 1, scale: 1, duration: 1.5, ease: 'expo.out' },
           '-=0.4'
         )
         .fromTo('.ch-badge-a', { y: 30, autoAlpha: 0, scale: 0.85 }, { y: 0, autoAlpha: 1, scale: 1, duration: 0.85, ease: 'back.out(1.2)' }, '-=0.9')
         .fromTo('.ch-badge-b', { y: 30, autoAlpha: 0, scale: 0.85 }, { y: 0, autoAlpha: 1, scale: 1, duration: 0.85, ease: 'back.out(1.2)' }, '-=0.7')
-        .fromTo('.ch-col-left',  { x: -28, autoAlpha: 0 },             { x: 0, autoAlpha: 1, duration: 0.85, ease: 'power4.out' }, '-=0.65')
-        .fromTo('.ch-col-right', { x:  28, autoAlpha: 0, scale: 0.92 }, { x: 0, autoAlpha: 1, scale: 1,     duration: 0.85, ease: 'expo.out' }, '<')
+        .fromTo('.ch-col-left', { x: -28, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 0.85, ease: 'power4.out' }, '-=0.65')
 
-        // Hold
-        .to({}, { duration: 1.4 })
+        // Phone floats in
+        .fromTo('.ch-phone',
+          { opacity: 0, y: 60, rotate: -8, scale: 0.88 },
+          { opacity: 1, y: 0, rotate: -4, scale: 1, duration: 0.5, ease: 'expo.out' },
+          '-=0.5'
+        )
+        // Bubbles stagger in
+        .fromTo('.ch-bubble',
+          { opacity: 0, y: 8 },
+          { opacity: 1, y: 0, duration: 0.25, stagger: 0.09, ease: 'power3.out' },
+          '-=0.2'
+        )
+
+        // Hold briefly after bubbles settle
+        .to({}, { duration: 0.3 })
+
+        // ── AI editing sequence — Google Docs style ──
+        // 1. "Ebel is aan het editen…" badge slides in
+        .to('.ch-editing-badge', { autoAlpha: 1, scale: 1, x: 0, duration: 0.35, ease: 'back.out(1.4)' })
+
+        // 2. Cursor appears at insertion point (top of list)
+        .to('.ch-cursor', { autoAlpha: 1, duration: 0.15 })
+
+        // 3. Wrapper expands downward, pushing existing rows down — new shows slide in above
+        .to('.ch-show-after-wrapper', {
+          maxHeight: 160, duration: 0.6, ease: 'power3.out',
+        }, '+=0.15')
+
+        // 4. Individual new rows fade + settle in
+        .to('.ch-show-after', {
+          autoAlpha: 1, y: 0, duration: 0.3, stagger: 0.18, ease: 'power3.out',
+        }, '-=0.35')
+
+        // 5. Cursor fades
+        .to('.ch-cursor', { autoAlpha: 0, duration: 0.2 }, '+=0.15')
+
+        // 6. New-row accent highlight fades to normal (track changes resolved)
+        .to('.ch-show-after', {
+          borderLeftColor: 'rgba(90,173,212,0)',
+          background: 'rgba(255,255,255,0.04)',
+          duration: 0.5, ease: 'power2.out',
+        }, '+=0.1')
+
+        // 8. Badge swaps: editing → ✓ Live
+        .to('.ch-editing-badge', { autoAlpha: 0, scale: 0.9, duration: 0.2 })
+        .to('.ch-live-badge', { autoAlpha: 1, scale: 1, duration: 0.3, ease: 'back.out(1.4)' })
+
+        // Hold on final state
+        .to({}, { duration: 0.7 })
 
         // Phase 4 — swap content → CTA
-        .to(['.ch-col-left', '.ch-col-right', '.ch-mockup', '.ch-badge-a', '.ch-badge-b'], {
+        .to(['.ch-col-left', '.ch-mockup', '.ch-badge-a', '.ch-badge-b'], {
           autoAlpha: 0, y: -20, scale: 0.93, duration: 0.75, ease: 'power2.in',
         })
+        .to('.ch-phone', { opacity: 0, y: -20, duration: 0.5, ease: 'power2.in' }, '<')
         .to('.ch-cta', { autoAlpha: 1, scale: 1, duration: 1.1, ease: 'expo.out' }, '-=0.2')
 
         // Phase 5 — card pulls back
         .to('.ch-card', {
-          scale:        mobile ? 0.92 : 0.79,
+          scale: mobile ? 0.92 : 0.79,
           borderRadius: mobile ? '24px' : '32px',
           duration: 1.3, ease: 'expo.inOut',
         }, '-=0.7')
@@ -324,32 +625,22 @@ export default function Hero() {
         >
           <div className="ch-sheen" aria-hidden="true" />
 
-          {/* ── 3-col content grid ──────────────────── */}
+          {/* ── 2-col content grid ──────────────────── */}
           <div
-            className="relative w-full h-full max-w-7xl mx-auto px-4 lg:px-12
+            className="relative w-full h-full max-w-7xl mx-auto px-4 lg:px-8
                        flex flex-col justify-evenly
-                       lg:grid lg:grid-cols-3
+                       lg:grid lg:grid-cols-[280px_1fr]
                        items-center lg:gap-8 z-10 py-6 lg:py-0"
           >
 
-            {/* Col 3 — brand name */}
-            <div className="ch-col-right order-1 lg:order-3 flex justify-center lg:justify-end w-full">
-              <h2
-                className="ch-white-text font-heading font-semibold"
-                style={{ fontSize: 'clamp(3.5rem, 7vw, 8rem)', letterSpacing: '-0.03em' }}
-              >
-                Ebel
-              </h2>
-            </div>
-
-            {/* Col 2 — browser mockup */}
+            {/* Col 2 — browser mockup + phone */}
             <div
-              className="ch-mockup order-2 relative w-full h-[320px] lg:h-[540px] flex items-center justify-center"
+              className="ch-mockup order-1 lg:order-2 relative w-full h-[300px] sm:h-[380px] lg:h-[560px] flex items-center justify-center"
               style={{ perspective: '900px', overflow: 'visible' }}
             >
               <div
                 ref={mockupRef}
-                className="relative w-full max-w-[500px] ch-browser"
+                className="relative w-full max-w-[700px] ch-browser"
                 style={{ transformStyle: 'preserve-3d' }}
               >
                 {/* Browser chrome */}
@@ -364,15 +655,18 @@ export default function Hero() {
                     className="flex-1 mx-2 px-2 py-0.5 rounded-full text-center"
                     style={{ background: '#0d1117', border: '1px solid rgba(255,255,255,0.07)', fontSize: '0.5rem', color: 'rgba(255,255,255,0.28)' }}
                   >
-                    ebel.studio/work
+                    lumine.nl
                   </div>
                 </div>
 
                 {/* Site preview */}
-                <div style={{ height: '310px', overflow: 'hidden' }}>
+                <div className="site-preview-container" style={{ height: 'clamp(260px, 40vh, 460px)', overflow: 'hidden' }}>
                   <SitePreview />
                 </div>
               </div>
+
+              {/* Phone mockup — floats bottom-right of browser */}
+              <PhoneMockup />
 
               {/* Badge A */}
               <div
@@ -386,8 +680,8 @@ export default function Hero() {
                   <span style={{ fontSize: '0.78rem' }}>⚡</span>
                 </div>
                 <div>
-                  <p className="text-white font-bold" style={{ fontSize: '0.66rem' }}>Fast delivery</p>
-                  <p style={{ color: 'rgba(147,197,253,0.5)', fontSize: '0.54rem' }}>5-day turnaround</p>
+                  <p className="text-white font-bold" style={{ fontSize: '0.66rem' }}>Live in minutes</p>
+                  <p style={{ color: 'rgba(147,197,253,0.5)', fontSize: '0.54rem' }}>No dev needed</p>
                 </div>
               </div>
 
@@ -403,33 +697,46 @@ export default function Hero() {
                   <span style={{ fontSize: '0.78rem' }}>✦</span>
                 </div>
                 <div>
-                  <p className="text-white font-bold" style={{ fontSize: '0.66rem' }}>100% custom</p>
-                  <p style={{ color: 'rgba(147,197,253,0.5)', fontSize: '0.54rem' }}>No templates</p>
+                  <p className="text-white font-bold" style={{ fontSize: '0.66rem' }}>Always confirms first</p>
+                  <p style={{ color: 'rgba(147,197,253,0.5)', fontSize: '0.54rem' }}>You stay in control</p>
                 </div>
               </div>
             </div>
 
             {/* Col 1 — copy */}
-            <div className="ch-col-left order-3 lg:order-1 flex flex-col justify-center text-center lg:text-left w-full px-4 lg:px-0">
-              <h3
-                className="text-white font-heading font-semibold mb-3 leading-tight"
-                style={{ fontSize: 'clamp(1.2rem, 2.5vw, 2rem)', letterSpacing: '-0.02em' }}
-              >
-                Built for now, ready for later.
-              </h3>
-              <p
-                className="hidden md:block leading-relaxed"
-                style={{ color: 'rgba(255,255,255,0.48)', fontSize: '0.88rem', maxWidth: '230px' }}
-              >
-                Pick your plan — only pay for what you need, upgrade when you're ready to grow.
-              </p>
+            <div className="ch-col-left order-2 lg:order-1 flex flex-col justify-center text-center lg:text-left w-full px-4 lg:px-0 gap-5">
+              <div>
+                <p className="font-mono text-[0.6rem] tracking-widest uppercase mb-3" style={{ color: 'rgba(59,111,232,0.7)' }}>AI site manager</p>
+                <h3
+                  className="text-white font-heading font-semibold leading-tight"
+                  style={{ fontSize: 'clamp(1.2rem, 2.4vw, 1.9rem)', letterSpacing: '-0.02em' }}
+                >
+                  Your site.<br />Your control.
+                </h3>
+                <p className="hidden md:block mt-3 leading-relaxed" style={{ color: 'rgba(255,255,255,0.42)', fontSize: '0.82rem', maxWidth: '220px' }}>
+                  Stuur een WhatsApp — Ebel regelt de rest. Geen developer-factuur voor elk klein dingetje.
+                </p>
+              </div>
+              <ul className="hidden md:flex flex-col gap-2.5">
+                {[
+                  ['✦', 'Live binnen minuten'],
+                  ['✦', 'Altijd preview-check voor go-live'],
+                  ['✦', 'Goedkoper dan een dev op standby'],
+                  ['✦', 'Jij blijft zelf aan het stuur'],
+                ].map(([icon, text]) => (
+                  <li key={text} className="flex items-center gap-2.5">
+                    <span style={{ color: '#3B6FE8', fontSize: '0.6rem' }}>{icon}</span>
+                    <span style={{ color: 'rgba(255,255,255,0.52)', fontSize: '0.78rem' }}>{text}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
 
           {/* ── CTA overlay ── */}
           <div
             className="ch-cta absolute inset-0 flex flex-col items-center justify-center text-center px-6 pointer-events-auto"
-            style={{ zIndex: 20 }}
+            style={{ zIndex: 50 }}
           >
             <h2
               className="ch-white-text font-heading font-semibold mb-5"

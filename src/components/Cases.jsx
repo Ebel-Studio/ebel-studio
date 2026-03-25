@@ -456,6 +456,7 @@ export default function Cases() {
                   src={c.image}
                   alt={c.title}
                   className="w-full h-full object-cover object-center"
+                  loading="lazy"
                   style={{ opacity: c.featured ? 0.12 : 0.18 }}
                 />
                 <div

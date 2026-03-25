@@ -38,6 +38,7 @@ function HvabPreview() {
         alt="HvAB hero"
         className="absolute inset-0 w-full h-full object-cover"
         style={{ mixBlendMode: 'multiply' }}
+        loading="lazy"
         draggable={false}
       />
 
@@ -55,8 +56,8 @@ function HvabPreview() {
         <div className="flex items-center gap-1.5">
           {/* SVG logo: house shape met path M10 10 L64 10 ... */}
           <svg width="16" height="18" viewBox="0 0 100 115" fill="none">
-            <path d="M 10 10 L 64 10 L 64 30 A 8 8 0 0 0 80 30 L 80 10 L 90 10 L 90 55 L 50 95 L 10 55 Z" fill="#EEBB37"/>
-            <circle cx="50" cy="62" r="10" fill="white"/>
+            <path d="M 10 10 L 64 10 L 64 30 A 8 8 0 0 0 80 30 L 80 10 L 90 10 L 90 55 L 50 95 L 10 55 Z" fill="#EEBB37" />
+            <circle cx="50" cy="62" r="10" fill="white" />
           </svg>
           <div>
             <div style={{ color: 'white', fontSize: '0.48rem', fontWeight: 800, letterSpacing: '0.06em', lineHeight: 1.1, fontFamily: "'Barlow Condensed', sans-serif", textTransform: 'uppercase' }}>
@@ -176,99 +177,99 @@ export default function Werk() {
       style={{ background: '#F7F7F5' }}
     >
       <div className="py-24 md:py-36 px-6 md:px-12 lg:px-20">
-      <div className="max-w-6xl mx-auto">
+        <div className="max-w-6xl mx-auto">
 
-        {/* Section header */}
-        <div className="werk-header mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6">
-          <div>
-            <p className="text-[#1A1A2E] text-sm font-mono tracking-widest uppercase mb-3">Portfolio</p>
-            <h2
-              className="font-heading font-semibold text-[#111111]"
-              style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', letterSpacing: '-0.02em' }}
-            >
-              Work
-            </h2>
-            <p className="text-[#111111]/50 mt-2">Recent projects</p>
-          </div>
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#1A1A2E]/20 text-[#1A1A2E] text-sm font-medium">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#1A1A2E] opacity-60" />
-            More projects on the way
-          </span>
-        </div>
-
-        {/* ── HvAB Portfolio card — full feature card ── */}
-        <div className="werk-card card-surface overflow-hidden mb-6">
-          <div className="flex flex-col lg:flex-row min-h-[340px]">
-
-            {/* Left — styled preview */}
-            <div className="lg:w-[55%] h-64 lg:h-auto overflow-hidden relative">
-              <HvabPreview />
+          {/* Section header */}
+          <div className="werk-header mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div>
+              <p className="text-[#1A1A2E] text-sm font-mono tracking-widest uppercase mb-3">Portfolio</p>
+              <h2
+                className="font-heading font-semibold text-[#111111]"
+                style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', letterSpacing: '-0.02em' }}
+              >
+                Work
+              </h2>
+              <p className="text-[#111111]/50 mt-2">Recent projects</p>
             </div>
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#1A1A2E]/20 text-[#1A1A2E] text-sm font-medium">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#1A1A2E] opacity-60" />
+              More projects on the way
+            </span>
+          </div>
 
-            {/* Right — project info */}
-            <div className="flex-1 p-8 md:p-10 flex flex-col justify-between">
-              <div>
-                {/* Tags */}
-                <div className="flex flex-wrap items-center gap-2 mb-5">
-                  <span className="px-3 py-1 rounded-full text-xs font-semibold"
-                    style={{ background: '#3D549F', color: 'white', letterSpacing: '0.04em' }}>
-                    Website
-                  </span>
-                  <span className="px-3 py-1 rounded-full text-xs font-semibold"
-                    style={{ background: '#EEBB3720', color: '#8a6c10', letterSpacing: '0.04em', border: '1px solid #EEBB3740' }}>
-                    Civic
-                  </span>
-                  <span className="px-3 py-1 rounded-full text-xs font-medium text-[#111111]/40"
-                    style={{ background: '#11111108', letterSpacing: '0.04em' }}>
-                    React · Tailwind
-                  </span>
-                </div>
+          {/* ── HvAB Portfolio card — full feature card ── */}
+          <div className="werk-card card-surface overflow-hidden mb-6">
+            <div className="flex flex-col lg:flex-row min-h-[340px]">
 
-                {/* Title */}
-                <h3
-                  className="font-heading font-semibold text-[#111111] mb-3"
-                  style={{ fontSize: '1.4rem', letterSpacing: '-0.02em', lineHeight: 1.2 }}
-                >
-                  Huis van Actief Burgerschap
-                </h3>
-
-                {/* Description */}
-                <p className="text-[#111111]/55 leading-relaxed mb-4" style={{ fontSize: '0.92rem' }}>
-                  Civic engagement platform for Noord-Holland Noord. Connecting residents, local initiatives, and communities through an interactive map, initiative library, and clear calls-to-action.
-                </p>
-
-                {/* Highlights */}
-                <div className="flex flex-col gap-2">
-                  {[
-                    'Interactive Leaflet map across 5 municipalities',
-                    'Fully responsive · Framer Motion animations',
-                    'Built for civic and non-profit organisations',
-                  ].map((item, i) => (
-                    <div key={i} className="flex items-start gap-2">
-                      <div className="w-1 h-1 rounded-full mt-2 shrink-0" style={{ background: '#3D549F' }} />
-                      <span className="text-[#111111]/45 text-xs leading-relaxed">{item}</span>
-                    </div>
-                  ))}
-                </div>
+              {/* Left — styled preview */}
+              <div className="lg:w-[55%] h-64 lg:h-auto overflow-hidden relative">
+                <HvabPreview />
               </div>
 
-              {/* CTA */}
-              <a
-                href="https://huis-van-actief-burgerschap.vercel.app/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn text-white text-sm px-6 py-3 mt-8 self-start"
-                style={{ background: '#3D549F' }}
-              >
-                <span className="btn-bg" style={{ background: '#2a3a6e' }} />
-                <span className="relative z-10 flex items-center gap-2">
-                  View live <ExternalLink size={14} />
-                </span>
-              </a>
+              {/* Right — project info */}
+              <div className="flex-1 p-8 md:p-10 flex flex-col justify-between">
+                <div>
+                  {/* Tags */}
+                  <div className="flex flex-wrap items-center gap-2 mb-5">
+                    <span className="px-3 py-1 rounded-full text-xs font-semibold"
+                      style={{ background: '#3D549F', color: 'white', letterSpacing: '0.04em' }}>
+                      Website
+                    </span>
+                    <span className="px-3 py-1 rounded-full text-xs font-semibold"
+                      style={{ background: '#EEBB3720', color: '#8a6c10', letterSpacing: '0.04em', border: '1px solid #EEBB3740' }}>
+                      Civic
+                    </span>
+                    <span className="px-3 py-1 rounded-full text-xs font-medium text-[#111111]/40"
+                      style={{ background: '#11111108', letterSpacing: '0.04em' }}>
+                      React · Tailwind
+                    </span>
+                  </div>
+
+                  {/* Title */}
+                  <h3
+                    className="font-heading font-semibold text-[#111111] mb-3"
+                    style={{ fontSize: '1.4rem', letterSpacing: '-0.02em', lineHeight: 1.2 }}
+                  >
+                    Huis van Actief Burgerschap
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-[#111111]/55 leading-relaxed mb-4" style={{ fontSize: '0.92rem' }}>
+                    Civic engagement platform for Noord-Holland Noord. Connecting residents, local initiatives, and communities through an interactive map, initiative library, and clear calls-to-action.
+                  </p>
+
+                  {/* Highlights */}
+                  <div className="flex flex-col gap-2">
+                    {[
+                      'Interactive Leaflet map across 5 municipalities',
+                      'Fully responsive · Framer Motion animations',
+                      'Built for civic and non-profit organisations',
+                    ].map((item, i) => (
+                      <div key={i} className="flex items-start gap-2">
+                        <div className="w-1 h-1 rounded-full mt-2 shrink-0" style={{ background: '#3D549F' }} />
+                        <span className="text-[#111111]/45 text-xs leading-relaxed">{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* CTA */}
+                <a
+                  href="https://huis-van-actief-burgerschap.vercel.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn text-white text-sm px-6 py-3 mt-8 self-start"
+                  style={{ background: '#3D549F' }}
+                >
+                  <span className="btn-bg" style={{ background: '#2a3a6e' }} />
+                  <span className="relative z-10 flex items-center gap-2">
+                    View live <ExternalLink size={14} />
+                  </span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
-      </div>
       </div>
 
       {/* ── Lumine ContainerScroll — animatie behouden ── */}

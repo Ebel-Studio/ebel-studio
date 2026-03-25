@@ -1,19 +1,59 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Ebel — Modern websites for creatives and businesses that want to stand out online. Fast, custom, and built to last." />
-    <title>Ebel — Modern. Fast. Honest.</title>
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Ebel — Modern websites for creatives and businesses that want to stand out online. Fast, custom, and built to last." />
+  <title>Ebel — Modern. Fast. Honest.</title>
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://ebel.studio/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:title"       content="Ebel — Modern. Fast. Honest." />
+  <meta property="og:description" content="Modern websites for creatives and businesses that want to stand out online. Fast, custom, and built to last." />
+  <meta property="og:url"         content="https://ebel.studio/" />
+  <meta property="og:image"       content="https://ebel.studio/og-image.png" /><!-- vervang met echte screenshot URL -->
+  <meta name="twitter:card"       content="summary_large_image" />
+  <meta name="twitter:image"      content="https://ebel.studio/og-image.png" /><!-- vervang met echte screenshot URL -->
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Ebel",
+    "url": "https://ebel.studio",
+    "email": "hello@ebel.studio",
+    "jobTitle": "Web Developer",
+    "description": "Modern custom websites for creatives and businesses. Fast builds, AI-powered updates, worry-free hosting.",
+    "knowsAbout": ["Web Development", "React", "UI Design", "SEO", "WhatsApp AI updates"],
+    "offers": {
+      "@type": "Offer",
+      "name": "Custom Website Development",
+      "description": "Custom-built websites with AI-powered content updates via WhatsApp and monthly maintenance."
+    },
+    "sameAs": [
+      "https://wa.me/31612345678"
+    ]
+  }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+
 </html>

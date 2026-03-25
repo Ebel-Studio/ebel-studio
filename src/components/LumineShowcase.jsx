@@ -101,6 +101,7 @@ function LumineMockup() {
         <img
           src="https://lumine-theta.vercel.app/LOGO/lumein%20logo.png"
           alt="Lumine"
+          loading="lazy"
           style={{
             width: '100%',
             maxWidth: '260px',
