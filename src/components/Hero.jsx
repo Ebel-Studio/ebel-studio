@@ -14,6 +14,8 @@ const STYLES = `
   .ch-badge-a, .ch-badge-b, .ch-cta { opacity: 0; visibility: hidden; }
   .ch-phone, .ch-bubble { opacity: 0; }
   .mob-slide-1, .mob-slide-2 { opacity: 0; visibility: hidden; }
+  .mob-editing-badge, .mob-live-badge, .mob-cursor, .mob-show-after { opacity: 0; visibility: hidden; }
+  .mob-bubble { opacity: 0; }
 
   /* ── Grid background ──────────────────────────── */
   .ch-grid {
@@ -94,12 +96,12 @@ const STYLES = `
 /* ── Lumine shows preview — zoomed in, big & readable ───────────── */
 function SitePreview() {
   const showsBefore = [
-    { date: '10 APR', venue: 'Fundbureau',    city: 'Hamburg, DE'   },
-    { date: '26 APR', venue: 'Poppodium 013', city: 'Tilburg, NL'   },
+    { date: '10 APR', venue: 'Fundbureau',    city: 'Hamburg'   },
+    { date: '26 APR', venue: 'Poppodium 013', city: 'Tilburg'   },
   ]
   const showsAfter = [
-    { date: '29 MEI', venue: 'IJland',     city: 'Amsterdam, NL' },
-    { date: '03 JUN', venue: 'Thuishaven', city: 'Amsterdam, NL' },
+    { date: '29 MEI', venue: 'IJland',     city: 'Ams.' },
+    { date: '03 JUN', venue: 'Thuishaven', city: 'Ams.' },
   ]
 
   const showRow = (extra = {}) => ({
@@ -192,7 +194,7 @@ function SitePreview() {
               <div key={`a${i}`} className="ch-show-after" style={showRow({ opacity: 0, background: 'rgba(90,173,212,0.08)', border: '1px solid rgba(90,173,212,0.22)', borderLeft: '3px solid #5aadd4' })}>
                 <span style={{ fontSize: '0.64rem', color: '#5aadd4', fontFamily: 'monospace', fontWeight: 600, minWidth: '60px' }}>{s.date}</span>
                 <span style={{ fontSize: '0.8rem', color: '#fff', fontWeight: 700, flex: 1, paddingLeft: '6px' }}>{s.venue}</span>
-                <span style={{ fontSize: '0.58rem', color: 'rgba(255,255,255,0.38)', minWidth: '82px', textAlign: 'right', flexShrink: 0 }}>{s.city}</span>
+                <span style={{ fontSize: '0.58rem', color: 'rgba(255,255,255,0.38)', minWidth: '58px', textAlign: 'right', flexShrink: 0 }}>{s.city}</span>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '7px', flexShrink: 0 }}>
                   <span style={{ fontSize: '0.46rem', background: 'rgba(90,173,212,0.22)', color: '#5aadd4', borderRadius: '4px', padding: '2px 7px', fontWeight: 800, letterSpacing: '0.05em' }}>NEW</span>
                   <div style={{ background: 'rgba(90,173,212,0.12)', border: '1px solid rgba(90,173,212,0.28)', borderRadius: '20px', padding: '5px 14px', fontSize: '0.54rem', color: '#5aadd4', fontWeight: 600 }}>Tickets →</div>
@@ -223,15 +225,126 @@ function SitePreview() {
   )
 }
 
+/* ── Animated site preview for mobile slide 2 (mob-* GSAP classes) ─ */
+function MobileSitePreviewAnimated() {
+  const showsBefore = [
+    { date: '10 APR', venue: 'Fundbureau',    city: 'Hamburg' },
+    { date: '26 APR', venue: 'Poppodium 013', city: 'Tilburg' },
+  ]
+  const showsAfter = [
+    { date: '29 MEI', venue: 'IJland',     city: 'Ams.' },
+    { date: '03 JUN', venue: 'Thuishaven', city: 'Ams.' },
+  ]
+
+  const showRow = (extra = {}) => ({
+    display: 'flex', alignItems: 'center', gap: '8px',
+    padding: '13px 20px', borderRadius: '8px',
+    background: 'rgba(255,255,255,0.04)',
+    border: '1px solid rgba(255,255,255,0.07)',
+    ...extra,
+  })
+
+  return (
+    <div style={{
+      width: '100%', height: '100%',
+      background: 'linear-gradient(180deg,#07111a 0%,#0a1828 100%)',
+      fontFamily: '"Inter",sans-serif',
+      display: 'flex', flexDirection: 'column',
+      overflow: 'hidden',
+    }}>
+      {/* Nav */}
+      <div style={{
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        padding: '10px 22px', borderBottom: '1px solid rgba(255,255,255,0.07)', flexShrink: 0,
+        background: 'rgba(7,17,26,0.97)',
+      }}>
+        <img src="https://lumine-theta.vercel.app/LOGO/lumein%20logo.png" alt="Lumine" loading="lazy"
+          style={{ height: '22px', width: 'auto', display: 'block', filter: 'drop-shadow(0 0 4px rgba(90,173,212,0.3))' }}
+          draggable={false} />
+        <div style={{ display: 'flex', gap: '18px' }}>
+          {['Music','Shows','About','Connect'].map(l => (
+            <span key={l} style={{ fontSize: '0.55rem', color: l === 'Shows' ? '#5aadd4' : 'rgba(255,255,255,0.38)' }}>{l}</span>
+          ))}
+        </div>
+        <div style={{ background: 'linear-gradient(135deg,#5aadd4,#3d8fb5)', borderRadius: '20px', padding: '5px 14px', fontSize: '0.52rem', fontWeight: 700, color: '#07111a' }}>
+          Claim a Spot
+        </div>
+      </div>
+
+      {/* Shows */}
+      <div style={{ flex: 1, padding: '22px', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px', flexShrink: 0 }}>
+          <h2 style={{ fontSize: '1.15rem', fontWeight: 800, color: '#fff', letterSpacing: '-0.02em', margin: 0 }}>Upcoming Shows</h2>
+          <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+            <span style={{ fontSize: '0.52rem', color: 'rgba(255,255,255,0.25)', fontFamily: 'monospace' }}>lumine.nl</span>
+            <div className="mob-editing-badge" style={{
+              position: 'absolute', right: 0, whiteSpace: 'nowrap',
+              display: 'flex', alignItems: 'center', gap: '5px',
+              background: 'rgba(90,173,212,0.18)', border: '1px solid rgba(90,173,212,0.4)',
+              borderRadius: '20px', padding: '3px 9px',
+              fontSize: '0.55rem', color: '#5aadd4', fontWeight: 700,
+              visibility: 'hidden', opacity: 0,
+            }}>
+              <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#5aadd4', display: 'inline-block', flexShrink: 0, animation: 'lPulse 1s ease-in-out infinite' }} />
+              Ebel is aan het editen…
+            </div>
+            <div className="mob-live-badge" style={{
+              position: 'absolute', right: 0, whiteSpace: 'nowrap',
+              display: 'flex', alignItems: 'center', gap: '5px',
+              background: 'rgba(34,197,94,0.14)', border: '1px solid rgba(34,197,94,0.4)',
+              borderRadius: '20px', padding: '3px 9px',
+              fontSize: '0.55rem', color: '#4ade80', fontWeight: 700,
+              visibility: 'hidden', opacity: 0,
+            }}>✓ Live</div>
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '7px' }}>
+          {/* Google Docs cursor */}
+          <div className="mob-cursor" style={{ position: 'relative', height: '3px', opacity: 0, overflow: 'visible', margin: '2px 6px', flexShrink: 0 }}>
+            <div style={{ position: 'absolute', left: 0, top: '-13px', width: '2px', height: '26px', background: '#5aadd4', borderRadius: '1px', animation: 'lCaretBlink 0.7s ease-in-out infinite' }} />
+            <div style={{ position: 'absolute', left: '6px', top: '-13px', background: '#5aadd4', color: '#07111a', fontSize: '0.44rem', fontWeight: 800, padding: '2px 7px', borderRadius: '0 3px 3px 3px', whiteSpace: 'nowrap', letterSpacing: '0.06em' }}>Ebel</div>
+          </div>
+
+          {/* New shows wrapper */}
+          <div className="mob-show-after-wrapper" style={{ overflow: 'hidden', maxHeight: '0px', display: 'flex', flexDirection: 'column', gap: '7px' }}>
+            {showsAfter.map((s, i) => (
+              <div key={i} className="mob-show-after" style={showRow({ opacity: 0, background: 'rgba(90,173,212,0.08)', border: '1px solid rgba(90,173,212,0.22)', borderLeft: '3px solid #5aadd4' })}>
+                <span style={{ fontSize: '0.64rem', color: '#5aadd4', fontFamily: 'monospace', fontWeight: 600, minWidth: '60px' }}>{s.date}</span>
+                <span style={{ fontSize: '0.8rem', color: '#fff', fontWeight: 700, flex: 1, paddingLeft: '6px' }}>{s.venue}</span>
+                <span style={{ fontSize: '0.58rem', color: 'rgba(255,255,255,0.38)', minWidth: '58px', textAlign: 'right', flexShrink: 0 }}>{s.city}</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '7px', flexShrink: 0 }}>
+                  <span style={{ fontSize: '0.46rem', background: 'rgba(90,173,212,0.22)', color: '#5aadd4', borderRadius: '4px', padding: '2px 7px', fontWeight: 800 }}>NEW</span>
+                  <div style={{ background: 'rgba(90,173,212,0.12)', border: '1px solid rgba(90,173,212,0.28)', borderRadius: '20px', padding: '5px 12px', fontSize: '0.54rem', color: '#5aadd4', fontWeight: 600 }}>Tickets →</div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Original shows */}
+          {showsBefore.map((s, i) => (
+            <div key={i} style={showRow()}>
+              <span style={{ fontSize: '0.64rem', color: '#5aadd4', fontFamily: 'monospace', fontWeight: 600, minWidth: '60px' }}>{s.date}</span>
+              <span style={{ fontSize: '0.8rem', color: '#fff', fontWeight: 700, flex: 1, paddingLeft: '6px' }}>{s.venue}</span>
+              <span style={{ fontSize: '0.58rem', color: 'rgba(255,255,255,0.38)', minWidth: '58px', textAlign: 'right', flexShrink: 0 }}>{s.city}</span>
+              <div style={{ background: 'rgba(90,173,212,0.12)', border: '1px solid rgba(90,173,212,0.25)', borderRadius: '20px', padding: '5px 12px', fontSize: '0.54rem', color: '#5aadd4', fontWeight: 600, flexShrink: 0 }}>Tickets →</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 /* ── Static site preview (no GSAP classes) for mobile slides ────── */
 function StaticSitePreview({ live = false }) {
   const showsBefore = [
-    { date: '10 APR', venue: 'Fundbureau',    city: 'Hamburg, DE'   },
-    { date: '26 APR', venue: 'Poppodium 013', city: 'Tilburg, NL'   },
+    { date: '10 APR', venue: 'Fundbureau',    city: 'Hamburg'   },
+    { date: '26 APR', venue: 'Poppodium 013', city: 'Tilburg'   },
   ]
   const showsAfter = [
-    { date: '29 MEI', venue: 'IJland',     city: 'Amsterdam, NL' },
-    { date: '03 JUN', venue: 'Thuishaven', city: 'Amsterdam, NL' },
+    { date: '29 MEI', venue: 'IJland',     city: 'Ams.' },
+    { date: '03 JUN', venue: 'Thuishaven', city: 'Ams.' },
   ]
   const shows = live ? [...showsAfter, ...showsBefore] : showsBefore
 
@@ -290,7 +403,7 @@ function StaticSitePreview({ live = false }) {
               <div key={i} style={showRow(isNew)}>
                 <span style={{ fontSize: '0.64rem', color: '#5aadd4', fontFamily: 'monospace', fontWeight: 600, minWidth: '60px' }}>{s.date}</span>
                 <span style={{ fontSize: '0.8rem', color: '#fff', fontWeight: 700, flex: 1, paddingLeft: '6px' }}>{s.venue}</span>
-                <span style={{ fontSize: '0.58rem', color: 'rgba(255,255,255,0.38)', minWidth: '82px', textAlign: 'right', flexShrink: 0 }}>{s.city}</span>
+                <span style={{ fontSize: '0.58rem', color: 'rgba(255,255,255,0.38)', minWidth: '58px', textAlign: 'right', flexShrink: 0 }}>{s.city}</span>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '7px', flexShrink: 0 }}>
                   {isNew && <span style={{ fontSize: '0.46rem', background: 'rgba(90,173,212,0.22)', color: '#5aadd4', borderRadius: '4px', padding: '2px 7px', fontWeight: 800 }}>NEW</span>}
                   <div style={{ background: 'rgba(90,173,212,0.12)', border: '1px solid rgba(90,173,212,0.28)', borderRadius: '20px', padding: '5px 14px', fontSize: '0.54rem', color: '#5aadd4', fontWeight: 600 }}>Tickets →</div>
@@ -521,7 +634,7 @@ function MobilePhoneSlide() {
         {BUBBLES.map((b, i) => {
           const isSent = b.side === 'client'
           return (
-            <div key={i} style={{ display: 'flex', justifyContent: isSent ? 'flex-end' : 'flex-start' }}>
+            <div key={i} className="mob-bubble" style={{ display: 'flex', justifyContent: isSent ? 'flex-end' : 'flex-start' }}>
               <div style={{
                 maxWidth: '85%', padding: '5px 8px 14px', position: 'relative',
                 borderRadius: isSent ? '8px 8px 2px 8px' : '8px 8px 8px 2px',
@@ -607,6 +720,11 @@ export default function Hero() {
       if (mobile) {
         gsap.set('.mob-slide-1', { autoAlpha: 0 })
         gsap.set('.mob-slide-2', { autoAlpha: 0 })
+        gsap.set('.mob-bubble', { opacity: 0, y: 6 })
+        gsap.set('.mob-editing-badge', { autoAlpha: 0, scale: 0.9 })
+        gsap.set('.mob-live-badge', { autoAlpha: 0, scale: 0.9 })
+        gsap.set('.mob-cursor', { autoAlpha: 0 })
+        gsap.set('.mob-show-after', { autoAlpha: 0, y: 6 })
       }
 
       /* ── Page-load entrance */
@@ -636,28 +754,41 @@ export default function Hero() {
       tl.to('.ch-card', { scale: 1, borderRadius: '0px', duration: 1.1, ease: 'power2.inOut' })
 
       if (mobile) {
-        // ── Mobile: 3 slides — original site → WhatsApp → live site → CTA
+        // ── Mobile: 3 slides — original site → WhatsApp → live editing → CTA
         tl
           // Hold on slide 0 (original site)
-          .to({}, { duration: 0.7 })
-          // Slide 0 → Slide 1 (WhatsApp conversation)
+          .to({}, { duration: 0.6 })
+          // Slide 0 → Slide 1 (WhatsApp)
           .to('.mob-slide-0', { autoAlpha: 0, x: -28, duration: 0.5, ease: 'power2.in' })
           .fromTo('.mob-slide-1',
             { autoAlpha: 0, x: 36 },
             { autoAlpha: 1, x: 0, duration: 0.6, ease: 'power3.out' },
             '-=0.2'
           )
+          // Bubbles pop in with stagger
+          .to('.mob-bubble', { opacity: 1, y: 0, duration: 0.2, stagger: 0.1, ease: 'power3.out' })
           // Hold on slide 1
-          .to({}, { duration: 1.1 })
-          // Slide 1 → Slide 2 (live site)
+          .to({}, { duration: 0.8 })
+          // Slide 1 → Slide 2 (live editing)
           .to('.mob-slide-1', { autoAlpha: 0, x: -28, duration: 0.5, ease: 'power2.in' })
           .fromTo('.mob-slide-2',
             { autoAlpha: 0, x: 36 },
             { autoAlpha: 1, x: 0, duration: 0.6, ease: 'power3.out' },
             '-=0.2'
           )
-          // Hold on slide 2
-          .to({}, { duration: 0.8 })
+          // Brief pause before editing starts
+          .to({}, { duration: 0.4 })
+          // ── Google Docs editing sequence ──
+          .to('.mob-editing-badge', { autoAlpha: 1, scale: 1, duration: 0.35, ease: 'back.out(1.4)' })
+          .to('.mob-cursor', { autoAlpha: 1, duration: 0.15 })
+          .to('.mob-show-after-wrapper', { maxHeight: 160, duration: 0.6, ease: 'power3.out' }, '+=0.15')
+          .to('.mob-show-after', { autoAlpha: 1, y: 0, duration: 0.3, stagger: 0.18, ease: 'power3.out' }, '-=0.35')
+          .to('.mob-cursor', { autoAlpha: 0, duration: 0.2 }, '+=0.15')
+          .to('.mob-show-after', { borderLeftColor: 'rgba(90,173,212,0)', background: 'rgba(255,255,255,0.04)', duration: 0.4, ease: 'power2.out' }, '+=0.1')
+          .to('.mob-editing-badge', { autoAlpha: 0, scale: 0.9, duration: 0.2 })
+          .to('.mob-live-badge', { autoAlpha: 1, scale: 1, duration: 0.3, ease: 'back.out(1.4)' })
+          // Hold on final state
+          .to({}, { duration: 0.5 })
           // Transition to CTA
           .to('.mob-slide-2', { autoAlpha: 0, y: -20, duration: 0.5, ease: 'power2.in' })
           .to('.ch-cta', { autoAlpha: 1, scale: 1, duration: 1.1, ease: 'expo.out' }, '-=0.2')
@@ -788,10 +919,10 @@ export default function Hero() {
             </div>
             <div style={{ textAlign: 'center', paddingTop: '14px' }}>
               <p style={{ color: 'rgba(255,255,255,0.88)', fontSize: '0.92rem', fontWeight: 700, fontFamily: 'Inter, sans-serif', margin: 0, letterSpacing: '-0.01em' }}>
-                Er komen nieuwe shows aan.
+                Ik bouw websites. Jij beheert ze.
               </p>
               <p style={{ color: 'rgba(255,255,255,0.36)', fontSize: '0.7rem', fontFamily: 'Inter, sans-serif', margin: '4px 0 0' }}>
-                IJland + Thuishaven staan er nog niet op.
+                Snel live, altijd bij te werken — via WhatsApp.
               </p>
             </div>
           </div>
@@ -801,15 +932,15 @@ export default function Hero() {
             <MobilePhoneSlide />
             <div style={{ textAlign: 'center', paddingTop: '14px' }}>
               <p style={{ color: 'rgba(255,255,255,0.88)', fontSize: '0.92rem', fontWeight: 700, fontFamily: 'Inter, sans-serif', margin: 0, letterSpacing: '-0.01em' }}>
-                Stuur één appje. Ebel regelt de rest.
+                Aanpassingen? Stuur een appje.
               </p>
               <p style={{ color: 'rgba(255,255,255,0.36)', fontSize: '0.7rem', fontFamily: 'Inter, sans-serif', margin: '4px 0 0' }}>
-                24/7 online · live in minuten · geen factuur
+                Jij vraagt, Ebel AI verwerkt het — 24/7, geen factuur.
               </p>
             </div>
           </div>
 
-          {/* Slide 2: live site */}
+          {/* Slide 2: live editing animation */}
           <div className="mob-slide-2 absolute inset-0 z-10 flex flex-col items-center justify-center md:hidden" style={{ padding: '52px 12px 12px' }}>
             <div style={{ width: '100%', borderRadius: '10px', overflow: 'hidden', boxShadow: '0 28px 56px -10px rgba(0,0,0,0.9)', background: '#0d1117' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '8px 12px', background: '#1a1f30', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
@@ -817,15 +948,15 @@ export default function Hero() {
                 <div style={{ flex: 1, margin: '0 8px', padding: '2px 8px', borderRadius: '20px', background: '#0d1117', border: '1px solid rgba(255,255,255,0.07)', fontSize: '0.48rem', color: 'rgba(255,255,255,0.28)', textAlign: 'center' }}>lumine.nl</div>
               </div>
               <div style={{ height: 'clamp(200px, 44vh, 340px)', overflow: 'hidden' }}>
-                <StaticSitePreview live={true} />
+                <MobileSitePreviewAnimated />
               </div>
             </div>
             <div style={{ textAlign: 'center', paddingTop: '14px' }}>
-              <p style={{ color: '#4ade80', fontSize: '0.92rem', fontWeight: 700, fontFamily: 'Inter, sans-serif', margin: 0, letterSpacing: '-0.01em' }}>
-                Live in 3 minuten. ✓
+              <p style={{ color: 'rgba(255,255,255,0.88)', fontSize: '0.92rem', fontWeight: 700, fontFamily: 'Inter, sans-serif', margin: 0, letterSpacing: '-0.01em' }}>
+                Zo ziet een update eruit.
               </p>
               <p style={{ color: 'rgba(255,255,255,0.36)', fontSize: '0.7rem', fontFamily: 'Inter, sans-serif', margin: '4px 0 0' }}>
-                Geen developer-factuur voor elk dingetje.
+                Geen gedoe, geen factuur, gewoon live.
               </p>
             </div>
           </div>
