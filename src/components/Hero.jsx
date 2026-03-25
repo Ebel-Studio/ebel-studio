@@ -103,7 +103,7 @@ function SitePreview() {
   ]
 
   const showRow = (extra = {}) => ({
-    display: 'flex', alignItems: 'center', gap: '0',
+    display: 'flex', alignItems: 'center', gap: '8px',
     padding: '13px 20px', borderRadius: '8px',
     background: 'rgba(255,255,255,0.04)',
     border: '1px solid rgba(255,255,255,0.07)',
@@ -191,8 +191,8 @@ function SitePreview() {
             {showsAfter.map((s, i) => (
               <div key={`a${i}`} className="ch-show-after" style={showRow({ opacity: 0, background: 'rgba(90,173,212,0.08)', border: '1px solid rgba(90,173,212,0.22)', borderLeft: '3px solid #5aadd4' })}>
                 <span style={{ fontSize: '0.64rem', color: '#5aadd4', fontFamily: 'monospace', fontWeight: 600, minWidth: '60px' }}>{s.date}</span>
-                <span style={{ fontSize: '0.8rem', color: '#fff', fontWeight: 700, flex: 1, paddingLeft: '14px' }}>{s.venue}</span>
-                <span style={{ fontSize: '0.58rem', color: 'rgba(255,255,255,0.38)', paddingRight: '16px' }}>{s.city}</span>
+                <span style={{ fontSize: '0.8rem', color: '#fff', fontWeight: 700, flex: 1, paddingLeft: '6px' }}>{s.venue}</span>
+                <span style={{ fontSize: '0.58rem', color: 'rgba(255,255,255,0.38)', minWidth: '82px', textAlign: 'right', flexShrink: 0 }}>{s.city}</span>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '7px', flexShrink: 0 }}>
                   <span style={{ fontSize: '0.46rem', background: 'rgba(90,173,212,0.22)', color: '#5aadd4', borderRadius: '4px', padding: '2px 7px', fontWeight: 800, letterSpacing: '0.05em' }}>NEW</span>
                   <div style={{ background: 'rgba(90,173,212,0.12)', border: '1px solid rgba(90,173,212,0.28)', borderRadius: '20px', padding: '5px 14px', fontSize: '0.54rem', color: '#5aadd4', fontWeight: 600 }}>Tickets →</div>
@@ -236,7 +236,7 @@ function StaticSitePreview({ live = false }) {
   const shows = live ? [...showsAfter, ...showsBefore] : showsBefore
 
   const showRow = (highlight = false) => ({
-    display: 'flex', alignItems: 'center',
+    display: 'flex', alignItems: 'center', gap: '8px',
     padding: '13px 20px', borderRadius: '8px',
     background: highlight ? 'rgba(90,173,212,0.08)' : 'rgba(255,255,255,0.04)',
     border: highlight ? '1px solid rgba(90,173,212,0.22)' : '1px solid rgba(255,255,255,0.07)',
@@ -289,8 +289,8 @@ function StaticSitePreview({ live = false }) {
             return (
               <div key={i} style={showRow(isNew)}>
                 <span style={{ fontSize: '0.64rem', color: '#5aadd4', fontFamily: 'monospace', fontWeight: 600, minWidth: '60px' }}>{s.date}</span>
-                <span style={{ fontSize: '0.8rem', color: '#fff', fontWeight: 700, flex: 1, paddingLeft: '14px' }}>{s.venue}</span>
-                <span style={{ fontSize: '0.58rem', color: 'rgba(255,255,255,0.38)', paddingRight: '16px' }}>{s.city}</span>
+                <span style={{ fontSize: '0.8rem', color: '#fff', fontWeight: 700, flex: 1, paddingLeft: '6px' }}>{s.venue}</span>
+                <span style={{ fontSize: '0.58rem', color: 'rgba(255,255,255,0.38)', minWidth: '82px', textAlign: 'right', flexShrink: 0 }}>{s.city}</span>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '7px', flexShrink: 0 }}>
                   {isNew && <span style={{ fontSize: '0.46rem', background: 'rgba(90,173,212,0.22)', color: '#5aadd4', borderRadius: '4px', padding: '2px 7px', fontWeight: 800 }}>NEW</span>}
                   <div style={{ background: 'rgba(90,173,212,0.12)', border: '1px solid rgba(90,173,212,0.28)', borderRadius: '20px', padding: '5px 14px', fontSize: '0.54rem', color: '#5aadd4', fontWeight: 600 }}>Tickets →</div>
@@ -782,15 +782,31 @@ export default function Hero() {
                 {['#ff5f57','#ffbd2e','#28c840'].map(c => <div key={c} style={{ width: '7px', height: '7px', borderRadius: '50%', background: c, flexShrink: 0 }} />)}
                 <div style={{ flex: 1, margin: '0 8px', padding: '2px 8px', borderRadius: '20px', background: '#0d1117', border: '1px solid rgba(255,255,255,0.07)', fontSize: '0.48rem', color: 'rgba(255,255,255,0.28)', textAlign: 'center' }}>lumine.nl</div>
               </div>
-              <div style={{ height: 'clamp(220px, 48vh, 360px)', overflow: 'hidden' }}>
+              <div style={{ height: 'clamp(200px, 44vh, 340px)', overflow: 'hidden' }}>
                 <StaticSitePreview live={false} />
               </div>
+            </div>
+            <div style={{ textAlign: 'center', paddingTop: '14px' }}>
+              <p style={{ color: 'rgba(255,255,255,0.88)', fontSize: '0.92rem', fontWeight: 700, fontFamily: 'Inter, sans-serif', margin: 0, letterSpacing: '-0.01em' }}>
+                Er komen nieuwe shows aan.
+              </p>
+              <p style={{ color: 'rgba(255,255,255,0.36)', fontSize: '0.7rem', fontFamily: 'Inter, sans-serif', margin: '4px 0 0' }}>
+                IJland + Thuishaven staan er nog niet op.
+              </p>
             </div>
           </div>
 
           {/* Slide 1: WhatsApp conversation */}
           <div className="mob-slide-1 absolute inset-0 z-10 flex flex-col items-center justify-center md:hidden" style={{ padding: '52px 24px 12px' }}>
             <MobilePhoneSlide />
+            <div style={{ textAlign: 'center', paddingTop: '14px' }}>
+              <p style={{ color: 'rgba(255,255,255,0.88)', fontSize: '0.92rem', fontWeight: 700, fontFamily: 'Inter, sans-serif', margin: 0, letterSpacing: '-0.01em' }}>
+                Stuur één appje. Ebel regelt de rest.
+              </p>
+              <p style={{ color: 'rgba(255,255,255,0.36)', fontSize: '0.7rem', fontFamily: 'Inter, sans-serif', margin: '4px 0 0' }}>
+                24/7 online · live in minuten · geen factuur
+              </p>
+            </div>
           </div>
 
           {/* Slide 2: live site */}
@@ -800,9 +816,17 @@ export default function Hero() {
                 {['#ff5f57','#ffbd2e','#28c840'].map(c => <div key={c} style={{ width: '7px', height: '7px', borderRadius: '50%', background: c, flexShrink: 0 }} />)}
                 <div style={{ flex: 1, margin: '0 8px', padding: '2px 8px', borderRadius: '20px', background: '#0d1117', border: '1px solid rgba(255,255,255,0.07)', fontSize: '0.48rem', color: 'rgba(255,255,255,0.28)', textAlign: 'center' }}>lumine.nl</div>
               </div>
-              <div style={{ height: 'clamp(220px, 48vh, 360px)', overflow: 'hidden' }}>
+              <div style={{ height: 'clamp(200px, 44vh, 340px)', overflow: 'hidden' }}>
                 <StaticSitePreview live={true} />
               </div>
+            </div>
+            <div style={{ textAlign: 'center', paddingTop: '14px' }}>
+              <p style={{ color: '#4ade80', fontSize: '0.92rem', fontWeight: 700, fontFamily: 'Inter, sans-serif', margin: 0, letterSpacing: '-0.01em' }}>
+                Live in 3 minuten. ✓
+              </p>
+              <p style={{ color: 'rgba(255,255,255,0.36)', fontSize: '0.7rem', fontFamily: 'Inter, sans-serif', margin: '4px 0 0' }}>
+                Geen developer-factuur voor elk dingetje.
+              </p>
             </div>
           </div>
 
