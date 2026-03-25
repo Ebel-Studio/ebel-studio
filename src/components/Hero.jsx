@@ -628,14 +628,16 @@ export default function Hero() {
           {/* ── 2-col content grid ──────────────────── */}
           <div
             className="relative w-full h-full max-w-7xl mx-auto px-4 lg:px-8
-                       flex flex-col justify-evenly
+                       flex flex-col justify-start gap-4
+                       pt-[72px] pb-4
+                       md:justify-evenly md:gap-0 md:pt-6 md:pb-6
                        lg:grid lg:grid-cols-[280px_1fr]
-                       items-center lg:gap-8 z-10 py-6 lg:py-0"
+                       items-center lg:gap-8 z-10 lg:pt-0 lg:pb-0"
           >
 
             {/* Col 2 — browser mockup + phone */}
             <div
-              className="ch-mockup order-1 lg:order-2 relative w-full h-[220px] sm:h-[320px] lg:h-[560px] flex items-center justify-center"
+              className="ch-mockup order-1 lg:order-2 relative w-full h-[160px] sm:h-[300px] lg:h-[560px] flex items-center justify-center"
               style={{ perspective: '900px', overflow: 'visible' }}
             >
               <div
@@ -704,12 +706,14 @@ export default function Hero() {
             </div>
 
             {/* Col 1 — copy */}
-            <div className="ch-col-left order-2 lg:order-1 flex flex-col justify-center text-center lg:text-left w-full px-4 lg:px-0 gap-4">
+            <div className="ch-col-left order-2 lg:order-1 flex flex-col justify-center text-left lg:text-left w-full px-2 lg:px-0 gap-3">
+
+              {/* Label + heading */}
               <div>
-                <p className="font-mono text-[0.6rem] tracking-widest uppercase mb-3" style={{ color: 'rgba(59,111,232,0.7)' }}>AI site manager</p>
+                <p className="font-mono text-[0.6rem] tracking-widest uppercase mb-2" style={{ color: 'rgba(59,111,232,0.7)' }}>AI site manager</p>
                 <h3
                   className="text-white font-heading font-semibold leading-tight"
-                  style={{ fontSize: 'clamp(1.2rem, 2.4vw, 1.9rem)', letterSpacing: '-0.02em' }}
+                  style={{ fontSize: 'clamp(1.15rem, 2.4vw, 1.9rem)', letterSpacing: '-0.02em' }}
                 >
                   Your site.<br />Your control.
                 </h3>
@@ -718,42 +722,47 @@ export default function Hero() {
                 </p>
               </div>
 
-              {/* ── Mobile-only: compact WhatsApp preview ─── */}
-              <div className="md:hidden rounded-2xl overflow-hidden text-left" style={{ background: '#0b141a', border: '1px solid rgba(255,255,255,0.07)' }}>
-                {/* WhatsApp header */}
-                <div style={{ background: '#202c33', padding: '8px 12px', display: 'flex', alignItems: 'center', gap: '8px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-                  <div style={{ width: '24px', height: '24px', borderRadius: '50%', flexShrink: 0, background: 'linear-gradient(135deg,#3B6FE8,#1A1A2E)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '10px', fontWeight: 700, color: '#fff', fontFamily: 'Inter,sans-serif' }}>E</div>
-                  <div>
+              {/* ── Mobile-only: WhatsApp conversation ── */}
+              <div className="md:hidden rounded-2xl overflow-hidden" style={{ background: '#0b141a', border: '1px solid rgba(255,255,255,0.08)' }}>
+                {/* Header */}
+                <div style={{ background: '#202c33', padding: '7px 12px', display: 'flex', alignItems: 'center', gap: '8px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                  <div style={{ width: '22px', height: '22px', borderRadius: '50%', flexShrink: 0, background: 'linear-gradient(135deg,#3B6FE8,#1A1A2E)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '9px', fontWeight: 700, color: '#fff', fontFamily: 'Inter,sans-serif' }}>E</div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
                     <div style={{ fontSize: '11px', fontWeight: 600, color: '#e9edef', fontFamily: 'Inter,sans-serif', lineHeight: 1.2 }}>Ebel</div>
-                    <div style={{ fontSize: '9px', color: '#00a884', fontFamily: 'Inter,sans-serif' }}>AI Developer · online</div>
+                    <div style={{ fontSize: '8.5px', color: '#00a884', fontFamily: 'Inter,sans-serif' }}>AI Developer · online</div>
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', opacity: 0.35 }}>
+                    {[0,1,2].map(i => <div key={i} style={{ width: '3px', height: '3px', borderRadius: '50%', background: '#aebac1' }} />)}
                   </div>
                 </div>
-                {/* Bubbles */}
-                <div style={{ padding: '10px 10px 12px', display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                {/* Date stamp */}
+                <div style={{ background: '#0b141a', padding: '6px 10px 4px', textAlign: 'center' }}>
+                  <span style={{ background: 'rgba(255,255,255,0.06)', borderRadius: '6px', padding: '1px 7px', fontSize: '8px', color: '#8696a0', fontFamily: 'Inter,sans-serif' }}>Vandaag</span>
+                </div>
+                {/* Chat bubbles */}
+                <div style={{ padding: '4px 8px 10px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
                   {[
-                    { side: 'client', text: '2 nieuwe shows toevoegen?' },
-                    { side: 'ai',     text: 'Klaar! Preview checken?\nDan zet ik hem live.' },
-                    { side: 'client', text: 'Perfect, doe maar!' },
-                    { side: 'ai',     text: '⚡ Live ✓', badge: '3 min' },
+                    { side: 'client', text: 'Hey, ik heb wat aanpassingen\nvoor de site. Kun je die\ndoorvoeren?',             time: '16:14' },
+                    { side: 'ai',     text: 'Ja, is goed! Stuur maar op.',                                                    time: '16:14' },
+                    { side: 'client', text: '2 nieuwe shows: IJland\n+ Thuishaven. Post erbij?',                              time: '16:14' },
+                    { side: 'ai',     text: 'Klaar! Hier de preview 🔗\nKlopt alles? Dan live.',                              time: '16:15' },
+                    { side: 'client', text: 'Ja, perfect. Doe maar!',                                                         time: '16:16' },
+                    { side: 'ai',     text: '2 shows + post live ✓',                                                          time: '16:16', badge: '3 min' },
                   ].map((b, i) => (
                     <div key={i} style={{ display: 'flex', justifyContent: b.side === 'client' ? 'flex-end' : 'flex-start' }}>
                       <div style={{
-                        maxWidth: '78%', padding: '5px 9px 14px', position: 'relative',
+                        maxWidth: '82%', padding: '4px 8px 13px', position: 'relative',
                         borderRadius: b.side === 'client' ? '8px 8px 2px 8px' : '8px 8px 8px 2px',
                         background: b.side === 'client' ? '#005c4b' : '#202c33',
                         boxShadow: '0 1px 2px rgba(0,0,0,0.3)',
                       }}>
-                        <p style={{ fontSize: '11px', color: '#e9edef', fontFamily: 'Inter,sans-serif', lineHeight: 1.4, margin: 0, whiteSpace: 'pre-line' }}>{b.text}</p>
-                        <div style={{ position: 'absolute', bottom: '4px', right: '7px', display: 'flex', alignItems: 'center', gap: '2px' }}>
+                        <p style={{ fontSize: '10.5px', color: '#e9edef', fontFamily: 'Inter,sans-serif', lineHeight: 1.38, margin: 0, whiteSpace: 'pre-line' }}>{b.text}</p>
+                        <div style={{ position: 'absolute', bottom: '3px', right: '6px', display: 'flex', alignItems: 'center', gap: '2px' }}>
                           {b.badge && (
-                            <span style={{ background: '#1f2d25', border: '1px solid #2a5e3a', borderRadius: '6px', padding: '1px 5px', fontSize: '7px', color: '#00a884', fontFamily: 'Inter,sans-serif', fontWeight: 600, marginRight: '2px' }}>
-                              {b.badge}
-                            </span>
+                            <span style={{ background: '#1f2d25', border: '1px solid #2a5e3a', borderRadius: '6px', padding: '1px 5px', fontSize: '7px', color: '#00a884', fontFamily: 'Inter,sans-serif', fontWeight: 600, marginRight: '2px' }}>⚡ {b.badge}</span>
                           )}
-                          <span style={{ fontSize: '8px', color: 'rgba(233,237,239,0.4)', fontFamily: 'Inter,sans-serif' }}>
-                            {b.side === 'client' ? '16:14' : '16:15'}
-                          </span>
-                          {b.side === 'client' && <span style={{ fontSize: '9px', color: '#53bdeb' }}>✓✓</span>}
+                          <span style={{ fontSize: '7.5px', color: 'rgba(233,237,239,0.4)', fontFamily: 'Inter,sans-serif' }}>{b.time}</span>
+                          {b.side === 'client' && <span style={{ fontSize: '9px', color: '#53bdeb', lineHeight: 1 }}>✓✓</span>}
                         </div>
                       </div>
                     </div>
@@ -761,17 +770,17 @@ export default function Hero() {
                 </div>
               </div>
 
-              {/* Bullets — all screens, fewer on mobile */}
-              <ul className="flex flex-col gap-2 text-left">
+              {/* Bullets */}
+              <ul className="flex flex-col gap-1.5">
                 {[
                   ['✦', 'Live binnen minuten'],
                   ['✦', 'Altijd preview-check voor go-live'],
                   ['✦', 'Goedkoper dan een dev op standby'],
                   ['✦', 'Jij blijft zelf aan het stuur'],
                 ].map(([icon, text], i) => (
-                  <li key={text} className={i >= 2 ? 'hidden md:flex items-center gap-2.5' : 'flex items-center gap-2.5'}>
-                    <span style={{ color: '#3B6FE8', fontSize: '0.6rem' }}>{icon}</span>
-                    <span style={{ color: 'rgba(255,255,255,0.52)', fontSize: '0.78rem' }}>{text}</span>
+                  <li key={text} className={i >= 2 ? 'hidden md:flex items-center gap-2' : 'flex items-center gap-2'}>
+                    <span style={{ color: '#3B6FE8', fontSize: '0.55rem' }}>{icon}</span>
+                    <span style={{ color: 'rgba(255,255,255,0.52)', fontSize: '0.75rem' }}>{text}</span>
                   </li>
                 ))}
               </ul>
