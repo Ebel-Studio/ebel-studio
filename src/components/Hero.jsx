@@ -13,6 +13,7 @@ const STYLES = `
   .ch-col-left, .ch-mockup,
   .ch-badge-a, .ch-badge-b, .ch-cta { opacity: 0; visibility: hidden; }
   .ch-phone, .ch-bubble { opacity: 0; }
+  .mob-slide-1, .mob-slide-2 { opacity: 0; visibility: hidden; }
 
   /* ── Grid background ──────────────────────────── */
   .ch-grid {
@@ -222,6 +223,87 @@ function SitePreview() {
   )
 }
 
+/* ── Static site preview (no GSAP classes) for mobile slides ────── */
+function StaticSitePreview({ live = false }) {
+  const showsBefore = [
+    { date: '10 APR', venue: 'Fundbureau',    city: 'Hamburg, DE'   },
+    { date: '26 APR', venue: 'Poppodium 013', city: 'Tilburg, NL'   },
+  ]
+  const showsAfter = [
+    { date: '29 MEI', venue: 'IJland',     city: 'Amsterdam, NL' },
+    { date: '03 JUN', venue: 'Thuishaven', city: 'Amsterdam, NL' },
+  ]
+  const shows = live ? [...showsAfter, ...showsBefore] : showsBefore
+
+  const showRow = (highlight = false) => ({
+    display: 'flex', alignItems: 'center',
+    padding: '13px 20px', borderRadius: '8px',
+    background: highlight ? 'rgba(90,173,212,0.08)' : 'rgba(255,255,255,0.04)',
+    border: highlight ? '1px solid rgba(90,173,212,0.22)' : '1px solid rgba(255,255,255,0.07)',
+    ...(highlight ? { borderLeft: '3px solid #5aadd4' } : {}),
+  })
+
+  return (
+    <div style={{
+      width: '100%', height: '100%',
+      background: 'linear-gradient(180deg,#07111a 0%,#0a1828 100%)',
+      fontFamily: '"Inter",sans-serif',
+      display: 'flex', flexDirection: 'column',
+      overflow: 'hidden',
+    }}>
+      {/* Nav */}
+      <div style={{
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        padding: '10px 22px', borderBottom: '1px solid rgba(255,255,255,0.07)', flexShrink: 0,
+        background: 'rgba(7,17,26,0.97)',
+      }}>
+        <img src="https://lumine-theta.vercel.app/LOGO/lumein%20logo.png" alt="Lumine" loading="lazy"
+          style={{ height: '22px', width: 'auto', display: 'block', filter: 'drop-shadow(0 0 4px rgba(90,173,212,0.3))' }}
+          draggable={false} />
+        <div style={{ display: 'flex', gap: '18px' }}>
+          {['Music','Shows','About','Connect'].map(l => (
+            <span key={l} style={{ fontSize: '0.55rem', color: l === 'Shows' ? '#5aadd4' : 'rgba(255,255,255,0.38)' }}>{l}</span>
+          ))}
+        </div>
+        <div style={{ background: 'linear-gradient(135deg,#5aadd4,#3d8fb5)', borderRadius: '20px', padding: '5px 14px', fontSize: '0.52rem', fontWeight: 700, color: '#07111a' }}>
+          Claim a Spot
+        </div>
+      </div>
+
+      {/* Shows */}
+      <div style={{ flex: 1, padding: '22px', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
+          <h2 style={{ fontSize: '1.15rem', fontWeight: 800, color: '#fff', letterSpacing: '-0.02em', margin: 0 }}>Upcoming Shows</h2>
+          {live && (
+            <div style={{
+              display: 'flex', alignItems: 'center', gap: '5px',
+              background: 'rgba(34,197,94,0.14)', border: '1px solid rgba(34,197,94,0.4)',
+              borderRadius: '20px', padding: '3px 9px',
+              fontSize: '0.55rem', color: '#4ade80', fontWeight: 700,
+            }}>✓ Live</div>
+          )}
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '7px' }}>
+          {shows.map((s, i) => {
+            const isNew = live && i < showsAfter.length
+            return (
+              <div key={i} style={showRow(isNew)}>
+                <span style={{ fontSize: '0.64rem', color: '#5aadd4', fontFamily: 'monospace', fontWeight: 600, minWidth: '60px' }}>{s.date}</span>
+                <span style={{ fontSize: '0.8rem', color: '#fff', fontWeight: 700, flex: 1, paddingLeft: '14px' }}>{s.venue}</span>
+                <span style={{ fontSize: '0.58rem', color: 'rgba(255,255,255,0.38)', paddingRight: '16px' }}>{s.city}</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '7px', flexShrink: 0 }}>
+                  {isNew && <span style={{ fontSize: '0.46rem', background: 'rgba(90,173,212,0.22)', color: '#5aadd4', borderRadius: '4px', padding: '2px 7px', fontWeight: 800 }}>NEW</span>}
+                  <div style={{ background: 'rgba(90,173,212,0.12)', border: '1px solid rgba(90,173,212,0.28)', borderRadius: '20px', padding: '5px 14px', fontSize: '0.54rem', color: '#5aadd4', fontWeight: 600 }}>Tickets →</div>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 /* ── WhatsApp-style phone mockup ─────────────────────────────────── */
 const BUBBLES = [
   { side: 'client', text: 'Hey, ik heb wat aanpassingen\nvoor de site. Kun je die\ndoorvoeren?', time: '16:14' },
@@ -410,6 +492,64 @@ function PhoneMockup() {
   )
 }
 
+/* ── Static phone for mobile slide 1 (all bubbles pre-visible) ───── */
+function MobilePhoneSlide() {
+  return (
+    <div style={{
+      background: '#111b21', borderRadius: '24px',
+      border: '1px solid rgba(255,255,255,0.07)',
+      overflow: 'hidden',
+      boxShadow: '0 24px 56px -8px rgba(0,0,0,0.9)',
+      width: '100%', maxWidth: '280px',
+    }}>
+      {/* Top bar */}
+      <div style={{ background: '#202c33', padding: '8px 12px 7px', display: 'flex', alignItems: 'center', gap: '8px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+        <div style={{ width: '26px', height: '26px', borderRadius: '50%', flexShrink: 0, background: 'linear-gradient(135deg,#3B6FE8,#1A1A2E)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '10px', fontWeight: 700, color: '#fff', fontFamily: 'Inter,sans-serif' }}>E</div>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ fontSize: '12px', fontWeight: 600, color: '#e9edef', fontFamily: 'Inter,sans-serif', lineHeight: 1.2 }}>Ebel</div>
+          <div style={{ fontSize: '9px', color: '#00a884', fontFamily: 'Inter,sans-serif' }}>AI Developer · online</div>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', opacity: 0.4 }}>
+          {[0,1,2].map(i => <div key={i} style={{ width: '3px', height: '3px', borderRadius: '50%', background: '#aebac1' }} />)}
+        </div>
+      </div>
+      {/* Chat */}
+      <div style={{ background: '#0b141a', padding: '8px 8px 10px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+        <div style={{ textAlign: 'center', marginBottom: '2px' }}>
+          <span style={{ background: 'rgba(255,255,255,0.07)', borderRadius: '6px', padding: '2px 7px', fontSize: '8px', color: '#8696a0', fontFamily: 'Inter,sans-serif' }}>Vandaag</span>
+        </div>
+        {BUBBLES.map((b, i) => {
+          const isSent = b.side === 'client'
+          return (
+            <div key={i} style={{ display: 'flex', justifyContent: isSent ? 'flex-end' : 'flex-start' }}>
+              <div style={{
+                maxWidth: '85%', padding: '5px 8px 14px', position: 'relative',
+                borderRadius: isSent ? '8px 8px 2px 8px' : '8px 8px 8px 2px',
+                background: isSent ? '#005c4b' : '#202c33',
+                boxShadow: '0 1px 2px rgba(0,0,0,0.3)',
+              }}>
+                <p style={{ fontSize: '11px', color: '#e9edef', fontFamily: 'Inter,sans-serif', lineHeight: 1.4, margin: 0, whiteSpace: 'pre-line' }}>{b.text}</p>
+                <div style={{ position: 'absolute', bottom: '4px', right: '7px', display: 'flex', alignItems: 'center', gap: '2px' }}>
+                  <span style={{ fontSize: '8px', color: 'rgba(233,237,239,0.45)', fontFamily: 'Inter,sans-serif' }}>{b.time}</span>
+                  {isSent && <span style={{ fontSize: '9px', color: '#53bdeb', lineHeight: 1 }}>✓✓</span>}
+                </div>
+                {b.badge && (
+                  <div style={{ position: 'absolute', bottom: '-9px', left: '6px', background: '#1f2d25', border: '1px solid #2a5e3a', borderRadius: '8px', padding: '1px 6px', fontSize: '8px', color: '#00a884', fontFamily: 'Inter,sans-serif', fontWeight: 600, whiteSpace: 'nowrap' }}>⚡ {b.badge}</div>
+                )}
+              </div>
+            </div>
+          )
+        })}
+      </div>
+      {/* Input bar */}
+      <div style={{ background: '#202c33', padding: '6px 10px', display: 'flex', alignItems: 'center', gap: '6px', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+        <div style={{ flex: 1, background: '#2a3942', borderRadius: '20px', padding: '5px 10px', fontSize: '9px', color: 'rgba(255,255,255,0.25)', fontFamily: 'Inter,sans-serif' }}>Stuur een bericht</div>
+        <div style={{ width: '22px', height: '22px', borderRadius: '50%', background: '#00a884', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '10px', flexShrink: 0 }}>🎤</div>
+      </div>
+    </div>
+  )
+}
+
 export default function Hero() {
   const sectionRef = useRef(null)
   const cardRef = useRef(null)
@@ -464,6 +604,10 @@ export default function Hero() {
       gsap.set('.ch-live-badge', { autoAlpha: 0, scale: 0.9 })
       gsap.set('.ch-cursor', { autoAlpha: 0 })
       gsap.set('.ch-show-after', { autoAlpha: 0, y: 6 })
+      if (mobile) {
+        gsap.set('.mob-slide-1', { autoAlpha: 0 })
+        gsap.set('.mob-slide-2', { autoAlpha: 0 })
+      }
 
       /* ── Page-load entrance */
       gsap.timeline({ delay: 0.2 })
@@ -472,7 +616,7 @@ export default function Hero() {
         .to('.ch-hint', { autoAlpha: 1, duration: 0.5 }, '-=0.1')
 
       /* ── Scroll-pinned cinematic timeline */
-      gsap.timeline({
+      const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
           start: 'top top',
@@ -482,91 +626,95 @@ export default function Hero() {
           anticipatePin: 1,
         },
       })
-        // Phase 1 — hero text fades, card rises
-        .to('.ch-hero-bg', { autoAlpha: 0, scale: 1.03, duration: 1.2, ease: 'power2.out' }, 0)
+
+      // Phase 1 — hero text fades, card rises
+      tl.to('.ch-hero-bg', { autoAlpha: 0, scale: 1.03, duration: 1.2, ease: 'power2.out' }, 0)
         .to('.ch-hint', { autoAlpha: 0, duration: 0.6 }, 0)
         .to('.ch-card', { y: 0, duration: 1.4, ease: 'power3.inOut' }, 0)
 
-        // Phase 2 — card fills screen
-        .to('.ch-card', { scale: 1, borderRadius: '0px', duration: 1.1, ease: 'power2.inOut' })
+      // Phase 2 — card fills screen
+      tl.to('.ch-card', { scale: 1, borderRadius: '0px', duration: 1.1, ease: 'power2.inOut' })
 
-        // Phase 3 — mockup + badges + copy enter
-        .fromTo('.ch-mockup',
-          { y: 120, rotationX: 18, rotationY: -8, autoAlpha: 0, scale: 0.8 },
-          { y: 0, rotationX: 0, rotationY: 0, autoAlpha: 1, scale: 1, duration: 1.5, ease: 'expo.out' },
-          '-=0.4'
-        )
-        .fromTo('.ch-badge-a', { y: 30, autoAlpha: 0, scale: 0.85 }, { y: 0, autoAlpha: 1, scale: 1, duration: 0.85, ease: 'back.out(1.2)' }, '-=0.9')
-        .fromTo('.ch-badge-b', { y: 30, autoAlpha: 0, scale: 0.85 }, { y: 0, autoAlpha: 1, scale: 1, duration: 0.85, ease: 'back.out(1.2)' }, '-=0.7')
-        .fromTo('.ch-col-left', { x: -28, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 0.85, ease: 'power4.out' }, '-=0.65')
+      if (mobile) {
+        // ── Mobile: 3 slides — original site → WhatsApp → live site → CTA
+        tl
+          // Hold on slide 0 (original site)
+          .to({}, { duration: 0.7 })
+          // Slide 0 → Slide 1 (WhatsApp conversation)
+          .to('.mob-slide-0', { autoAlpha: 0, x: -28, duration: 0.5, ease: 'power2.in' })
+          .fromTo('.mob-slide-1',
+            { autoAlpha: 0, x: 36 },
+            { autoAlpha: 1, x: 0, duration: 0.6, ease: 'power3.out' },
+            '-=0.2'
+          )
+          // Hold on slide 1
+          .to({}, { duration: 1.1 })
+          // Slide 1 → Slide 2 (live site)
+          .to('.mob-slide-1', { autoAlpha: 0, x: -28, duration: 0.5, ease: 'power2.in' })
+          .fromTo('.mob-slide-2',
+            { autoAlpha: 0, x: 36 },
+            { autoAlpha: 1, x: 0, duration: 0.6, ease: 'power3.out' },
+            '-=0.2'
+          )
+          // Hold on slide 2
+          .to({}, { duration: 0.8 })
+          // Transition to CTA
+          .to('.mob-slide-2', { autoAlpha: 0, y: -20, duration: 0.5, ease: 'power2.in' })
+          .to('.ch-cta', { autoAlpha: 1, scale: 1, duration: 1.1, ease: 'expo.out' }, '-=0.2')
 
-        // Phone floats in
-        .fromTo('.ch-phone',
-          { opacity: 0, y: 60, rotate: -8, scale: 0.88 },
-          { opacity: 1, y: 0, rotate: -4, scale: 1, duration: 0.5, ease: 'expo.out' },
-          '-=0.5'
-        )
-        // Bubbles stagger in
-        .fromTo('.ch-bubble',
-          { opacity: 0, y: 8 },
-          { opacity: 1, y: 0, duration: 0.25, stagger: 0.09, ease: 'power3.out' },
-          '-=0.2'
-        )
+      } else {
+        // ── Desktop: mockup, badges, phone, editing sequence → CTA
+        tl
+          // Phase 3 — mockup + badges + copy enter
+          .fromTo('.ch-mockup',
+            { y: 120, rotationX: 18, rotationY: -8, autoAlpha: 0, scale: 0.8 },
+            { y: 0, rotationX: 0, rotationY: 0, autoAlpha: 1, scale: 1, duration: 1.5, ease: 'expo.out' },
+            '-=0.4'
+          )
+          .fromTo('.ch-badge-a', { y: 30, autoAlpha: 0, scale: 0.85 }, { y: 0, autoAlpha: 1, scale: 1, duration: 0.85, ease: 'back.out(1.2)' }, '-=0.9')
+          .fromTo('.ch-badge-b', { y: 30, autoAlpha: 0, scale: 0.85 }, { y: 0, autoAlpha: 1, scale: 1, duration: 0.85, ease: 'back.out(1.2)' }, '-=0.7')
+          .fromTo('.ch-col-left', { x: -28, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 0.85, ease: 'power4.out' }, '-=0.65')
+          // Phone floats in
+          .fromTo('.ch-phone',
+            { opacity: 0, y: 60, rotate: -8, scale: 0.88 },
+            { opacity: 1, y: 0, rotate: -4, scale: 1, duration: 0.5, ease: 'expo.out' },
+            '-=0.5'
+          )
+          // Bubbles stagger in
+          .fromTo('.ch-bubble',
+            { opacity: 0, y: 8 },
+            { opacity: 1, y: 0, duration: 0.25, stagger: 0.09, ease: 'power3.out' },
+            '-=0.2'
+          )
+          // Hold briefly
+          .to({}, { duration: 0.3 })
+          // ── AI editing sequence — Google Docs style ──
+          .to('.ch-editing-badge', { autoAlpha: 1, scale: 1, x: 0, duration: 0.35, ease: 'back.out(1.4)' })
+          .to('.ch-cursor', { autoAlpha: 1, duration: 0.15 })
+          .to('.ch-show-after-wrapper', { maxHeight: 160, duration: 0.6, ease: 'power3.out' }, '+=0.15')
+          .to('.ch-show-after', { autoAlpha: 1, y: 0, duration: 0.3, stagger: 0.18, ease: 'power3.out' }, '-=0.35')
+          .to('.ch-cursor', { autoAlpha: 0, duration: 0.2 }, '+=0.15')
+          .to('.ch-show-after', { borderLeftColor: 'rgba(90,173,212,0)', background: 'rgba(255,255,255,0.04)', duration: 0.5, ease: 'power2.out' }, '+=0.1')
+          .to('.ch-editing-badge', { autoAlpha: 0, scale: 0.9, duration: 0.2 })
+          .to('.ch-live-badge', { autoAlpha: 1, scale: 1, duration: 0.3, ease: 'back.out(1.4)' })
+          // Hold on final state
+          .to({}, { duration: 0.7 })
+          // Phase 4 — swap content → CTA
+          .to(['.ch-col-left', '.ch-mockup', '.ch-badge-a', '.ch-badge-b'], {
+            autoAlpha: 0, y: -20, scale: 0.93, duration: 0.75, ease: 'power2.in',
+          })
+          .to('.ch-phone', { opacity: 0, y: -20, duration: 0.5, ease: 'power2.in' }, '<')
+          .to('.ch-cta', { autoAlpha: 1, scale: 1, duration: 1.1, ease: 'expo.out' }, '-=0.2')
+      }
 
-        // Hold briefly after bubbles settle
-        .to({}, { duration: 0.3 })
-
-        // ── AI editing sequence — Google Docs style ──
-        // 1. "Ebel is aan het editen…" badge slides in
-        .to('.ch-editing-badge', { autoAlpha: 1, scale: 1, x: 0, duration: 0.35, ease: 'back.out(1.4)' })
-
-        // 2. Cursor appears at insertion point (top of list)
-        .to('.ch-cursor', { autoAlpha: 1, duration: 0.15 })
-
-        // 3. Wrapper expands downward, pushing existing rows down — new shows slide in above
-        .to('.ch-show-after-wrapper', {
-          maxHeight: 160, duration: 0.6, ease: 'power3.out',
-        }, '+=0.15')
-
-        // 4. Individual new rows fade + settle in
-        .to('.ch-show-after', {
-          autoAlpha: 1, y: 0, duration: 0.3, stagger: 0.18, ease: 'power3.out',
-        }, '-=0.35')
-
-        // 5. Cursor fades
-        .to('.ch-cursor', { autoAlpha: 0, duration: 0.2 }, '+=0.15')
-
-        // 6. New-row accent highlight fades to normal (track changes resolved)
-        .to('.ch-show-after', {
-          borderLeftColor: 'rgba(90,173,212,0)',
-          background: 'rgba(255,255,255,0.04)',
-          duration: 0.5, ease: 'power2.out',
-        }, '+=0.1')
-
-        // 8. Badge swaps: editing → ✓ Live
-        .to('.ch-editing-badge', { autoAlpha: 0, scale: 0.9, duration: 0.2 })
-        .to('.ch-live-badge', { autoAlpha: 1, scale: 1, duration: 0.3, ease: 'back.out(1.4)' })
-
-        // Hold on final state
-        .to({}, { duration: 0.7 })
-
-        // Phase 4 — swap content → CTA
-        .to(['.ch-col-left', '.ch-mockup', '.ch-badge-a', '.ch-badge-b'], {
-          autoAlpha: 0, y: -20, scale: 0.93, duration: 0.75, ease: 'power2.in',
-        })
-        .to('.ch-phone', { opacity: 0, y: -20, duration: 0.5, ease: 'power2.in' }, '<')
-        .to('.ch-cta', { autoAlpha: 1, scale: 1, duration: 1.1, ease: 'expo.out' }, '-=0.2')
-
-        // Phase 5 — card pulls back
-        .to('.ch-card', {
+      // Phase 5 — card pulls back (both mobile and desktop)
+      tl.to('.ch-card', {
           scale: mobile ? 0.92 : 0.79,
           borderRadius: mobile ? '24px' : '32px',
           duration: 1.3, ease: 'expo.inOut',
         }, '-=0.7')
-
         // Hold at CTA
         .to({}, { duration: 0.8 })
-
         // Phase 6 — card exits up
         .to('.ch-card', { y: -(window.innerHeight + 180), duration: 1.1, ease: 'power3.in' })
 
@@ -625,10 +773,43 @@ export default function Hero() {
         >
           <div className="ch-sheen" aria-hidden="true" />
 
-          {/* ── 2-col content grid ──────────────────── */}
+          {/* ── Mobile slides (3-step scroll story) ── */}
+
+          {/* Slide 0: original site */}
+          <div className="mob-slide-0 absolute inset-0 z-10 flex flex-col items-center justify-center md:hidden" style={{ padding: '52px 12px 12px' }}>
+            <div style={{ width: '100%', borderRadius: '10px', overflow: 'hidden', boxShadow: '0 28px 56px -10px rgba(0,0,0,0.9)', background: '#0d1117' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '8px 12px', background: '#1a1f30', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+                {['#ff5f57','#ffbd2e','#28c840'].map(c => <div key={c} style={{ width: '7px', height: '7px', borderRadius: '50%', background: c, flexShrink: 0 }} />)}
+                <div style={{ flex: 1, margin: '0 8px', padding: '2px 8px', borderRadius: '20px', background: '#0d1117', border: '1px solid rgba(255,255,255,0.07)', fontSize: '0.48rem', color: 'rgba(255,255,255,0.28)', textAlign: 'center' }}>lumine.nl</div>
+              </div>
+              <div style={{ height: 'clamp(220px, 48vh, 360px)', overflow: 'hidden' }}>
+                <StaticSitePreview live={false} />
+              </div>
+            </div>
+          </div>
+
+          {/* Slide 1: WhatsApp conversation */}
+          <div className="mob-slide-1 absolute inset-0 z-10 flex flex-col items-center justify-center md:hidden" style={{ padding: '52px 24px 12px' }}>
+            <MobilePhoneSlide />
+          </div>
+
+          {/* Slide 2: live site */}
+          <div className="mob-slide-2 absolute inset-0 z-10 flex flex-col items-center justify-center md:hidden" style={{ padding: '52px 12px 12px' }}>
+            <div style={{ width: '100%', borderRadius: '10px', overflow: 'hidden', boxShadow: '0 28px 56px -10px rgba(0,0,0,0.9)', background: '#0d1117' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '8px 12px', background: '#1a1f30', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+                {['#ff5f57','#ffbd2e','#28c840'].map(c => <div key={c} style={{ width: '7px', height: '7px', borderRadius: '50%', background: c, flexShrink: 0 }} />)}
+                <div style={{ flex: 1, margin: '0 8px', padding: '2px 8px', borderRadius: '20px', background: '#0d1117', border: '1px solid rgba(255,255,255,0.07)', fontSize: '0.48rem', color: 'rgba(255,255,255,0.28)', textAlign: 'center' }}>lumine.nl</div>
+              </div>
+              <div style={{ height: 'clamp(220px, 48vh, 360px)', overflow: 'hidden' }}>
+                <StaticSitePreview live={true} />
+              </div>
+            </div>
+          </div>
+
+          {/* ── 2-col content grid (desktop only) ──────────── */}
           <div
             className="relative w-full h-full max-w-7xl mx-auto px-4 lg:px-8
-                       flex flex-col justify-start gap-4
+                       hidden md:flex flex-col justify-start gap-4
                        pt-[72px] pb-4
                        md:justify-evenly md:gap-0 md:pt-6 md:pb-6
                        lg:grid lg:grid-cols-[280px_1fr]
