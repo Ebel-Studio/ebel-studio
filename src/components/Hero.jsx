@@ -635,7 +635,7 @@ export default function Hero() {
 
             {/* Col 2 — browser mockup + phone */}
             <div
-              className="ch-mockup order-1 lg:order-2 relative w-full h-[300px] sm:h-[380px] lg:h-[560px] flex items-center justify-center"
+              className="ch-mockup order-1 lg:order-2 relative w-full h-[220px] sm:h-[320px] lg:h-[560px] flex items-center justify-center"
               style={{ perspective: '900px', overflow: 'visible' }}
             >
               <div
@@ -704,7 +704,7 @@ export default function Hero() {
             </div>
 
             {/* Col 1 — copy */}
-            <div className="ch-col-left order-2 lg:order-1 flex flex-col justify-center text-center lg:text-left w-full px-4 lg:px-0 gap-5">
+            <div className="ch-col-left order-2 lg:order-1 flex flex-col justify-center text-center lg:text-left w-full px-4 lg:px-0 gap-4">
               <div>
                 <p className="font-mono text-[0.6rem] tracking-widest uppercase mb-3" style={{ color: 'rgba(59,111,232,0.7)' }}>AI site manager</p>
                 <h3
@@ -717,14 +717,59 @@ export default function Hero() {
                   Stuur een WhatsApp — Ebel regelt de rest. Geen developer-factuur voor elk klein dingetje.
                 </p>
               </div>
-              <ul className="hidden md:flex flex-col gap-2.5">
+
+              {/* ── Mobile-only: compact WhatsApp preview ─── */}
+              <div className="md:hidden rounded-2xl overflow-hidden text-left" style={{ background: '#0b141a', border: '1px solid rgba(255,255,255,0.07)' }}>
+                {/* WhatsApp header */}
+                <div style={{ background: '#202c33', padding: '8px 12px', display: 'flex', alignItems: 'center', gap: '8px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                  <div style={{ width: '24px', height: '24px', borderRadius: '50%', flexShrink: 0, background: 'linear-gradient(135deg,#3B6FE8,#1A1A2E)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '10px', fontWeight: 700, color: '#fff', fontFamily: 'Inter,sans-serif' }}>E</div>
+                  <div>
+                    <div style={{ fontSize: '11px', fontWeight: 600, color: '#e9edef', fontFamily: 'Inter,sans-serif', lineHeight: 1.2 }}>Ebel</div>
+                    <div style={{ fontSize: '9px', color: '#00a884', fontFamily: 'Inter,sans-serif' }}>AI Developer · online</div>
+                  </div>
+                </div>
+                {/* Bubbles */}
+                <div style={{ padding: '10px 10px 12px', display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                  {[
+                    { side: 'client', text: '2 nieuwe shows toevoegen?' },
+                    { side: 'ai',     text: 'Klaar! Preview checken?\nDan zet ik hem live.' },
+                    { side: 'client', text: 'Perfect, doe maar!' },
+                    { side: 'ai',     text: '⚡ Live ✓', badge: '3 min' },
+                  ].map((b, i) => (
+                    <div key={i} style={{ display: 'flex', justifyContent: b.side === 'client' ? 'flex-end' : 'flex-start' }}>
+                      <div style={{
+                        maxWidth: '78%', padding: '5px 9px 14px', position: 'relative',
+                        borderRadius: b.side === 'client' ? '8px 8px 2px 8px' : '8px 8px 8px 2px',
+                        background: b.side === 'client' ? '#005c4b' : '#202c33',
+                        boxShadow: '0 1px 2px rgba(0,0,0,0.3)',
+                      }}>
+                        <p style={{ fontSize: '11px', color: '#e9edef', fontFamily: 'Inter,sans-serif', lineHeight: 1.4, margin: 0, whiteSpace: 'pre-line' }}>{b.text}</p>
+                        <div style={{ position: 'absolute', bottom: '4px', right: '7px', display: 'flex', alignItems: 'center', gap: '2px' }}>
+                          {b.badge && (
+                            <span style={{ background: '#1f2d25', border: '1px solid #2a5e3a', borderRadius: '6px', padding: '1px 5px', fontSize: '7px', color: '#00a884', fontFamily: 'Inter,sans-serif', fontWeight: 600, marginRight: '2px' }}>
+                              {b.badge}
+                            </span>
+                          )}
+                          <span style={{ fontSize: '8px', color: 'rgba(233,237,239,0.4)', fontFamily: 'Inter,sans-serif' }}>
+                            {b.side === 'client' ? '16:14' : '16:15'}
+                          </span>
+                          {b.side === 'client' && <span style={{ fontSize: '9px', color: '#53bdeb' }}>✓✓</span>}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Bullets — all screens, fewer on mobile */}
+              <ul className="flex flex-col gap-2 text-left">
                 {[
                   ['✦', 'Live binnen minuten'],
                   ['✦', 'Altijd preview-check voor go-live'],
                   ['✦', 'Goedkoper dan een dev op standby'],
                   ['✦', 'Jij blijft zelf aan het stuur'],
-                ].map(([icon, text]) => (
-                  <li key={text} className="flex items-center gap-2.5">
+                ].map(([icon, text], i) => (
+                  <li key={text} className={i >= 2 ? 'hidden md:flex items-center gap-2.5' : 'flex items-center gap-2.5'}>
                     <span style={{ color: '#3B6FE8', fontSize: '0.6rem' }}>{icon}</span>
                     <span style={{ color: 'rgba(255,255,255,0.52)', fontSize: '0.78rem' }}>{text}</span>
                   </li>
