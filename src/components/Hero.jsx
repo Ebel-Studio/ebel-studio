@@ -878,19 +878,19 @@ export default function Hero() {
           className="ch-line1 ch-dark-text font-heading font-semibold"
           style={{ fontSize: 'clamp(2.2rem, 5.8vw, 5.5rem)', letterSpacing: '-0.03em', lineHeight: 1.05, marginBottom: '0.08em' }}
         >
-          Professionele websites
+          Professional websites
         </h1>
         <p
           className="ch-line2 ch-fade-text font-heading font-semibold"
           style={{ fontSize: 'clamp(2.2rem, 5.8vw, 5.5rem)', letterSpacing: '-0.03em', lineHeight: 1.05 }}
         >
-          voor artiesten &amp; bedrijven.
+          for artists, businesses &amp; holiday homes.
         </p>
         <p
           className="ch-subkop"
           style={{ marginTop: '1.1rem', fontSize: 'clamp(0.85rem, 1.4vw, 1.05rem)', color: 'rgba(17,17,17,0.52)', fontFamily: 'Inter, sans-serif', fontWeight: 400, maxWidth: '480px', lineHeight: 1.5 }}
         >
-          Custom gebouwd, snel live, en beheerbaar via WhatsApp — met ingebouwde AI.
+          Custom built, fast to launch, and manageable via WhatsApp — with built-in AI.
         </p>
       </div>
 
@@ -928,10 +928,10 @@ export default function Hero() {
             </div>
             <div style={{ textAlign: 'center', paddingTop: '14px' }}>
               <p style={{ color: 'rgba(255,255,255,0.88)', fontSize: '0.92rem', fontWeight: 700, fontFamily: 'Inter, sans-serif', margin: 0, letterSpacing: '-0.01em' }}>
-                Ik bouw websites. Jij beheert ze.
+                I build websites. You manage them.
               </p>
               <p style={{ color: 'rgba(255,255,255,0.36)', fontSize: '0.7rem', fontFamily: 'Inter, sans-serif', margin: '4px 0 0' }}>
-                Snel live, altijd bij te werken — via WhatsApp.
+                Fast to launch, always up to date — via WhatsApp.
               </p>
             </div>
           </div>
@@ -941,10 +941,10 @@ export default function Hero() {
             <MobilePhoneSlide />
             <div style={{ textAlign: 'center', paddingTop: '14px' }}>
               <p style={{ color: 'rgba(255,255,255,0.88)', fontSize: '0.92rem', fontWeight: 700, fontFamily: 'Inter, sans-serif', margin: 0, letterSpacing: '-0.01em' }}>
-                Aanpassingen? Stuur een appje.
+                Updates? Just send a message.
               </p>
               <p style={{ color: 'rgba(255,255,255,0.36)', fontSize: '0.7rem', fontFamily: 'Inter, sans-serif', margin: '4px 0 0' }}>
-                Jij vraagt, Ebel AI verwerkt het — 24/7, geen factuur.
+                You ask, Ebel AI handles it — 24/7, no invoice.
               </p>
             </div>
           </div>
@@ -962,10 +962,10 @@ export default function Hero() {
             </div>
             <div style={{ textAlign: 'center', paddingTop: '14px' }}>
               <p style={{ color: 'rgba(255,255,255,0.88)', fontSize: '0.92rem', fontWeight: 700, fontFamily: 'Inter, sans-serif', margin: 0, letterSpacing: '-0.01em' }}>
-                Zo ziet een update eruit.
+                This is what an update looks like.
               </p>
               <p style={{ color: 'rgba(255,255,255,0.36)', fontSize: '0.7rem', fontFamily: 'Inter, sans-serif', margin: '4px 0 0' }}>
-                Geen gedoe, geen factuur, gewoon live.
+                No hassle, no invoice, just live.
               </p>
             </div>
           </div>

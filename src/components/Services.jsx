@@ -88,7 +88,7 @@ export default function Diensten() {
         <div className="mb-16">
           <p className="text-[#1A1A2E] text-sm font-mono tracking-widest uppercase mb-3">What I build</p>
           <h2 className="font-heading font-semibold text-[#111111]" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', letterSpacing: '-0.02em' }}>
-            Wat ik bouw
+            What I build
           </h2>
           <p className="text-[#111111]/45 mt-2 text-sm max-w-md leading-relaxed">
             Every site is custom-built — no templates. Pick the type that fits, then choose your plan.

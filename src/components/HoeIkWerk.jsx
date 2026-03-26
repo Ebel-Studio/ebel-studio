@@ -101,7 +101,7 @@ export default function HoeIkWerk() {
               className="font-heading font-semibold text-white"
               style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', letterSpacing: '-0.02em', lineHeight: 1.1 }}
             >
-              Hoe het werkt
+              How I work
             </h2>
             <p className="text-white/35 text-sm leading-relaxed max-w-sm md:text-right">
               From first conversation to a site that runs itself — here's exactly what working with me looks like.
