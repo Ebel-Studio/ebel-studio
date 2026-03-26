@@ -18,9 +18,9 @@ export default function App() {
         <Services />
         <HoeIkWerk />
         <Werk />
-        <OverMij />
         <Configurator />
         <Pricing />
+        <OverMij />
         <Contact />
       </main>
       <Footer />

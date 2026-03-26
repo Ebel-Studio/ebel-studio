@@ -9,6 +9,7 @@ const STYLES = `
   .ch-card { transform: translateY(200vh) scale(0.92); }
   .ch-line1 { opacity: 0; visibility: hidden; }
   .ch-line2 { clip-path: inset(0 100% 0 0); }
+  .ch-subkop { opacity: 0; visibility: hidden; }
   .ch-hint  { opacity: 0; visibility: hidden; }
   .ch-col-left, .ch-mockup,
   .ch-badge-a, .ch-badge-b, .ch-cta { opacity: 0; visibility: hidden; }
@@ -707,6 +708,7 @@ export default function Hero() {
       /* ── Initial states */
       gsap.set('.ch-line1', { autoAlpha: 0, y: 34, scale: 0.93 })
       gsap.set('.ch-line2', { clipPath: 'inset(0 100% 0 0)' })
+      gsap.set('.ch-subkop', { autoAlpha: 0, y: 14 })
       gsap.set('.ch-hint', { autoAlpha: 0 })
       gsap.set('.ch-card', { y: window.innerHeight + 120, scale: 0.92 })
       gsap.set(['.ch-col-left', '.ch-mockup', '.ch-badge-a', '.ch-badge-b'], { autoAlpha: 0 })
@@ -731,6 +733,7 @@ export default function Hero() {
       gsap.timeline({ delay: 0.2 })
         .to('.ch-line1', { autoAlpha: 1, y: 0, scale: 1, duration: 1.0, ease: 'expo.out' })
         .to('.ch-line2', { clipPath: 'inset(0 0% 0 0)', duration: 1.0, ease: 'power4.inOut' }, '-=0.7')
+        .to('.ch-subkop', { autoAlpha: 1, y: 0, duration: 0.7, ease: 'power3.out' }, '-=0.3')
         .to('.ch-hint', { autoAlpha: 1, duration: 0.5 }, '-=0.1')
 
       /* ── Scroll-pinned cinematic timeline */
@@ -873,16 +876,22 @@ export default function Hero() {
 
         <h1
           className="ch-line1 ch-dark-text font-heading font-semibold"
-          style={{ fontSize: 'clamp(2.4rem, 6.5vw, 6rem)', letterSpacing: '-0.03em', lineHeight: 1.05, marginBottom: '0.08em' }}
+          style={{ fontSize: 'clamp(2.2rem, 5.8vw, 5.5rem)', letterSpacing: '-0.03em', lineHeight: 1.05, marginBottom: '0.08em' }}
         >
-          I build websites
+          Professionele websites
         </h1>
-        <h1
+        <p
           className="ch-line2 ch-fade-text font-heading font-semibold"
-          style={{ fontSize: 'clamp(2.4rem, 6.5vw, 6rem)', letterSpacing: '-0.03em', lineHeight: 1.05 }}
+          style={{ fontSize: 'clamp(2.2rem, 5.8vw, 5.5rem)', letterSpacing: '-0.03em', lineHeight: 1.05 }}
         >
-          that get you noticed.
-        </h1>
+          voor artiesten &amp; bedrijven.
+        </p>
+        <p
+          className="ch-subkop"
+          style={{ marginTop: '1.1rem', fontSize: 'clamp(0.85rem, 1.4vw, 1.05rem)', color: 'rgba(17,17,17,0.52)', fontFamily: 'Inter, sans-serif', fontWeight: 400, maxWidth: '480px', lineHeight: 1.5 }}
+        >
+          Custom gebouwd, snel live, en beheerbaar via WhatsApp — met ingebouwde AI.
+        </p>
       </div>
 
       {/* ── Scroll hint ─────────────────────────────── */}

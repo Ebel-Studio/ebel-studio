@@ -187,7 +187,7 @@ export default function Werk() {
                 className="font-heading font-semibold text-[#111111]"
                 style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', letterSpacing: '-0.02em' }}
               >
-                Work
+                Recente projecten
               </h2>
               <p className="text-[#111111]/50 mt-2">Recent projects</p>
             </div>

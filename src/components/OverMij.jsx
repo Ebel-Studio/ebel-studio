@@ -32,9 +32,9 @@ export default function OverMij() {
               className="font-heading font-semibold text-white leading-tight"
               style={{ fontSize: 'clamp(2.4rem, 5vw, 4rem)', letterSpacing: '-0.02em' }}
             >
-              Built for now.
+              Over Ebel.
               <br />
-              <span className="text-[#3B6FE8]">Ready for later.</span>
+              <span className="text-[#3B6FE8]">Noord-Holland.</span>
             </h2>
           </div>
 

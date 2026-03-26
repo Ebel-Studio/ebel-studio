@@ -66,7 +66,7 @@ export default function Pricing() {
         <div className="mb-6">
           <p className="text-[#1A1A2E] text-sm font-mono tracking-widest uppercase mb-3">Investment</p>
           <h2 className="font-heading font-semibold text-[#111111]" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', letterSpacing: '-0.02em' }}>
-            Pricing
+            Tarieven
           </h2>
         </div>
         <p className="text-[#111111]/45 text-sm mb-14 max-w-lg leading-relaxed">
