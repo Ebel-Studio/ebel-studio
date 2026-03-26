@@ -38,7 +38,6 @@ const STEPS = [
     tag: 'The WhatsApp Updates',
     title: 'No more loose invoices',
     text: 'Once your site is live, you get access to my custom-built AI Developer. Just WhatsApp your changes — a new show, a news item, a price update. It\'s live within minutes. No support tickets, no developer on standby.',
-    badge: 'Inclusief Chrome-extensie — stuur updates direct vanuit je browser',
     color: '#22C55E',
     bgColor: 'rgba(34,197,94,0.08)',
     borderColor: 'rgba(34,197,94,0.18)',
@@ -112,7 +111,7 @@ export default function HoeIkWerk() {
 
         {/* Cards grid */}
         <div className="hiw-grid grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-5">
-          {STEPS.map(({ num, tag, title, text, badge, color, bgColor, borderColor, icon }) => (
+          {STEPS.map(({ num, tag, title, text, color, bgColor, borderColor, icon }) => (
             <div
               key={num}
               className="hiw-card relative flex flex-col gap-5 rounded-2xl p-7 overflow-hidden"
@@ -161,14 +160,7 @@ export default function HoeIkWerk() {
                 <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.42)' }}>
                   {text}
                 </p>
-                {badge && (
-                  <div className="flex items-center gap-2 mt-2" style={{ background: 'rgba(34,197,94,0.08)', border: '1px solid rgba(34,197,94,0.2)', borderRadius: '8px', padding: '7px 12px' }}>
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#22C55E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
-                      <circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/>
-                    </svg>
-                    <span className="text-xs font-medium" style={{ color: '#22C55E' }}>{badge}</span>
-                  </div>
-                )}
+
               </div>
 
               {/* Bottom color bar */}
