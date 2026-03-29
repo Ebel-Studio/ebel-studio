@@ -85,7 +85,7 @@ export default function HoeIkWerk() {
   return (
     <section
       ref={sectionRef}
-      id="werkwijze"
+      id="process"
       className="py-24 md:py-36 px-6 md:px-12 lg:px-20"
       style={{ background: 'linear-gradient(180deg, #0b0e1a 0%, #0d1121 100%)' }}
     >

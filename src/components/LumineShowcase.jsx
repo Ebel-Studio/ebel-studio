@@ -100,7 +100,7 @@ function LumineMockup() {
         {/* Echte Lumine logo afbeelding — chalk-script */}
         <img
           src="https://lumine-theta.vercel.app/LOGO/lumein%20logo.png"
-          alt="Lumine"
+          alt="Lumine — artist website logo"
           loading="lazy"
           style={{
             width: '100%',

@@ -18,7 +18,7 @@ export default function OverMij() {
   }, [])
 
   return (
-    <section id="over" ref={sectionRef} className="py-24 md:py-36 px-6 md:px-12 lg:px-20" style={{ background: '#0f1020' }}>
+    <section id="about" ref={sectionRef} className="py-24 md:py-36 px-6 md:px-12 lg:px-20" style={{ background: '#0f1020' }}>
       <div className="max-w-6xl mx-auto over-content">
 
         <p className="text-[#3B6FE8] text-sm font-mono tracking-widest uppercase mb-6">

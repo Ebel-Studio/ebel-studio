@@ -81,12 +81,12 @@ export default function Diensten() {
   }, [])
 
   return (
-    <section id="diensten" ref={sectionRef} className="py-24 md:py-36 px-6 md:px-12 lg:px-20" style={{ background: '#F7F7F5' }}>
+    <section id="services" ref={sectionRef} className="py-24 md:py-36 px-6 md:px-12 lg:px-20" style={{ background: '#F7F7F5' }}>
       <div className="max-w-6xl mx-auto">
 
         {/* Header */}
         <div className="mb-16">
-          <p className="text-[#1A1A2E] text-sm font-mono tracking-widest uppercase mb-3">What I build</p>
+          <p className="text-[#1A1A2E] text-sm font-mono tracking-widest uppercase mb-3">Services</p>
           <h2 className="font-heading font-semibold text-[#111111]" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', letterSpacing: '-0.02em' }}>
             What I build
           </h2>

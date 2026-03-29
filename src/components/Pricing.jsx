@@ -61,7 +61,7 @@ export default function Pricing() {
   }, [])
 
   return (
-    <section id="tarieven" ref={sectionRef} className="py-24 md:py-36 px-6 md:px-12 lg:px-20" style={{ background: '#F7F7F5' }}>
+    <section id="pricing" ref={sectionRef} className="py-24 md:py-36 px-6 md:px-12 lg:px-20" style={{ background: '#F7F7F5' }}>
       <div className="max-w-5xl mx-auto">
         <div className="mb-6">
           <p className="text-[#1A1A2E] text-sm font-mono tracking-widest uppercase mb-3">Investment</p>

@@ -3,10 +3,10 @@ import { Instagram, Linkedin, MessageCircle } from 'lucide-react'
 export default function Footer() {
   const links = {
     Navigate: [
-      { label: 'Work',     href: '#werk' },
-      { label: 'Services', href: '#diensten' },
-      { label: 'About',    href: '#over' },
-      { label: 'Pricing',  href: '#tarieven' },
+      { label: 'Work',     href: '#work' },
+      { label: 'Services', href: '#services' },
+      { label: 'About',    href: '#about' },
+      { label: 'Pricing',  href: '#pricing' },
       { label: 'Contact',  href: '#contact' },
     ],
     Contact: [

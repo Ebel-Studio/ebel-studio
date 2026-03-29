@@ -30,10 +30,10 @@ export default function Navbar() {
   }, [])
 
   const links = [
-    { label: 'Work',     href: '#werk' },
-    { label: 'Services', href: '#diensten' },
-    { label: 'About',    href: '#over' },
-    { label: 'Pricing',  href: '#tarieven' },
+    { label: 'Work',     href: '#work' },
+    { label: 'Services', href: '#services' },
+    { label: 'Process',  href: '#process' },
+    { label: 'Pricing',  href: '#pricing' },
     { label: 'Contact',  href: '#contact' },
   ]
 

@@ -35,7 +35,7 @@ function HvabPreview() {
       {/* ── Background foto ──────────────────────────────── */}
       <img
         src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1200&q=85&auto=format&fit=crop"
-        alt="HvAB hero"
+        alt="Huis van Actief Burgerschap NHN — hero section screenshot"
         className="absolute inset-0 w-full h-full object-cover"
         style={{ mixBlendMode: 'multiply' }}
         loading="lazy"
@@ -172,7 +172,7 @@ export default function Werk() {
 
   return (
     <section
-      id="werk"
+      id="work"
       ref={sectionRef}
       style={{ background: '#F7F7F5' }}
     >

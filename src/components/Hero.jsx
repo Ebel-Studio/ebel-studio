@@ -132,7 +132,7 @@ function SitePreview() {
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <img
             src="https://lumine-theta.vercel.app/LOGO/lumein%20logo.png"
-            alt="Lumine"
+            alt="Lumine — artist website logo"
             loading="lazy"
             style={{ height: '22px', width: 'auto', display: 'block', filter: 'drop-shadow(0 0 4px rgba(90,173,212,0.3))' }}
             draggable={false}
@@ -259,7 +259,7 @@ function MobileSitePreviewAnimated() {
         padding: '10px 22px', borderBottom: '1px solid rgba(255,255,255,0.07)', flexShrink: 0,
         background: 'rgba(7,17,26,0.97)',
       }}>
-        <img src="https://lumine-theta.vercel.app/LOGO/lumein%20logo.png" alt="Lumine" loading="lazy"
+        <img src="https://lumine-theta.vercel.app/LOGO/lumein%20logo.png" alt="Lumine — artist website logo" loading="lazy"
           style={{ height: '22px', width: 'auto', display: 'block', filter: 'drop-shadow(0 0 4px rgba(90,173,212,0.3))' }}
           draggable={false} />
         <div style={{ display: 'flex', gap: '18px' }}>
@@ -371,7 +371,7 @@ function StaticSitePreview({ live = false }) {
         padding: '10px 22px', borderBottom: '1px solid rgba(255,255,255,0.07)', flexShrink: 0,
         background: 'rgba(7,17,26,0.97)',
       }}>
-        <img src="https://lumine-theta.vercel.app/LOGO/lumein%20logo.png" alt="Lumine" loading="lazy"
+        <img src="https://lumine-theta.vercel.app/LOGO/lumein%20logo.png" alt="Lumine — artist website logo" loading="lazy"
           style={{ height: '22px', width: 'auto', display: 'block', filter: 'drop-shadow(0 0 4px rgba(90,173,212,0.3))' }}
           draggable={false} />
         <div style={{ display: 'flex', gap: '18px' }}>
@@ -1158,7 +1158,7 @@ export default function Hero() {
                 Book a call →
               </a>
               <a
-                href="#werk"
+                href="#work"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold text-base"
                 style={{ border: '1px solid rgba(255,255,255,0.16)', color: 'rgba(255,255,255,0.7)', background: 'rgba(255,255,255,0.04)' }}
               >
