@@ -4,6 +4,12 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
+const CREDENTIALS = [
+  { label: 'Design education', note: 'Studied in Spain' },
+  { label: 'Google Ads', note: '€10k/mo budget managed' },
+  { label: 'D2C webshop', note: 'Design, production & fulfilment' },
+]
+
 export default function OverMij() {
   const sectionRef = useRef(null)
 
@@ -33,28 +39,40 @@ export default function OverMij() {
               style={{ fontSize: 'clamp(2.4rem, 5vw, 4rem)', letterSpacing: '-0.02em' }}
             >
               About Ebel.
-              <br />
-              <span className="text-[#3B6FE8]">Noord-Holland.</span>
             </h2>
+
+            {/* Credentials strip */}
+            <div className="flex flex-col gap-3 mt-8">
+              {CREDENTIALS.map(({ label, note }) => (
+                <div key={label} className="flex items-center gap-4">
+                  <div className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: '#3B6FE8' }} />
+                  <span className="text-white/80 text-sm font-medium">{label}</span>
+                  <span className="text-white/30 text-sm">— {note}</span>
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className="flex flex-col gap-6">
             <p className="text-white/75 leading-relaxed">
-              I'm Ebel — a young maker from Noord-Holland. I build websites and visual identities for people who want to look professional online, without the agency price tag.
+              I'm a designer and developer. I studied design in Spain and have been building things with visuals and code for as long as I can remember — from personal art projects to client work.
             </p>
             <p className="text-white/75 leading-relaxed">
-              I work AI-first. That means I deliver faster than a traditional studio, at an honest price — without cutting corners on quality.
+              My background is broader than just websites. I've managed a €10k/month Google Ads budget, and ran my own direct-to-consumer webshop — handling design, production, and fulfilment end-to-end.
             </p>
             <p className="text-white/75 leading-relaxed">
-              I built a custom AI system on top of Claude that handles content updates for my clients. Send a WhatsApp — a new show, a price change, a photo — and the site updates automatically. No support ticket, no developer on standby.
-            </p>
-            <p className="text-white/75 leading-relaxed">
-              I also do videography and graphic design.
+              Today I combine all of that into three things: sharp websites, solid brand identities, and the AI system I built that keeps it all updated via WhatsApp. No agency overhead. No vague timelines. Just work that does what it's supposed to.
             </p>
 
-            <a href="#contact" className="btn bg-[#3B6FE8] text-[#0f1020] text-sm px-6 py-3 self-start mt-2 font-semibold">
-              <span className="btn-bg bg-white/20" />
-              <span className="relative z-10">Get in touch</span>
+            <a
+              href="https://wa.me/31612345678"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn text-white text-sm px-6 py-3 self-start mt-2 font-semibold"
+              style={{ background: '#25D366' }}
+            >
+              <span className="btn-bg" style={{ background: '#1aad54' }} />
+              <span className="relative z-10">WhatsApp me →</span>
             </a>
           </div>
         </div>

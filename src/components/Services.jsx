@@ -4,66 +4,58 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const NICHES = [
+const SERVICES = [
   {
-    tag: '01',
-    emoji: '🎵',
-    title: 'Artist & Musician',
-    text: 'Your music, your brand — one URL. Built for artists who need more than a link-in-bio.',
+    num: '01',
+    emoji: '⬛',
+    title: 'Websites',
+    color: '#3B6FE8',
+    bg: 'rgba(59,111,232,0.07)',
+    border: 'rgba(59,111,232,0.18)',
+    text: 'Custom-built sites — no templates. I build for artists, local businesses, holiday homes, and creatives who want to stand out online.',
+    niches: ['Artist & Musician', 'Holiday Home', 'Business', 'Creative & Portfolio'],
     features: [
-      'Shows & events page with ticket links',
-      'Promoter booking form via Formspree',
-      'Streaming links (Spotify, Apple Music)',
-      'EPK / press section',
-      'Merch & releases page',
-      'Email list capture',
+      'Mobile-first, production-ready code',
+      'SEO + Google Analytics included',
+      'Delivered within days, not months',
+      'WhatsApp AI updates built in',
     ],
   },
   {
-    tag: '02',
-    emoji: '🏡',
-    title: 'Holiday Home',
-    text: 'Stop paying Airbnb commissions. A direct booking page that looks better and costs less long-term.',
+    num: '02',
+    emoji: '◈',
+    title: 'Branding',
+    color: '#8B5CF6',
+    bg: 'rgba(139,92,246,0.07)',
+    border: 'rgba(139,92,246,0.18)',
+    text: 'A logo anyone can copy. A brand nobody can. I design visual identities that are sharp, intentional, and built to last — from the logo to the full system.',
+    niches: [],
     features: [
-      'Photo gallery with lightbox',
-      'Availability & booking inquiry form',
-      'Location + Google Maps embed',
-      'House features & amenities',
-      'Guest reviews section',
-      'Multi-language support',
+      'Logo design (primary + variants)',
+      'Color palette & typography system',
+      'Brand guidelines document',
+      'Ready for web, print & social',
     ],
   },
   {
-    tag: '03',
-    emoji: '🏪',
-    title: 'Business',
-    text: 'For shops, studios, and services that want to be found and trusted online — without the agency price tag.',
+    num: '03',
+    emoji: '⬡',
+    title: 'AI Agent',
+    color: '#22C55E',
+    bg: 'rgba(34,197,94,0.07)',
+    border: 'rgba(34,197,94,0.18)',
+    text: 'I built a custom AI system on top of Claude that processes content updates for your site. Send a WhatsApp — it\'s live within minutes. No dev on standby, no invoice per change.',
+    niches: [],
     features: [
-      'Services overview & pricing',
-      'Google Maps + opening hours',
-      'Appointment booking form',
-      'Reviews & testimonials',
-      'Blog / news section',
-      'SEO + Google Analytics',
-    ],
-  },
-  {
-    tag: '04',
-    emoji: '✦',
-    title: 'Creative & Portfolio',
-    text: 'Show your work the way it deserves. A sharp, custom portfolio that gets you hired.',
-    features: [
-      'Work showcase (up to 6 projects)',
-      'Case studies with process & outcomes',
-      'Services & rates page',
-      'Contact form via Formspree',
-      'Blog / articles',
-      'Scroll animations & custom typography',
+      'WhatsApp → live update pipeline',
+      'Text, dates, prices, photos — all handled',
+      'Preview before publish (optional)',
+      'Included in every website plan',
     ],
   },
 ]
 
-export default function Diensten() {
+export default function Services() {
   const sectionRef = useRef(null)
 
   useEffect(() => {
@@ -88,50 +80,75 @@ export default function Diensten() {
         <div className="mb-16">
           <p className="text-[#1A1A2E] text-sm font-mono tracking-widest uppercase mb-3">Services</p>
           <h2 className="font-heading font-semibold text-[#111111]" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', letterSpacing: '-0.02em' }}>
-            What I build
+            What I do
           </h2>
           <p className="text-[#111111]/45 mt-2 text-sm max-w-md leading-relaxed">
-            Every site is custom-built — no templates. Pick the type that fits, then choose your plan.
+            Three things, done well. You can combine them or take just what you need.
           </p>
         </div>
 
-        {/* Niche cards grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-6">
-          {NICHES.map(({ tag, emoji, title, text, features }) => (
-            <div key={tag} className="dienst-card card-surface p-7 flex flex-col gap-5">
+        {/* 3-pillar grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-6">
+          {SERVICES.map(({ num, emoji, title, color, bg, border, text, niches, features }) => (
+            <div
+              key={num}
+              className="dienst-card relative flex flex-col gap-5 rounded-2xl p-7 overflow-hidden"
+              style={{
+                background: '#fff',
+                border: `1px solid ${border}`,
+                boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
+              }}
+            >
+              {/* Subtle glow */}
+              <div aria-hidden="true" style={{
+                position: 'absolute', inset: 0, pointerEvents: 'none',
+                background: `radial-gradient(280px circle at -10% -10%, ${bg} 0%, transparent 60%)`,
+              }} />
 
               {/* Top row */}
-              <div className="flex items-start justify-between">
+              <div className="relative flex items-start justify-between">
                 <div
-                  className="w-11 h-11 rounded-2xl flex items-center justify-center text-xl"
-                  style={{ background: 'rgba(26,26,46,0.06)' }}
+                  className="w-11 h-11 rounded-2xl flex items-center justify-center text-xl shrink-0"
+                  style={{ background: bg, border: `1px solid ${border}` }}
                 >
                   {emoji}
                 </div>
-                <span className="font-mono text-xs tracking-widest" style={{ color: 'rgba(17,17,17,0.2)' }}>{tag}</span>
+                <span className="font-mono text-xs tracking-widest" style={{ color: 'rgba(17,17,17,0.18)' }}>{num}</span>
               </div>
 
               {/* Title + text */}
-              <div>
-                <h3 className="font-heading font-semibold text-[#111111] mb-2" style={{ fontSize: '1.15rem', letterSpacing: '-0.02em' }}>
+              <div className="relative">
+                <h3 className="font-heading font-semibold text-[#111111] mb-2" style={{ fontSize: '1.2rem', letterSpacing: '-0.02em', color }}>
                   {title}
                 </h3>
-                <p className="text-[#111111]/50 text-sm leading-relaxed">{text}</p>
+                <p className="text-[#111111]/55 text-sm leading-relaxed">{text}</p>
               </div>
 
+              {/* Niche tags (Websites only) */}
+              {niches.length > 0 && (
+                <div className="relative flex flex-wrap gap-1.5">
+                  {niches.map(n => (
+                    <span key={n} className="px-2.5 py-1 rounded-full text-[0.65rem] font-medium"
+                      style={{ background: bg, color, border: `1px solid ${border}` }}>
+                      {n}
+                    </span>
+                  ))}
+                </div>
+              )}
+
               {/* Features */}
-              <ul className="flex flex-col gap-1.5 flex-1">
+              <ul className="relative flex flex-col gap-1.5 flex-1">
                 {features.map((f, i) => (
-                  <li key={i} className="flex items-center gap-2.5">
-                    <span className="w-1 h-1 rounded-full shrink-0" style={{ background: '#3B6FE8', opacity: 0.7 }} />
+                  <li key={i} className="flex items-start gap-2.5">
+                    <span className="w-1 h-1 rounded-full mt-1.5 shrink-0" style={{ background: color, opacity: 0.7 }} />
                     <span className="text-[#111111]/50 text-xs leading-relaxed">{f}</span>
                   </li>
                 ))}
               </ul>
 
               {/* CTA */}
-              <div className="pt-4 border-t border-[#111111]/06">
-                <a href="#contact" className="text-[#1A1A2E] text-sm font-semibold link-lift inline-flex items-center gap-1">
+              <div className="relative pt-4 border-t" style={{ borderColor: 'rgba(17,17,17,0.06)' }}>
+                <a href="#contact" className="text-sm font-semibold link-lift inline-flex items-center gap-1" style={{ color }}>
                   Get a quote →
                 </a>
               </div>
@@ -139,29 +156,24 @@ export default function Diensten() {
           ))}
         </div>
 
-        {/* Maintenance included banner */}
+        {/* Maintenance banner */}
         <div
           className="dienst-maintenance rounded-2xl px-7 py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
           style={{ background: '#1A1A2E', border: '1px solid rgba(59,111,232,0.15)' }}
         >
           <div className="flex items-start gap-4">
-            <div
-              className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 mt-0.5"
-              style={{ background: 'rgba(59,111,232,0.15)' }}
-            >
+            <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 mt-0.5"
+              style={{ background: 'rgba(59,111,232,0.15)' }}>
               <span style={{ fontSize: '1rem' }}>🔧</span>
             </div>
             <div>
-              <p className="text-white font-semibold text-sm mb-0.5">Maintenance included in every plan</p>
+              <p className="text-white font-semibold text-sm mb-0.5">Hosting & maintenance included in every plan</p>
               <p className="text-white/40 text-xs leading-relaxed max-w-lg">
-                Hosting, uptime monitoring, security updates, and content changes on request — all handled. From €29/mo depending on your plan.
+                Uptime monitoring, security updates, and content changes on request — all handled. From €29/mo.
               </p>
             </div>
           </div>
-          <a
-            href="#plan"
-            className="text-[#3B6FE8] text-sm font-semibold link-lift shrink-0 whitespace-nowrap"
-          >
+          <a href="#pricing" className="text-[#3B6FE8] text-sm font-semibold link-lift shrink-0 whitespace-nowrap">
             See plans →
           </a>
         </div>
