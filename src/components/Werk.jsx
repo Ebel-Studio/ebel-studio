@@ -269,6 +269,37 @@ export default function Werk() {
               </div>
             </div>
           </div>
+          {/* ── Duinwijk — coming soon card ── */}
+          <div className="werk-card card-surface overflow-hidden mb-6 p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-8"
+            style={{ opacity: 0.72 }}>
+            <div className="flex items-start gap-6">
+              <div className="w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 text-2xl"
+                style={{ background: 'rgba(34,197,94,0.1)', border: '1px solid rgba(34,197,94,0.2)' }}>
+                🏕️
+              </div>
+              <div>
+                <div className="flex items-center gap-3 mb-2">
+                  <h3 className="font-heading font-semibold text-[#111111]" style={{ fontSize: '1.2rem', letterSpacing: '-0.02em' }}>
+                    Duinwijk
+                  </h3>
+                  <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold"
+                    style={{ background: 'rgba(34,197,94,0.12)', color: '#16a34a', border: '1px solid rgba(34,197,94,0.25)' }}>
+                    In development
+                  </span>
+                </div>
+                <p className="text-[#111111]/50 text-sm leading-relaxed max-w-lg">
+                  Direct booking website for an upcoming sustainable holiday park in the dunes of Noord-Holland. Custom-built, no Airbnb commissions, WhatsApp AI updates from day one.
+                </p>
+                <div className="flex flex-wrap gap-2 mt-3">
+                  {['Holiday Home', 'Sustainability', 'Direct Booking'].map(tag => (
+                    <span key={tag} className="px-2.5 py-0.5 rounded-full text-xs font-medium text-[#111111]/40"
+                      style={{ background: '#11111108' }}>{tag}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <span className="text-[#111111]/30 text-sm font-mono shrink-0">Coming soon</span>
+          </div>
         </div>
       </div>
 

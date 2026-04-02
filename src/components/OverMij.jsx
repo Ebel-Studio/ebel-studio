@@ -46,6 +46,9 @@ export default function OverMij() {
               I work AI-first. That means I deliver faster than a traditional studio, at an honest price — without cutting corners on quality.
             </p>
             <p className="text-white/75 leading-relaxed">
+              I built a custom AI system on top of Claude that handles content updates for my clients. Send a WhatsApp — a new show, a price change, a photo — and the site updates automatically. No support ticket, no developer on standby.
+            </p>
+            <p className="text-white/75 leading-relaxed">
               I also do videography and graphic design.
             </p>
 

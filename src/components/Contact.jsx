@@ -94,29 +94,30 @@ export default function Contact() {
         <AnimatedHeading />
 
         <p className="text-white/50 text-lg font-light mb-12 max-w-md mx-auto leading-relaxed">
-          Book a free 15-minute intro call. No strings attached.
+          Send a WhatsApp and I'll get back to you within a few hours. Prefer a call? That works too.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
-            href="mailto:hello@ebel.studio"
-            className="btn bg-[#1A1A2E] text-white text-base px-8 py-4 shadow-xl shadow-[#1A1A2E]/30"
+            href="https://wa.me/31612345678"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn text-white text-base px-8 py-4 shadow-xl shadow-[#25D366]/20"
+            style={{ background: '#25D366' }}
           >
-            <span className="btn-bg bg-[#0f1020]" />
+            <span className="btn-bg" style={{ background: '#1aad54' }} />
             <span className="relative z-10 flex items-center gap-2">
-              <Mail size={18} /> Book a call
+              <MessageCircle size={16} /> WhatsApp me
             </span>
           </a>
 
           <a
-            href="https://wa.me/31612345678"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="mailto:hello@ebel.studio"
             className="btn border border-white/20 text-white text-base px-8 py-4"
           >
             <span className="btn-bg bg-white/08" />
             <span className="relative z-10 flex items-center gap-2">
-              <MessageCircle size={16} /> WhatsApp
+              <Mail size={18} /> Send an email
             </span>
           </a>
         </div>

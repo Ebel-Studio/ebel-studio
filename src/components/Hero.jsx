@@ -890,7 +890,7 @@ export default function Hero() {
           className="ch-subkop"
           style={{ marginTop: '1.1rem', fontSize: 'clamp(0.85rem, 1.4vw, 1.05rem)', color: 'rgba(17,17,17,0.52)', fontFamily: 'Inter, sans-serif', fontWeight: 400, maxWidth: '480px', lineHeight: 1.5 }}
         >
-          Custom built, fast to launch, and manageable via WhatsApp — with built-in AI.
+          Powered by AI I built myself — send a WhatsApp, changes go live in minutes.
         </p>
       </div>
 
@@ -1141,21 +1141,23 @@ export default function Hero() {
               className="ch-white-text font-heading font-semibold mb-5"
               style={{ fontSize: 'clamp(2rem, 5.5vw, 4.5rem)', letterSpacing: '-0.03em' }}
             >
-              Ready to start?
+              Let's build something.
             </h2>
             <p
               className="mb-10 font-light leading-relaxed max-w-md"
               style={{ color: 'rgba(255,255,255,0.46)', fontSize: '1rem' }}
             >
-              Book a free 15-minute intro call — no strings attached.
+              Send a WhatsApp or book a free intro call — no strings attached.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <a
-                href="#contact"
+                href="https://wa.me/31612345678"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold text-base text-white"
-                style={{ background: '#3B6FE8', boxShadow: '0 12px 28px -4px rgba(59,111,232,0.5)' }}
+                style={{ background: '#25D366', boxShadow: '0 12px 28px -4px rgba(37,211,102,0.45)' }}
               >
-                Book a call →
+                WhatsApp me →
               </a>
               <a
                 href="#work"
