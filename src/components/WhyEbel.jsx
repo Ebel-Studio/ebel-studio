@@ -13,7 +13,7 @@ const POINTS = [
     ),
     color: '#25D366',
     title: 'Updates via WhatsApp',
-    text: 'New show, price change, new photos — send a WhatsApp and it\'s live within minutes. No invoice, no support ticket, no waiting on a call.',
+    text: 'New show, price change, new photos — WhatsApp my AI agent and it\'s live within minutes. No invoice, no ticket, no waiting. It\'s part of your monthly plan.',
   },
   {
     icon: (
