@@ -37,7 +37,7 @@ const STEPS = [
     num: '03',
     tag: 'The WhatsApp Updates',
     title: 'No more loose invoices',
-    text: 'Once your site is live, you get access to my custom-built AI Developer. Just WhatsApp your changes — a new show, a news item, a price update. It\'s live within minutes. No support tickets, no developer on standby.',
+    text: 'Once your site is live, small updates are included. WhatsApp me a new show, a price change, or a photo — it goes live within minutes. No invoice, no support ticket, no developer you have to chase.',
     color: '#22C55E',
     bgColor: 'rgba(34,197,94,0.08)',
     borderColor: 'rgba(34,197,94,0.18)',

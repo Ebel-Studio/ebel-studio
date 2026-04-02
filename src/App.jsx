@@ -1,6 +1,7 @@
 import Navbar       from './components/Navbar'
 import Hero         from './components/Hero'
 import Services     from './components/Services'
+import WhyEbel      from './components/WhyEbel'
 import HoeIkWerk    from './components/HoeIkWerk'
 import Werk         from './components/Werk'
 import OverMij      from './components/OverMij'
@@ -16,6 +17,7 @@ export default function App() {
       <main>
         <Hero />
         <Services />
+        <WhyEbel />
         <HoeIkWerk />
         <Werk />
         <Configurator />

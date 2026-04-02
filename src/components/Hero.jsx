@@ -890,7 +890,7 @@ export default function Hero() {
           className="ch-subkop"
           style={{ marginTop: '1.1rem', fontSize: 'clamp(0.85rem, 1.4vw, 1.05rem)', color: 'rgba(17,17,17,0.52)', fontFamily: 'Inter, sans-serif', fontWeight: 400, maxWidth: '480px', lineHeight: 1.5 }}
         >
-          Powered by AI I built myself — send a WhatsApp, changes go live in minutes.
+          Custom-built websites — and a smarter way to maintain them. No invoices for small changes, no waiting.
         </p>
       </div>
 

@@ -37,22 +37,6 @@ const SERVICES = [
       'Ready for web, print & social',
     ],
   },
-  {
-    num: '03',
-    emoji: '⬡',
-    title: 'AI Agent',
-    color: '#22C55E',
-    bg: 'rgba(34,197,94,0.07)',
-    border: 'rgba(34,197,94,0.18)',
-    text: 'I built a custom AI system on top of Claude that processes content updates for your site. Send a WhatsApp — it\'s live within minutes. No dev on standby, no invoice per change.',
-    niches: [],
-    features: [
-      'WhatsApp → live update pipeline',
-      'Text, dates, prices, photos — all handled',
-      'Preview before publish (optional)',
-      'Included in every website plan',
-    ],
-  },
 ]
 
 export default function Services() {
@@ -80,15 +64,15 @@ export default function Services() {
         <div className="mb-16">
           <p className="text-[#1A1A2E] text-sm font-mono tracking-widest uppercase mb-3">Services</p>
           <h2 className="font-heading font-semibold text-[#111111]" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', letterSpacing: '-0.02em' }}>
-            What I do
+            What I build
           </h2>
           <p className="text-[#111111]/45 mt-2 text-sm max-w-md leading-relaxed">
-            Three things, done well. You can combine them or take just what you need.
+            Custom websites and brand identities — built to last and easy to maintain.
           </p>
         </div>
 
         {/* 3-pillar grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
           {SERVICES.map(({ num, emoji, title, color, bg, border, text, niches, features }) => (
             <div
               key={num}
