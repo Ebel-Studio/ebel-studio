@@ -6,11 +6,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 const STYLES = `
   /* ── Pre-animation initial states (prevent flash on load) ── */
-  .ch-card { transform: translateY(200vh) scale(0.92); }
-  .ch-line1 { opacity: 0; visibility: hidden; }
-  .ch-line2 { clip-path: inset(0 100% 0 0); }
-  .ch-subkop { opacity: 0; visibility: hidden; }
-  .ch-hint  { opacity: 0; visibility: hidden; }
+  .ch-card { transform: translateY(48px) scale(0.92); }
   .ch-col-left, .ch-mockup,
   .ch-badge-a, .ch-badge-b, .ch-cta { opacity: 0; visibility: hidden; }
   .ch-phone, .ch-bubble { opacity: 0; }
@@ -706,11 +702,7 @@ export default function Hero() {
     const ctx = gsap.context(() => {
 
       /* ── Initial states */
-      gsap.set('.ch-line1', { autoAlpha: 0, y: 34, scale: 0.93 })
-      gsap.set('.ch-line2', { clipPath: 'inset(0 100% 0 0)' })
-      gsap.set('.ch-subkop', { autoAlpha: 0, y: 14 })
-      gsap.set('.ch-hint', { autoAlpha: 0 })
-      gsap.set('.ch-card', { y: window.innerHeight + 120, scale: 0.92 })
+      gsap.set('.ch-card', { y: 48, scale: 0.92 })
       gsap.set(['.ch-col-left', '.ch-mockup', '.ch-badge-a', '.ch-badge-b'], { autoAlpha: 0 })
       gsap.set('.ch-cta', { autoAlpha: 0, scale: 0.95 })
       gsap.set('.ch-phone', { opacity: 0, y: 60, rotate: -8, scale: 0.88 })
@@ -729,32 +721,20 @@ export default function Hero() {
         gsap.set('.mob-show-after', { autoAlpha: 0, y: 6 })
       }
 
-      /* ── Page-load entrance */
-      gsap.timeline({ delay: 0.2 })
-        .to('.ch-line1', { autoAlpha: 1, y: 0, scale: 1, duration: 1.0, ease: 'expo.out' })
-        .to('.ch-line2', { clipPath: 'inset(0 0% 0 0)', duration: 1.0, ease: 'power4.inOut' }, '-=0.7')
-        .to('.ch-subkop', { autoAlpha: 1, y: 0, duration: 0.7, ease: 'power3.out' }, '-=0.3')
-        .to('.ch-hint', { autoAlpha: 1, duration: 0.5 }, '-=0.1')
-
       /* ── Scroll-pinned cinematic timeline */
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
           start: 'top top',
-          end: '+=4000',
+          end: '+=3400',
           pin: true,
           scrub: 1.2,
           anticipatePin: 1,
         },
       })
 
-      // Phase 1 — hero text fades, card rises
-      tl.to('.ch-hero-bg', { autoAlpha: 0, scale: 1.03, duration: 1.2, ease: 'power2.out' }, 0)
-        .to('.ch-hint', { autoAlpha: 0, duration: 0.6 }, 0)
-        .to('.ch-card', { y: 0, duration: 1.4, ease: 'power3.inOut' }, 0)
-
-      // Phase 2 — card fills screen
-      tl.to('.ch-card', { scale: 1, borderRadius: '0px', duration: 1.1, ease: 'power2.inOut' })
+      // Phase 1 — card fills screen
+      tl.to('.ch-card', { y: 0, scale: 1, borderRadius: '0px', duration: 1.4, ease: 'power3.inOut' })
 
       if (mobile) {
         // ── Mobile: 3 slides — original site → WhatsApp → live editing → CTA
@@ -865,44 +845,8 @@ export default function Hero() {
     >
       <style dangerouslySetInnerHTML={{ __html: STYLES }} />
 
-      {/* Navbar sentinel */}
-      <div id="hero-sentinel" className="absolute top-[80vh] inset-x-0 h-px pointer-events-none" />
-
       {/* Grid */}
       <div className="ch-grid absolute inset-0 z-0 pointer-events-none" aria-hidden="true" />
-
-      {/* ── Hero text (light bg layer) ──────────────── */}
-      <div className="ch-hero-bg absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-6 pointer-events-none">
-
-        <h1
-          className="ch-line1 ch-dark-text font-heading font-semibold"
-          style={{ fontSize: 'clamp(2.2rem, 5.8vw, 5.5rem)', letterSpacing: '-0.03em', lineHeight: 1.05, marginBottom: '0.08em' }}
-        >
-          Professional websites
-        </h1>
-        <p
-          className="ch-line2 ch-fade-text font-heading font-semibold"
-          style={{ fontSize: 'clamp(2.2rem, 5.8vw, 5.5rem)', letterSpacing: '-0.03em', lineHeight: 1.05 }}
-        >
-          for artists, businesses &amp; holiday homes.
-        </p>
-        <p
-          className="ch-subkop"
-          style={{ marginTop: '1.1rem', fontSize: 'clamp(0.85rem, 1.4vw, 1.05rem)', color: 'rgba(17,17,17,0.52)', fontFamily: 'Inter, sans-serif', fontWeight: 400, maxWidth: '480px', lineHeight: 1.5 }}
-        >
-          Custom-built websites — and a smarter way to maintain them. No invoices for small changes, no waiting.
-        </p>
-      </div>
-
-      {/* ── Scroll hint ─────────────────────────────── */}
-      <div
-        className="ch-hint absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 pointer-events-none"
-      >
-        <span className="text-[0.65rem] font-mono tracking-widest uppercase" style={{ color: 'rgba(17,17,17,0.28)' }}>
-          Scroll
-        </span>
-        <div className="w-px h-7" style={{ background: 'linear-gradient(to bottom, rgba(17,17,17,0.22), transparent)' }} />
-      </div>
 
       {/* ── Deep-navy card ──────────────────────────── */}
       <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">

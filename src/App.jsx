@@ -1,7 +1,8 @@
 import Navbar       from './components/Navbar'
-import Hero         from './components/Hero'
+import HeroIntro    from './components/HeroIntro'
 import Services     from './components/Services'
 import WhyEbel      from './components/WhyEbel'
+import Hero         from './components/Hero'
 import HoeIkWerk    from './components/HoeIkWerk'
 import Werk         from './components/Werk'
 import OverMij      from './components/OverMij'
@@ -15,9 +16,10 @@ export default function App() {
     <>
       <Navbar />
       <main>
-        <Hero />
+        <HeroIntro />
         <Services />
         <WhyEbel />
+        <Hero />
         <HoeIkWerk />
         <Werk />
         <Configurator />
