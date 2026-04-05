@@ -256,7 +256,7 @@ export default function Werk() {
 
                 {/* CTA */}
                 <a
-                  href="https://huis-van-actief-burgerschap.vercel.app/"
+                  href="https://huisvanactiefburgerschapnhn.nl"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn text-white text-sm px-6 py-3 mt-8 self-start"

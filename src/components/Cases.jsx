@@ -351,7 +351,7 @@ const cases = [
     tech: ['React', 'TypeScript', 'Framer Motion', 'Leaflet', 'Tailwind v4', 'Vercel'],
     CanvasComp: CommunityNetworkCanvas,
     image:   'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1200&q=80&auto=format&fit=crop',
-    liveUrl: 'https://huis-van-actief-burgerschap.vercel.app/',
+    liveUrl: 'https://huisvanactiefburgerschapnhn.nl',
     accent:  '#EEBB37',
     cardBg:  '#1a1f35',
     featured: false,
