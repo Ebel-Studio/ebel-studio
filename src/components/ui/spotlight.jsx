@@ -3,7 +3,7 @@ import { motion, useSpring, useTransform } from 'framer-motion'
 
 /**
  * Mouse-follow spotlight — adapted from ibelick/spotlight.
- * Tinted with Ebel Studio green (#1D9E75) instead of zinc/white.
+ * Tinted with Ebel green (#1D9E75) instead of zinc/white.
  * Drop inside any position:relative container.
  */
 export function Spotlight({ className, size = 320 }) {

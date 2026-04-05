@@ -73,7 +73,7 @@ export default function HeroIntro() {
           className="hi-eyebrow font-mono text-xs tracking-widest uppercase mb-6"
           style={{ color: 'rgba(17,17,17,0.38)' }}
         >
-          Ebel Studio — North Holland
+          Ebel Agency
         </p>
 
         {/* H1 — kinetic word reveal (T01) */}

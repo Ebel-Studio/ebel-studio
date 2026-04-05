@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 
 /**
  * Interactive dot grid — canvas based, no dependencies.
- * Dots near the cursor illuminate in Ebel Studio green (#1D9E75).
+ * Dots near the cursor illuminate in Ebel green (#1D9E75).
  * A slow ambient wave drifts across when the cursor is idle.
  */
 export function DotGrid({ className }) {
