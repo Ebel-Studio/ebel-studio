@@ -63,6 +63,7 @@ export default function Contact() {
   const sectionRef = useRef(null)
 
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     const ctx = gsap.context(() => {
       gsap.from('.contact-content > *', {
         y: 30,
@@ -113,12 +114,10 @@ export default function Contact() {
 
           <a
             href="mailto:hello@ebel.studio"
-            className="btn border border-white/20 text-white text-base px-8 py-4"
+            className="inline-flex items-center justify-center gap-2 text-white/45 text-sm font-medium px-6 py-4"
+            style={{ letterSpacing: '-0.01em' }}
           >
-            <span className="btn-bg bg-white/08" />
-            <span className="relative z-10 flex items-center gap-2">
-              <Mail size={18} /> Send an email
-            </span>
+            <Mail size={15} /> hello@ebel.studio
           </a>
         </div>
 

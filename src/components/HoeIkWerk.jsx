@@ -67,6 +67,7 @@ export default function HoeIkWerk() {
   const sectionRef = useRef(null)
 
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     const ctx = gsap.context(() => {
       // Header
       gsap.from('.hiw-header', {

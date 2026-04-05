@@ -157,6 +157,7 @@ export default function Werk() {
   const sectionRef = useRef(null)
 
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     const ctx = gsap.context(() => {
       gsap.from('.werk-header > *', {
         y: 30, opacity: 0, duration: 0.7, stagger: 0.1, ease: 'power3.out',

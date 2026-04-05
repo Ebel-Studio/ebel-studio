@@ -21,22 +21,41 @@
   <meta name="twitter:card"       content="summary_large_image" />
   <meta name="twitter:image"      content="https://ebel.studio/og-image.png" />
 
-  <!-- Structured data -->
+  <!-- Structured data — LocalBusiness schema (PDF Section 07) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Ebel",
+    "@type": ["LocalBusiness", "ProfessionalService"],
+    "name": "Ebel Studio",
     "url": "https://ebel.studio",
     "email": "hello@ebel.studio",
-    "jobTitle": "Web Developer",
-    "description": "Custom websites for artists, local businesses and holiday homes in Noord-Holland. Fast to launch, SEO-ready, with built-in AI and WhatsApp management.",
-    "knowsAbout": ["Web Development", "React", "UI Design", "SEO", "WhatsApp AI updates", "Chrome Extension", "Videography", "Graphic Design"],
-    "areaServed": "Noord-Holland",
-    "offers": {
-      "@type": "Offer",
-      "name": "Custom Website Development",
-      "description": "Custom-built websites with AI-powered content updates via WhatsApp and monthly maintenance."
+    "description": "Custom websites and brand identities for artists, local businesses and holiday homes in Noord-Holland. Fast to launch, SEO-ready, maintained by AI via WhatsApp.",
+    "knowsAbout": ["Web Development", "React", "UI Design", "Brand Identity", "SEO", "WhatsApp AI", "Graphic Design"],
+    "areaServed": {
+      "@type": "State",
+      "name": "Noord-Holland"
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressRegion": "Noord-Holland",
+      "addressCountry": "NL"
+    },
+    "priceRange": "€€",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Web & Branding Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "name": "Custom Website",
+          "description": "Custom-built websites with AI-powered content updates via WhatsApp and monthly maintenance."
+        },
+        {
+          "@type": "Offer",
+          "name": "Brand Identity",
+          "description": "Logo design, color palette, typography system and brand guidelines."
+        }
+      ]
     },
     "sameAs": [
       "https://wa.me/31612345678"
@@ -44,15 +63,22 @@
   }
   </script>
 
-  <!-- Google Fonts -->
+  <!-- Google Fonts — max 2 external fonts (PDF Performance §10 + T02) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap"
     rel="stylesheet" />
 </head>
 
 <body>
+  <!-- Skip-to-content: visible on Tab for keyboard users (PDF Section 11, WCAG 2.2) -->
+  <a
+    href="#main-content"
+    style="position:absolute;top:-100%;left:0;z-index:99999;padding:12px 20px;background:#3B6FE8;color:#fff;font-family:Inter,sans-serif;font-size:14px;font-weight:600;border-radius:0 0 8px 0;transition:top .15s"
+    onfocus="this.style.top='0'"
+    onblur="this.style.top='-100%'"
+  >Skip to content</a>
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
 </body>

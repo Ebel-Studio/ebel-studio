@@ -43,6 +43,7 @@ export default function Services() {
   const sectionRef = useRef(null)
 
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     const ctx = gsap.context(() => {
       gsap.from('.dienst-card', {
         y: 40, opacity: 0, duration: 0.8, stagger: 0.12, ease: 'power3.out',

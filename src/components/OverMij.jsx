@@ -14,6 +14,7 @@ export default function OverMij() {
   const sectionRef = useRef(null)
 
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     const ctx = gsap.context(() => {
       gsap.from('.over-content > *', {
         y: 30, opacity: 0, duration: 0.8, stagger: 0.12, ease: 'power3.out',

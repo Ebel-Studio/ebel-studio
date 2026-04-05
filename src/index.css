@@ -17,7 +17,8 @@ body::before {
 *, *::before, *::after { box-sizing: border-box; }
 
 html {
-  scroll-behavior: smooth;
+  /* scroll-behavior managed by Lenis — do not set smooth here */
+  scroll-behavior: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -26,11 +27,16 @@ body {
   background-color: #F7F7F5;
   color: #111111;
   font-family: 'Inter', system-ui, sans-serif;
-  font-size: 16px;
+  font-size: 16px; /* PDF §13 — body min 16px mobile */
   line-height: 1.7;
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+}
+
+/* PDF §10 — replace JetBrains Mono with system stack (max 2 external fonts) */
+.font-mono, code, kbd, pre {
+  font-family: ui-monospace, 'SF Mono', 'Cascadia Code', 'Roboto Mono', monospace;
 }
 
 /* ── Heading style ────────────────────────────────────────────── */
@@ -54,7 +60,23 @@ h1, h2, h3, h4 {
               box-shadow 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   cursor: pointer;
   border: none;
-  outline: none;
+  outline: none; /* overridden below by :focus-visible */
+}
+
+/* WCAG 2.2 — visible focus indicator (PDF Section 11) */
+.btn:focus-visible,
+a:focus-visible {
+  outline: 2px solid #3B6FE8;
+  outline-offset: 3px;
+}
+
+/* Disable decorative CSS animations for motion-sensitive users (PDF Section 11) */
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track,
+  .status-dot::before,
+  .cursor-blink {
+    animation: none;
+  }
 }
 
 .btn:hover {

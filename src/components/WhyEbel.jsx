@@ -41,6 +41,7 @@ export default function WhyEbel() {
   const sectionRef = useRef(null)
 
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     const ctx = gsap.context(() => {
       gsap.from('.why-header', {
         y: 24, opacity: 0, duration: 0.8, ease: 'power3.out',

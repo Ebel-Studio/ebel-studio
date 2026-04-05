@@ -6,7 +6,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 const STYLES = `
   /* ── Pre-animation initial states (prevent flash on load) ── */
-  .ch-card { transform: translateY(48px) scale(0.92); }
+  .ch-card { transform: translateY(90px) scale(0.8); filter: blur(6px); }
   .ch-col-left, .ch-mockup,
   .ch-badge-a, .ch-badge-b, .ch-cta { opacity: 0; visibility: hidden; }
   .ch-phone, .ch-bubble { opacity: 0; }
@@ -33,7 +33,7 @@ const STYLES = `
       inset 0 1px 2px rgba(255,255,255,0.12),
       inset 0 -2px 4px rgba(0,0,0,0.9);
     border: 1px solid rgba(255,255,255,0.04);
-    will-change: transform, border-radius;
+    will-change: transform, border-radius, filter;
   }
 
   /* ── Mouse-light sheen inside card ───────────── */
@@ -698,11 +698,14 @@ export default function Hero() {
   /* ── Scroll timeline ────────────────────────── */
   useEffect(() => {
     const mobile = window.innerWidth < 768
+    // PDF Section 11 — WCAG 2.2: respect prefers-reduced-motion
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (prefersReduced) return
 
     const ctx = gsap.context(() => {
 
       /* ── Initial states */
-      gsap.set('.ch-card', { y: 48, scale: 0.92 })
+      gsap.set('.ch-card', { y: 90, scale: 0.8, filter: 'blur(6px)' })
       gsap.set(['.ch-col-left', '.ch-mockup', '.ch-badge-a', '.ch-badge-b'], { autoAlpha: 0 })
       gsap.set('.ch-cta', { autoAlpha: 0, scale: 0.95 })
       gsap.set('.ch-phone', { opacity: 0, y: 60, rotate: -8, scale: 0.88 })
@@ -726,15 +729,25 @@ export default function Hero() {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: 'top top',
-          end: '+=3400',
+          end: '+=3600',
           pin: true,
-          scrub: 1.2,
+          scrub: 1.5,
           anticipatePin: 1,
+          invalidateOnRefresh: true,
         },
       })
 
-      // Phase 1 — card fills screen
-      tl.to('.ch-card', { y: 0, scale: 1, borderRadius: '0px', duration: 1.4, ease: 'power3.inOut' })
+      // Phase 0 — section bg darkens as card rises (cinematic day→night)
+      tl.to(sectionRef.current, {
+        backgroundColor: '#04070f',
+        duration: 1.2, ease: 'power2.inOut',
+      }, 0)
+
+      // Phase 1 — card fills screen with blur-reveal + scale
+      tl.to('.ch-card', {
+        y: 0, scale: 1, filter: 'blur(0px)', borderRadius: '0px',
+        duration: 1.6, ease: 'expo.inOut',
+      }, 0)
 
       if (mobile) {
         // ── Mobile: 3 slides — original site → WhatsApp → live editing → CTA
@@ -823,25 +836,32 @@ export default function Hero() {
 
       // Phase 5 — card pulls back (both mobile and desktop)
       tl.to('.ch-card', {
-          scale: mobile ? 0.92 : 0.79,
-          borderRadius: mobile ? '24px' : '32px',
-          duration: 1.3, ease: 'expo.inOut',
+          scale: mobile ? 0.9 : 0.76,
+          borderRadius: mobile ? '28px' : '36px',
+          duration: 1.4, ease: 'expo.inOut',
         }, '-=0.7')
         // Hold at CTA
         .to({}, { duration: 0.8 })
-        // Phase 6 — card exits up
-        .to('.ch-card', { y: -(window.innerHeight + 180), duration: 1.1, ease: 'power3.in' })
+        // Phase 6 — card exits up + bg lightens back
+        .to('.ch-card', { y: -(window.innerHeight + 200), filter: 'blur(4px)', duration: 1.2, ease: 'power3.in' })
+        .to(sectionRef.current, { backgroundColor: '#F7F7F5', duration: 0.6, ease: 'power2.out' }, '-=0.4')
 
     }, sectionRef)
 
-    return () => ctx.revert()
+    // Recalculate after all content above has fully rendered and images settled
+    const timer = setTimeout(() => ScrollTrigger.refresh(true), 900)
+
+    return () => {
+      ctx.revert()
+      clearTimeout(timer)
+    }
   }, [])
 
   return (
     <section
       ref={sectionRef}
       className="relative w-full h-screen overflow-hidden flex items-center justify-center"
-      style={{ background: '#F7F7F5', perspective: '1200px' }}
+      style={{ backgroundColor: '#F7F7F5', perspective: '1200px' }}
     >
       <style dangerouslySetInnerHTML={{ __html: STYLES }} />
 
