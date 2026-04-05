@@ -6,7 +6,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 const CREDENTIALS = [
   { label: 'Design education', note: 'Studied in Spain' },
-  { label: 'Google Ads', note: '€10k/mo budget managed' },
+  { label: 'SEO & Google Ads', note: '€10k/mo budget managed' },
   { label: 'D2C webshop', note: 'Design, production & fulfilment' },
 ]
 
@@ -59,7 +59,7 @@ export default function OverMij() {
               I'm a designer and developer. I studied design in Spain and have been building things with visuals and code for as long as I can remember — from personal art projects to client work.
             </p>
             <p className="text-white/75 leading-relaxed">
-              My background is broader than just websites. I've managed a €10k/month Google Ads budget, and ran my own direct-to-consumer webshop — handling design, production, and fulfilment end-to-end.
+              My background is broader than just websites. I've handled SEO and managed a €10k/month Google Ads budget — so when I say SEO is included in every site, I mean it properly. I also ran my own direct-to-consumer webshop, handling design, production, and fulfilment end-to-end.
             </p>
             <p className="text-white/75 leading-relaxed">
               Today I combine all of that into three things: sharp websites, solid brand identities, and the AI system I built that keeps it all updated via WhatsApp. No agency overhead. No vague timelines. Just work that does what it's supposed to.

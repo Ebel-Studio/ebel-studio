@@ -35,7 +35,7 @@ export default function HeroIntro() {
   }, [])
 
   // Split H1 into individually animatable words (T01)
-  const words = ['Professional', 'websites', '&', 'branding,']
+  const words = ['Website.', 'Brand.', 'SEO.']
 
   return (
     <section
@@ -73,7 +73,7 @@ export default function HeroIntro() {
           className="hi-eyebrow font-mono text-xs tracking-widest uppercase mb-6"
           style={{ color: 'rgba(17,17,17,0.38)' }}
         >
-          Ebel Studio — Noord-Holland
+          Ebel Studio — North Holland
         </p>
 
         {/* H1 — kinetic word reveal (T01) */}
@@ -108,7 +108,7 @@ export default function HeroIntro() {
             color: 'rgba(17,17,17,0.28)',
           }}
         >
-          maintained by AI.
+          One person. One monthly fee.
         </p>
 
         {/* Subline */}
@@ -125,7 +125,7 @@ export default function HeroIntro() {
             margin: '1.6rem auto 0',
           }}
         >
-          Custom-built sites and brand identities — kept up to date by an AI agent, not by invoices.
+          From first design to ongoing SEO and AI-powered updates — everything your business needs online, handled by one person.
         </p>
 
         {/* Trust signal (PDF Section 09 — trust in hero) */}

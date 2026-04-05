@@ -28,14 +28,15 @@ const SERVICES = [
     color: '#8B5CF6',
     bg: 'rgba(139,92,246,0.07)',
     border: 'rgba(139,92,246,0.18)',
-    text: 'A logo anyone can copy. A brand nobody can. I design visual identities that are sharp, intentional, and built to last — from the logo to the full system.',
+    text: 'Not every business needs a full agency rebrand. I put together what you actually need — a tight color palette, a typography system, and clear brand guidelines. With AI, I can also generate logo options to complete the package.',
     niches: [],
     features: [
-      'Logo design (primary + variants)',
+      'AI-generated logo options',
       'Color palette & typography system',
       'Brand guidelines document',
-      'Ready for web, print & social',
+      'Everything ready for your website, socials & print',
     ],
+    note: 'Best paired with a website — so your brand and site are built to match from day one.',
   },
 ]
 
@@ -74,7 +75,7 @@ export default function Services() {
 
         {/* 3-pillar grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
-          {SERVICES.map(({ num, emoji, title, color, bg, border, text, niches, features }) => (
+          {SERVICES.map(({ num, emoji, title, color, bg, border, text, niches, features, note }) => (
             <div
               key={num}
               className="dienst-card relative flex flex-col gap-5 rounded-2xl p-7 overflow-hidden"
@@ -130,6 +131,13 @@ export default function Services() {
                   </li>
                 ))}
               </ul>
+
+              {/* Pairing note */}
+              {note && (
+                <p className="relative text-[0.7rem] leading-relaxed italic" style={{ color: 'rgba(17,17,17,0.32)' }}>
+                  {note}
+                </p>
+              )}
 
               {/* CTA */}
               <div className="relative pt-4 border-t" style={{ borderColor: 'rgba(17,17,17,0.06)' }}>
